@@ -2,6 +2,7 @@ import React from "react";
 import { RoutineProps } from "../../../types";
 import { IconButton } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Link } from "react-router-dom";
 
 const RoutineName = ({ name }: RoutineProps) => {
   const [open, setOpen] = React.useState(false);
@@ -9,7 +10,7 @@ const RoutineName = ({ name }: RoutineProps) => {
     setOpen(!open);
   };
   return (
-    <div className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border-2 border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer">
+    <Link to={"/routine"} className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border-2 border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer">
       <div className="w-full h-full flex justify-between align-middle">
         <p className="font-medium text-lg">{name}</p>
         <IconButton
@@ -24,7 +25,7 @@ const RoutineName = ({ name }: RoutineProps) => {
           <MoreHorizIcon />
         </IconButton>
       </div>
-    </div>
+    </Link>
   );
 };
 
