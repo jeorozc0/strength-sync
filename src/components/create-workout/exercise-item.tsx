@@ -1,7 +1,10 @@
 import React from "react";
-import { ExercisePropsForLocal} from "../../../types";
+import { ExercisePropsForLocal } from "../../types";
 
-const ExerciseItem = ({ exercise_name, addExercise }: ExercisePropsForLocal) => {
+const ExerciseItem = ({
+  exercise_name,
+  addExercise,
+}: ExercisePropsForLocal) => {
   const handleClick = () => {
     // Assuming you have an ExerciseProps structure, adjust this accordingly
     if (exercise_name) {
@@ -10,7 +13,7 @@ const ExerciseItem = ({ exercise_name, addExercise }: ExercisePropsForLocal) => 
         exercise_name: exercise_name,
         exercise_description: "2" /* assign an appropriate value */,
       };
-    
+
       addExercise(newExercise);
     }
   };

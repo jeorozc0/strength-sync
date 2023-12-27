@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/home";
-import WorkoutCreator from "./pages/workout-creator";
+import HomePage from "./pages/home-page";
+import CreateWorkoutPage from "./pages/create-workout-page";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
@@ -11,8 +11,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create-routine" element={<WorkoutCreator />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/create-routine" element={<CreateWorkoutPage />} />
         </Routes>
       </div>
     </QueryClientProvider>

@@ -1,4 +1,4 @@
-import supabase from "../../../supabase/supabase";
+import supabase from "../supabase/supabase";
 import { useQuery } from "react-query";
 
 const fetchWorkout = async () => {

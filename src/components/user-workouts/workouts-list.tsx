@@ -1,9 +1,9 @@
-import RoutineName from "./routine-name";
+import RoutineName from "./workout-item";
 import useWorkout from "../../hooks/useWorkout";
-import { WorkoutProps } from "../../../types";
+import { WorkoutProps } from "../../types";
 import LoadingComponent from "../loading-component/loading-component";
 
-const RoutineList = () => {
+const WorkoutList= () => {
   const { data: workouts, error, isLoading } = useWorkout();
 
   if (error) {
@@ -27,4 +27,4 @@ const RoutineList = () => {
   );
 };
 
-export default RoutineList;
+export default WorkoutList;

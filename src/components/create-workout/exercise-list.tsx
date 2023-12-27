@@ -1,10 +1,10 @@
 import React from "react";
 import ExerciseItem from "./exercise-item";
 import useExercise from "../../hooks/useExercise";
-import { ExerciseProps, ExercisePropsForLocal } from "../../../types";
+import { ExerciseProps, ExercisePropsForLocal } from "../../types";
 import LoadingComponent from "../loading-component/loading-component";
 
-const WorkoutListAdd = ({ addExercise }: ExercisePropsForLocal) => {
+const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
   const { data: exercise, error, isLoading } = useExercise();
   if (error) {
     return <h1>This is an error</h1>;
@@ -26,4 +26,4 @@ const WorkoutListAdd = ({ addExercise }: ExercisePropsForLocal) => {
   );
 };
 
-export default WorkoutListAdd;
+export default ExerciseList;
