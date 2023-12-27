@@ -1,5 +1,5 @@
 import React from "react";
-import { RoutineProps } from "../../types";
+import { RoutineProps } from "../../types/workout-types";
 import { IconButton } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";

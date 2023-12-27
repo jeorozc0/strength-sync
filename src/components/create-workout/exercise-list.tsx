@@ -1,7 +1,7 @@
 import React from "react";
 import ExerciseItem from "./exercise-item";
 import useExercise from "../../hooks/useExercise";
-import { ExerciseProps, ExercisePropsForLocal } from "../../types";
+import { ExerciseProps, ExercisePropsForLocal } from "../../types/exercise-types";
 import LoadingComponent from "../loading-component/loading-component";
 
 const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {

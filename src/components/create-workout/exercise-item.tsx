@@ -1,5 +1,5 @@
 import React from "react";
-import { ExercisePropsForLocal } from "../../types";
+import { ExercisePropsForLocal } from "../../types/exercise-types";
 
 const ExerciseItem = ({
   exercise_name,

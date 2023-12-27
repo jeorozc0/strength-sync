@@ -1,6 +1,6 @@
 import RoutineName from "./workout-item";
 import useWorkout from "../../hooks/useWorkout";
-import { WorkoutProps } from "../../types";
+import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 
 const WorkoutList= () => {

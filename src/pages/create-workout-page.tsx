@@ -1,7 +1,7 @@
 import { useState } from "react";
 import WorkoutEditor from "../components/create-workout/workout-editor";
 import ExerciseList from "../components/create-workout/exercise-list";
-import { ExerciseProps } from "../types";
+import { ExerciseProps } from "../types/exercise-types";
 
 const CreateWorkoutPage = () => {
   const [localExercise, setLocalExercise] = useState<ExerciseProps[]>([]);
