@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./pages/home-page";
 import CreateWorkoutPage from "./pages/create-workout-page";
 import { QueryClient, QueryClientProvider } from "react-query";
+import ViewWorkoutPage  from "./pages/view-workout-page"
 
 const queryClient = new QueryClient();
 
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/routine" element={<ViewWorkoutPage/>}/>
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
         </Routes>
       </div>
