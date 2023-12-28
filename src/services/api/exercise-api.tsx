@@ -8,4 +8,5 @@ const fetchExercise = async () => {
 
   return data;
 };
+
 export { fetchExercise };

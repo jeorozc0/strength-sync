@@ -10,12 +10,18 @@ const fetchWorkout = async () => {
   return data;
 };
 
-const fetchWorkoutById = async (workout_id:WorkoutProps) => {
-  const {data, error} = await supabase.from("workouts").select("*").eq("workout_id", workout_id)
+const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
+  const { data, error } = await supabase
+    .from("workout_exercises")
+    .select("sets, exercises(*)")
+    // Filters
+    .eq("workout_id", workout_id);
+
   if (error) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 
   return data;
-}
+};
+
 export { fetchWorkout, fetchWorkoutById };

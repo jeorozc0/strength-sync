@@ -8,3 +8,4 @@ export interface ExercisePropsForLocal {
   exercise_name?: string;
   addExercise: (newExercise: ExerciseProps) => void;
 }
+
