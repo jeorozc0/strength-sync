@@ -1,3 +1,4 @@
+import { WorkoutProps } from "../../types/workout-types";
 import supabase from "../supabase/supabase";
 
 const fetchWorkout = async () => {
@@ -8,4 +9,13 @@ const fetchWorkout = async () => {
 
   return data;
 };
-export { fetchWorkout };
+
+const fetchWorkoutById = async (workout_id:WorkoutProps) => {
+  const {data, error} = await supabase.from("workouts").select("*").eq("workout_id", workout_id)
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return data;
+}
+export { fetchWorkout, fetchWorkoutById };

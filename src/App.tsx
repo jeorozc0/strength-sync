@@ -13,7 +13,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/routine" element={<ViewWorkoutPage/>}/>
+          <Route path="/routine/:workout_id" element={<ViewWorkoutPage/>}/>
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
         </Routes>
       </div>

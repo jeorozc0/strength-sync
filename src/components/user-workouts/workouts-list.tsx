@@ -19,7 +19,7 @@ const WorkoutList= () => {
       {!isLoading && (
         <>
           {workouts?.map((workout: WorkoutProps) => (
-            <RoutineName key={workout.workout_id} name={workout.workout_name} />
+            <RoutineName key={workout.workout_id} workout_name={workout.workout_name} workout_id={workout.workout_id} />
           ))}
         </>
       )}
