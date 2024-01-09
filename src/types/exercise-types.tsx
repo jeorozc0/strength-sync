@@ -9,3 +9,9 @@ export interface ExercisePropsForLocal {
   addExercise: (newExercise: ExerciseProps) => void;
 }
 
+export interface WorkoutExerciseProps {
+  exercise_name: string;
+  exercise_sets: number;
+  exercise_reps: number;
+  exercise_weight: number;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import WorkoutExerciseList from "../components/view-workout/workout-exercise-list";
 import { useParams } from "react-router-dom";
 
