@@ -1,11 +1,11 @@
 export interface ExerciseProps {
-  exercise_id: number;
+  exercise_id: string;
   exercise_name: string;
-  exercise_description: string;
 }
 
 export interface ExercisePropsForLocal {
   exercise_name?: string;
+  exercise_id?: string;
   addExercise: (newExercise: ExerciseProps) => void;
 }
 

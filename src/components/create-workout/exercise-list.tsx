@@ -19,6 +19,7 @@ const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
         <ExerciseItem
           key={exercise.exercise_id}
           exercise_name={exercise.exercise_name}
+          exercise_id={exercise.exercise_id}
           addExercise={addExercise}
         />
       ))}
