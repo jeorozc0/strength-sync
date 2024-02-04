@@ -1,17 +1,18 @@
-import React from "react";
 import { ExercisePropsForLocal } from "../../types/exercise-types";
 
 const ExerciseItem = ({
   exercise_name,
+  exercise_id,
+  exercise_description,
   addExercise,
 }: ExercisePropsForLocal) => {
   const handleClick = () => {
     // Assuming you have an ExerciseProps structure, adjust this accordingly
     if (exercise_name) {
       const newExercise = {
-        exercise_id: 1 /* assign an appropriate value */,
+        exercise_id: exercise_id /* assign an appropriate value */,
         exercise_name: exercise_name,
-        exercise_description: "2" /* assign an appropriate value */,
+        exercise_description: exercise_description /* assign an appropriate value */,
       };
 
       addExercise(newExercise);

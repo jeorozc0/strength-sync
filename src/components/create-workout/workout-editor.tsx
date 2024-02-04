@@ -1,4 +1,3 @@
-import React from "react";
 import { ExerciseProps } from "../../types/exercise-types";
 
 interface WorkoutEditorProps {
@@ -16,7 +15,7 @@ const WorkoutEditor = ({ exercises }: WorkoutEditorProps) => {
         />
       </div>
       {exercises.map((exercise: any) => (
-        <h1 key={exercise.exercise_id}>{exercise.name}</h1>
+        <h1 key={exercise.exercise_id}>{exercise[0]}</h1>
       ))}
     </div>
   );

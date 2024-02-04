@@ -6,6 +6,8 @@ export interface ExerciseProps {
 
 export interface ExercisePropsForLocal {
   exercise_name?: string;
+  exercise_id?: string;
+  exercise_description?: string;
   addExercise: (newExercise: ExerciseProps) => void;
 }
 

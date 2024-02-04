@@ -13,6 +13,7 @@ const CreateWorkoutPage = () => {
       )
     ) {
       console.log("Exercise already exists");
+      console.log(localExercise)
       return;
     }
     const newExercisesToAdd = [...localExercise, newExercise];

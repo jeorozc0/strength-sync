@@ -1,4 +1,3 @@
-import React from "react";
 import ExerciseItem from "./exercise-item";
 import useExercise from "../../hooks/useExercise";
 import { ExerciseProps, ExercisePropsForLocal } from "../../types/exercise-types";
@@ -19,6 +18,8 @@ const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
         <ExerciseItem
           key={exercise.exercise_id}
           exercise_name={exercise.exercise_name}
+          exercise_description={exercise.exercise_description}
+          exercise_id={exercise.exercise_id}
           addExercise={addExercise}
         />
       ))}
