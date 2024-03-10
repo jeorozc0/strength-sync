@@ -12,7 +12,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   return (
     <Link
       to={`/routine/${workout_id}`}
-      className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border-2 border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
+      className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
     >
       <div className="w-full h-full flex justify-between align-middle">
         <p className="font-medium text-lg">{workout_name}</p>

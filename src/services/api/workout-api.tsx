@@ -13,7 +13,7 @@ const fetchWorkout = async () => {
 const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
   const { data, error } = await supabase
     .from("workout_exercises")
-    .select("sets, exercises(*)")
+    .select("sets,reps,rest, exercises(*)")
     // Filters
     .eq("workout_id", workout_id);
 

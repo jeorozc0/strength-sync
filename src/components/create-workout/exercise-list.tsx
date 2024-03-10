@@ -9,7 +9,7 @@ const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
     return <h1>This is an error</h1>;
   }
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border-2 border-solid bg-white h-screen w-11/12 lg:w-1/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-screen w-11/12 lg:w-1/5 rounded-md p-10">
       <div>
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
@@ -18,7 +18,6 @@ const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
         <ExerciseItem
           key={exercise.exercise_id}
           exercise_name={exercise.exercise_name}
-          exercise_description={exercise.exercise_description}
           exercise_id={exercise.exercise_id}
           addExercise={addExercise}
         />

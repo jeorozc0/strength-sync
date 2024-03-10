@@ -11,9 +11,9 @@ const ExerciseItem = ({
     if (exercise_name && exercise_id) {
       const newExercise = {
         exercise_id: exercise_id /* assign an appropriate value */,
-        exercise_id: exercise_id /* assign an appropriate value */,
         exercise_name: exercise_name,
-        exercise_description: exercise_description /* assign an appropriate value */,
+        exercise_description:
+          exercise_description /* assign an appropriate value */,
       };
 
       addExercise(newExercise);
@@ -21,10 +21,12 @@ const ExerciseItem = ({
   };
   return (
     <button
-      className=" flex align-middle justify-center flex-col h-15 border-[#ECEDF0] border-2 border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
+      className=" flex align-middle justify-center flex-col h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
       onClick={handleClick}
     >
-      <p>{exercise_name}</p>
+      <div><p>{exercise_name}</p></div>
+      
+
     </button>
   );
 };

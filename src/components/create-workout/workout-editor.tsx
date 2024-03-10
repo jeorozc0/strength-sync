@@ -1,4 +1,5 @@
 import { ExerciseProps } from "../../types/exercise-types";
+import ExerciseEditorItem from "./exercise-editor-item";
 import ExerciseItem from "./exercise-item";
 
 interface WorkoutEditorProps {
@@ -8,7 +9,7 @@ interface WorkoutEditorProps {
 
 const WorkoutEditor = ({ exercises, addExercise }: WorkoutEditorProps) => {
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border-2 border-solid bg-white h-screen w-11/12 lg:w-2/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-screen w-11/12 lg:w-2/5 rounded-md p-10">
       <div>
         <input
           title="RoutineName"
@@ -17,7 +18,7 @@ const WorkoutEditor = ({ exercises, addExercise }: WorkoutEditorProps) => {
         />
       </div>
       {exercises.map((exercise: any) => (
-        <ExerciseItem
+        <ExerciseEditorItem
           key={exercise.exercise_id}
           exercise_name={exercise.exercise_name}
           exercise_id={exercise.exercise_id}
