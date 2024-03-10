@@ -7,7 +7,14 @@ export interface ExercisePropsForLocal {
   exercise_name?: string;
   exercise_id?: string;
   exercise_description?: string;
-  addExercise: (newExercise: ExerciseProps) => void;
+  addExercise?: (newExercise: ExerciseProps) => void;
+  removeExercise?: (exercise_id: string) => void;
+}
+
+export interface ExerciseEditorItemProps {
+  exercise_name: string;
+  exercise_id: string;
+  removeExercise: (exercise_id: string) => void;
 }
 
 export interface WorkoutExerciseProps {

@@ -1,6 +1,9 @@
 import ExerciseItem from "./exercise-item";
 import useExercise from "../../hooks/useExercise";
-import { ExerciseProps, ExercisePropsForLocal } from "../../types/exercise-types";
+import {
+  ExerciseProps,
+  ExercisePropsForLocal,
+} from "../../types/exercise-types";
 import LoadingComponent from "../loading-component/loading-component";
 
 const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
@@ -9,7 +12,7 @@ const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
     return <h1>This is an error</h1>;
   }
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-screen w-11/12 lg:w-1/5 rounded-md p-10">
+    <div className="sticky top-10 flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-auto w-11/12 lg:w-1/5 rounded-md p-10">
       <div>
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
