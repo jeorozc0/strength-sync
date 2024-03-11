@@ -3,11 +3,13 @@ import WorkoutEditor from "../components/create-workout/workout-editor";
 import ExerciseList from "../components/create-workout/exercise-list";
 import { ExerciseProps, ExercisePropsForAPI } from "../types/exercise-types";
 import { useCreateWorkout } from "../hooks/useWorkout";
+import { useNavigate } from "react-router-dom";
 import { useCreateWorkoutExercise } from "../hooks/useExercise";
 
 const CreateWorkoutPage = () => {
+  const navigate = useNavigate();
   const [localExercise, setLocalExercise] = useState<ExerciseProps[]>([]);
-  const { mutateAsync: mutate1 } = useCreateWorkout();
+  const { mutateAsync: createWorkout } = useCreateWorkout();
   const { mutateAsync: mutate2 } = useCreateWorkoutExercise();
   const addExercise = (newExercise: ExerciseProps) => {
     if (
@@ -15,11 +17,8 @@ const CreateWorkoutPage = () => {
         (exercise) => exercise.exercise_id === newExercise.exercise_id
       )
     ) {
-      console.log("Exercise already exists");
-      console.log(localExercise);
       return;
     }
-    console.log(newExercise);
     const newExercisesToAdd = [...localExercise, newExercise];
     setLocalExercise(newExercisesToAdd);
   };
@@ -31,33 +30,33 @@ const CreateWorkoutPage = () => {
 
     setLocalExercise(updatedExercises);
   };
-  interface WorkoutResponse {
-    workout_id: number;
-    // Add other properties of the response if needed
-  }
-
-  async function submitWorkout(workout_name: string) {
-    // const newWorkout: WorkoutResponse | null = 
-    await mutate1({ workout_name });
-
-    // if (newWorkout) {
-    //   const workout_id = (newWorkout as WorkoutResponse).workout_id;
-    //   const workoutExercises: ExercisePropsForAPI[] = localExercise.map(
-    //     (exercise) => {
-    //       return {
-    //         exercise: exercise,
-    //         workout_id: workout_id,
-    //         sets: 3,
-    //         reps: 10,
-    //         rest: 60,
-    //       };
-    //     }
-    //   );
-    //   console.log(workoutExercises);
-    //   await mutate2(workoutExercises);
-    // } else {
-    //   console.error("Failed to create new workout");
-    // }
+  async function SubmitWorkout(
+    workout_name: string,
+    sets: number,
+    reps: number,
+    rest: number
+  ) {
+    const newWorkout = await createWorkout({ workout_name });
+    console.log(newWorkout[0].workout_id);
+    if (newWorkout) {
+      const workout_id = newWorkout[0].workout_id;
+      const workoutExercises: ExercisePropsForAPI[] = localExercise.map(
+        (exercise) => {
+          return {
+            workout_id: workout_id,
+            exercise_id: exercise.exercise_id,
+            sets: sets,
+            reps: reps,
+            rest: rest,
+          };
+        }
+      );
+      console.log(workoutExercises);
+      await mutate2(workoutExercises);
+    } else {
+      console.error("Failed to create new workout");
+    }
+    navigate(`/`);
   }
 
   return (
@@ -65,7 +64,7 @@ const CreateWorkoutPage = () => {
       <WorkoutEditor
         exercises={localExercise}
         removeExercise={deleteExercise}
-        submitWorkout={submitWorkout}
+        submitWorkout={SubmitWorkout}
       />
       <ExerciseList addExercise={addExercise} />
     </div>

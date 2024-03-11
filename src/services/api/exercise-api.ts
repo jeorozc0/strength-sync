@@ -1,3 +1,4 @@
+import { ExercisePropsForAPI } from "../../types/exercise-types";
 import supabase from "../supabase/supabase";
 
 const fetchExercise = async () => {
@@ -9,10 +10,10 @@ const fetchExercise = async () => {
   return data;
 };
 
-const createWorkoutExercise = async (exercise: any[]) => {
+const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
   const { data, error } = await supabase
     .from("workout_exercises")
-    .insert([exercise]);
+    .insert(exercise);
   if (error) {
     throw new Error(error.message);
   }

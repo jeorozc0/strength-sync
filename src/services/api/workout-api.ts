@@ -27,12 +27,12 @@ const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
 const createWorkout = async ({ workout_name }: WorkoutProps) => {
   const { data, error } = await supabase.from("workouts").insert([
     { workout_name },
-  ]);
+  ]).select("workout_id");
 
   if (error) {
     throw new Error(error.message);
   }
-
+  console.log(data);
   return data;
 }
 

@@ -7,10 +7,13 @@ const ExerciseEditorItem = ({
   exercise_name,
   removeExercise,
   exercise_id,
+  setReps,
+  setRest,
+  setSets,
+  reps,
+  sets,
+  restTime,
 }: ExerciseEditorItemProps) => {
-  const [restTime, setRestTime] = useState(0);
-  const [sets, setSets] = useState(""); // Changed from 0 to ''
-  const [reps, setReps] = useState(""); // Changed from 0 to ''
   const [notes, setNotes] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -22,7 +25,7 @@ const ExerciseEditorItem = ({
   };
 
   function handleChange(event: any) {
-    setRestTime(event.target.value);
+    setRest(event.target.value);
   }
 
   return (
