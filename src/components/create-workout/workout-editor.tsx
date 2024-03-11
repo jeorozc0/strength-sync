@@ -4,11 +4,12 @@ import ExerciseEditorItem from "./exercise-editor-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface WorkoutEditorProps {
   exercises: ExerciseProps[];
   removeExercise: (exercise_id: string) => void;
-  submitWorkout: () => void;
+  submitWorkout: (workout: any) => void;
 }
 
 const WorkoutEditor = ({
@@ -16,6 +17,7 @@ const WorkoutEditor = ({
   removeExercise,
   submitWorkout,
 }: WorkoutEditorProps) => {
+  const [routineName, setRoutineName] = useState("My Routine");
   return (
     <div className="flex flex-col w-screen h-auto pl-40">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
@@ -28,7 +30,11 @@ const WorkoutEditor = ({
           </h1>
         </div>
 
-        <Button variant="contained" size="small" onClick={submitWorkout}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => submitWorkout(routineName)}
+        >
           Save Routine
         </Button>
       </div>
@@ -40,8 +46,9 @@ const WorkoutEditor = ({
 
       <input
         title="RoutineName"
-        defaultValue="My Routine"
         className="font-medium text-base text-left w-full flex border-[#ECEDF0] border border-solid bg-white h-auto  lg:w-full rounded-md p-3 mb-4"
+        value={routineName}
+        onChange={(e) => setRoutineName(e.target.value)}
       />
       {exercises.length > 0 ? (
         <>

@@ -3,8 +3,10 @@ import { WorkoutProps } from "../../types/workout-types";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
+import { useDeleteWorkout } from "../../hooks/useWorkout";
 
 const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
+  const { mutateAsync: deleteWorkout } = useDeleteWorkout();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -22,8 +24,8 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   const removeWorkout = (event: any) => {
     event.stopPropagation();
     console.log("Removing workout with id: " + workout_id);
-    // Add your logic to remove the workout here
-    handleClose(event); // Close the menu after removing the workout
+    deleteWorkout(workout_id as number);
+    handleClose(event);
   };
 
   return (

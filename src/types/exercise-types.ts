@@ -1,6 +1,15 @@
 export interface ExerciseProps {
   exercise_id: string;
   exercise_name: string;
+
+}
+
+export interface ExercisePropsForAPI {
+  exercise: ExerciseProps;
+  workout_id: number;
+  sets: number;
+  reps: number;
+  rest: number;
 }
 
 export interface ExercisePropsForLocal {

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import WorkoutEditor from "../components/create-workout/workout-editor";
 import ExerciseList from "../components/create-workout/exercise-list";
-import { ExerciseProps } from "../types/exercise-types";
+import { ExerciseProps, ExercisePropsForAPI } from "../types/exercise-types";
+import { useCreateWorkout } from "../hooks/useWorkout";
+import { useCreateWorkoutExercise } from "../hooks/useExercise";
 
 const CreateWorkoutPage = () => {
   const [localExercise, setLocalExercise] = useState<ExerciseProps[]>([]);
+  const { mutateAsync: mutate1 } = useCreateWorkout();
+  const { mutateAsync: mutate2 } = useCreateWorkoutExercise();
   const addExercise = (newExercise: ExerciseProps) => {
     if (
       localExercise.some(
@@ -19,6 +23,7 @@ const CreateWorkoutPage = () => {
     const newExercisesToAdd = [...localExercise, newExercise];
     setLocalExercise(newExercisesToAdd);
   };
+
   const deleteExercise = (exerciseID: string) => {
     const updatedExercises = localExercise.filter(
       (exercise) => exercise.exercise_id !== exerciseID
@@ -26,9 +31,33 @@ const CreateWorkoutPage = () => {
 
     setLocalExercise(updatedExercises);
   };
+  interface WorkoutResponse {
+    workout_id: number;
+    // Add other properties of the response if needed
+  }
 
-  function submitWorkout() {
-    console.log(localExercise);
+  async function submitWorkout(workout_name: string) {
+    // const newWorkout: WorkoutResponse | null = 
+    await mutate1({ workout_name });
+
+    // if (newWorkout) {
+    //   const workout_id = (newWorkout as WorkoutResponse).workout_id;
+    //   const workoutExercises: ExercisePropsForAPI[] = localExercise.map(
+    //     (exercise) => {
+    //       return {
+    //         exercise: exercise,
+    //         workout_id: workout_id,
+    //         sets: 3,
+    //         reps: 10,
+    //         rest: 60,
+    //       };
+    //     }
+    //   );
+    //   console.log(workoutExercises);
+    //   await mutate2(workoutExercises);
+    // } else {
+    //   console.error("Failed to create new workout");
+    // }
   }
 
   return (
