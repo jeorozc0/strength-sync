@@ -3,10 +3,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ExerciseEditorItemProps } from "../../types/exercise-types";
 import { useState } from "react";
 
-const ExerciseEditorItem = ({ exercise_name, removeExercise,exercise_id }: ExerciseEditorItemProps) => {
+const ExerciseEditorItem = ({
+  exercise_name,
+  removeExercise,
+  exercise_id,
+}: ExerciseEditorItemProps) => {
   const [restTime, setRestTime] = useState(0);
-  const [sets, setSets] = useState(0);
-  const [reps, setReps] = useState(0);
+  const [sets, setSets] = useState(""); // Changed from 0 to ''
+  const [reps, setReps] = useState(""); // Changed from 0 to ''
   const [notes, setNotes] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -45,7 +49,9 @@ const ExerciseEditorItem = ({ exercise_name, removeExercise,exercise_id }: Exerc
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={() => removeExercise(exercise_id)}>Remove Exercise</MenuItem>
+          <MenuItem onClick={() => removeExercise(exercise_id)}>
+            Remove Exercise
+          </MenuItem>
         </Menu>
       </div>
       <FormLabel className="w-full h-auto">
@@ -67,7 +73,7 @@ const ExerciseEditorItem = ({ exercise_name, removeExercise,exercise_id }: Exerc
               type="number"
               aria-label="sets"
               value={sets}
-              onChange={(e) => setSets(Number(e.target.value))}
+              onChange={(e) => setSets(e.target.value)}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
             />
           </div>
@@ -77,7 +83,7 @@ const ExerciseEditorItem = ({ exercise_name, removeExercise,exercise_id }: Exerc
               type="number"
               aria-label="reps"
               value={reps}
-              onChange={(e) => setReps(Number(e.target.value))}
+              onChange={(e) => setReps(e.target.value)}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
             />
           </div>
@@ -88,9 +94,10 @@ const ExerciseEditorItem = ({ exercise_name, removeExercise,exercise_id }: Exerc
               id="demo-simple-select"
               value={restTime}
               onChange={handleChange}
-              defaultChecked={true}
+              defaultValue={0}
               className="min-w-2 h-10 border border-solid border-[#e5e7eb] rounded-md text-black"
             >
+              <MenuItem value={0}>Off</MenuItem>
               <MenuItem value={60}>1:00</MenuItem>
               <MenuItem value={120}>2:00</MenuItem>
               <MenuItem value={180}>3:00</MenuItem>
