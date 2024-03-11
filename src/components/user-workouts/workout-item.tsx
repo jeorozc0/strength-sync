@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { WorkoutProps } from "../../types/workout-types";
-import { IconButton } from "@mui/material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 
 const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
-  const [open, setOpen] = React.useState(false);
-  const handleClick = () => {
-    setOpen(!open);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+    setAnchorEl(null);
+  };
+
+  const removeWorkout = (event: any) => {
+    event.stopPropagation();
+    console.log("Removing workout with id: " + workout_id);
+    // Add your logic to remove the workout here
+    handleClose(event); // Close the menu after removing the workout
+  };
+
   return (
     <Link
       to={`/routine/${workout_id}`}
@@ -24,9 +41,21 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
           aria-haspopup="true"
           onClick={handleClick}
           size="small"
+          className="z-20"
         >
           <MoreHorizIcon />
         </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
+        </Menu>
       </div>
     </Link>
   );
