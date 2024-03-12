@@ -2,6 +2,7 @@ import { WorkoutExerciseProps } from "../../types/exercise-types";
 import SortIcon from "@mui/icons-material/Sort";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import TimerIcon from "@mui/icons-material/Timer";
+import moment from 'moment';
 
 const WorkoutExerciseItem = ({
   exercise_name,
@@ -9,7 +10,6 @@ const WorkoutExerciseItem = ({
   exercise_sets,
   exercise_rest,
 }: WorkoutExerciseProps) => {
-  const moment = require("moment");
   let minutes = moment.utc(exercise_rest * 1000).format("mm:ss");
 
   return (
