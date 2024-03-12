@@ -23,9 +23,6 @@ const WorkoutEditor = ({
   submitWorkout,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState("My Routine");
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [rest, setRest] = useState(0);
   return (
     <div className="flex flex-col w-screen h-auto pl-40">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
@@ -41,9 +38,7 @@ const WorkoutEditor = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() =>
-            submitWorkout(routineName, Number(sets), Number(reps), Number(rest))
-          }
+          onClick={() => submitWorkout(routineName, 2, 6, 60)}
         >
           Save Routine
         </Button>
@@ -69,12 +64,6 @@ const WorkoutEditor = ({
                 exercise_name={exercise.exercise_name}
                 exercise_id={exercise.exercise_id}
                 removeExercise={removeExercise}
-                setSets={setSets}
-                setReps={setReps}
-                setRest={setRest}
-                reps={reps}
-                sets={sets}
-                restTime={rest}
               />
             );
           })}

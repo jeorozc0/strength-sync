@@ -7,13 +7,10 @@ const ExerciseEditorItem = ({
   exercise_name,
   removeExercise,
   exercise_id,
-  setReps,
-  setRest,
-  setSets,
-  reps,
-  sets,
-  restTime,
 }: ExerciseEditorItemProps) => {
+  const [sets, setSets] = useState("");
+  const [reps, setReps] = useState("");
+  const [restTime, setRest] = useState(0);
   const [notes, setNotes] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

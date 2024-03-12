@@ -24,12 +24,6 @@ export interface ExerciseEditorItemProps {
   exercise_name: string;
   exercise_id: string;
   removeExercise: (exercise_id: string) => void;
-  setSets: (sets: string) => void;
-  setReps: (reps: string) => void;
-  setRest: (rest: number) => void;
-  reps: string;
-  sets: string;
-  restTime: number;
 }
 
 export interface WorkoutExerciseProps {
