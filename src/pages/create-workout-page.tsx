@@ -32,22 +32,22 @@ const CreateWorkoutPage = () => {
   };
   async function SubmitWorkout(
     workout_name: string,
-    sets: number,
-    reps: number,
-    rest: number
+    exerciseDetails: {
+      [exercise_id: string]: { sets: number; reps: number; rest: number };
+    }
   ) {
     const newWorkout = await createWorkout({ workout_name });
-    console.log(newWorkout[0].workout_id);
     if (newWorkout) {
       const workout_id = newWorkout[0].workout_id;
       const workoutExercises: ExercisePropsForAPI[] = localExercise.map(
         (exercise) => {
+          const details = exerciseDetails[exercise.exercise_id];
           return {
             workout_id: workout_id,
             exercise_id: exercise.exercise_id,
-            sets: sets,
-            reps: reps,
-            rest: rest,
+            sets: details.sets,
+            reps: details.reps,
+            rest: details.rest,
           };
         }
       );

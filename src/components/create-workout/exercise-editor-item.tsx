@@ -7,6 +7,7 @@ const ExerciseEditorItem = ({
   exercise_name,
   removeExercise,
   exercise_id,
+  updateExerciseDetails,
 }: ExerciseEditorItemProps) => {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
@@ -23,6 +24,12 @@ const ExerciseEditorItem = ({
 
   function handleChange(event: any) {
     setRest(event.target.value);
+    updateExerciseDetails(
+      exercise_id,
+      Number(sets),
+      Number(reps),
+      event.target.value
+    );
   }
 
   return (
@@ -73,7 +80,15 @@ const ExerciseEditorItem = ({
               type="number"
               aria-label="sets"
               value={sets}
-              onChange={(e) => setSets(e.target.value)}
+              onChange={(e) => {
+                setSets(e.target.value);
+                updateExerciseDetails(
+                  exercise_id,
+                  Number(e.target.value),
+                  Number(reps),
+                  restTime
+                );
+              }}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
             />
           </div>
@@ -83,7 +98,15 @@ const ExerciseEditorItem = ({
               type="number"
               aria-label="reps"
               value={reps}
-              onChange={(e) => setReps(e.target.value)}
+              onChange={(e) => {
+                setReps(e.target.value);
+                updateExerciseDetails(
+                  exercise_id,
+                  Number(sets),
+                  Number(e.target.value),
+                  restTime
+                );
+              }}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
             />
           </div>

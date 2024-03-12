@@ -9,12 +9,7 @@ import { useState } from "react";
 interface WorkoutEditorProps {
   exercises: ExerciseProps[];
   removeExercise: (exercise_id: string) => void;
-  submitWorkout: (
-    workout: string,
-    sets: number,
-    reps: number,
-    rest: number
-  ) => void;
+  submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
 const WorkoutEditor = ({
@@ -23,6 +18,20 @@ const WorkoutEditor = ({
   submitWorkout,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState("My Routine");
+  const [exerciseDetails, setExerciseDetails] = useState({});
+
+  const updateExerciseDetails = (
+    exercise_id: string,
+    sets: number,
+    reps: number,
+    rest: number
+  ) => {
+    setExerciseDetails((prevDetails) => ({
+      ...prevDetails,
+      [exercise_id]: { sets, reps, rest },
+    }));
+  };
+
   return (
     <div className="flex flex-col w-screen h-auto pl-40">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
@@ -38,7 +47,7 @@ const WorkoutEditor = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => submitWorkout(routineName, 2, 6, 60)}
+          onClick={() => submitWorkout(routineName, exerciseDetails)}
         >
           Save Routine
         </Button>
@@ -64,6 +73,7 @@ const WorkoutEditor = ({
                 exercise_name={exercise.exercise_name}
                 exercise_id={exercise.exercise_id}
                 removeExercise={removeExercise}
+                updateExerciseDetails={updateExerciseDetails}
               />
             );
           })}

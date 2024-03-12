@@ -1,7 +1,6 @@
 export interface ExerciseProps {
   exercise_id: string;
   exercise_name: string;
-  
 }
 
 export interface ExercisePropsForAPI {
@@ -24,6 +23,12 @@ export interface ExerciseEditorItemProps {
   exercise_name: string;
   exercise_id: string;
   removeExercise: (exercise_id: string) => void;
+  updateExerciseDetails: (
+    exercise_id: string,
+    sets: number,
+    reps: number,
+    rest: number
+  ) => void;
 }
 
 export interface WorkoutExerciseProps {
