@@ -1,6 +1,7 @@
 export interface ExerciseProps {
   exercise_id: string;
   exercise_name: string;
+  
 }
 
 export interface ExercisePropsForAPI {

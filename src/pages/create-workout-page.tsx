@@ -51,7 +51,6 @@ const CreateWorkoutPage = () => {
           };
         }
       );
-      console.log(workoutExercises);
       await mutate2(workoutExercises);
     } else {
       console.error("Failed to create new workout");
