@@ -1,6 +1,7 @@
 export interface ExerciseProps {
   exercise_id: string;
   exercise_name: string;
+  exercise_muscle: string;
 }
 
 export interface ExercisePropsForAPI {
@@ -14,7 +15,7 @@ export interface ExercisePropsForAPI {
 export interface ExercisePropsForLocal {
   exercise_name?: string;
   exercise_id?: string;
-  exercise_description?: string;
+  exercise_muscle?: string;
   addExercise?: (newExercise: ExerciseProps) => void;
   removeExercise?: (exercise_id: string) => void;
 }

@@ -3,17 +3,16 @@ import { ExercisePropsForLocal } from "../../types/exercise-types";
 const ExerciseItem = ({
   exercise_name,
   exercise_id,
-  exercise_description,
+  exercise_muscle,
   addExercise,
 }: ExercisePropsForLocal) => {
   const handleClick = () => {
     // Assuming you have an ExerciseProps structure, adjust this accordingly
-    if (exercise_name && exercise_id) {
+    if (exercise_name && exercise_id && exercise_muscle) {
       const newExercise = {
         exercise_id: exercise_id /* assign an appropriate value */,
         exercise_name: exercise_name,
-        exercise_description:
-          exercise_description /* assign an appropriate value */,
+        exercise_muscle: exercise_muscle /* assign an appropriate value */,
       };
 
       if (addExercise) {
@@ -27,7 +26,8 @@ const ExerciseItem = ({
       onClick={handleClick}
     >
       <div>
-        <p>{exercise_name}</p>
+        <p className="w-full">{exercise_name}</p>
+        <p className="w-full text-[#89998f] text-left">{exercise_muscle}</p>
       </div>
     </button>
   );
