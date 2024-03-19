@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { ExerciseProps } from "../../types/exercise-types";
-import ExerciseEditorItem from "./exercise-editor-item";
+import ExerciseEditorItem from "./exercise-creator-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ interface WorkoutEditorProps {
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
-const WorkoutEditor = ({
+const WorkoutCreator = ({
   exercises,
   removeExercise,
   submitWorkout,
@@ -91,4 +91,4 @@ const WorkoutEditor = ({
   );
 };
 
-export default WorkoutEditor;
+export default WorkoutCreator;

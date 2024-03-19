@@ -2,31 +2,39 @@ import React, { useState } from "react";
 import { WorkoutProps } from "../../types/workout-types";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDeleteWorkout } from "../../hooks/useWorkout";
 
 const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   const { mutateAsync: deleteWorkout } = useDeleteWorkout();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: any) => {
+  function handleClick(event: any) {
     event.stopPropagation();
     event.preventDefault();
     setAnchorEl(event.currentTarget);
-  };
+  }
 
-  const handleClose = (event: any) => {
+  function handleClose(event: any) {
     event.stopPropagation();
     event.preventDefault();
     setAnchorEl(null);
-  };
+  }
 
-  const removeWorkout = (event: any) => {
+  function removeWorkout(event: any) {
     event.stopPropagation();
     console.log("Removing workout with id: " + workout_id);
     deleteWorkout(workout_id as number);
     handleClose(event);
-  };
+  }
+
+  function editWorkout(event: any) {
+    event.stopPropagation();
+    console.log("Editing workout with id: " + workout_id);
+    navigate(`/edit-workout/${workout_id}`);
+    handleClose(event);
+  }
 
   return (
     <Link
@@ -56,6 +64,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
             "aria-labelledby": "basic-button",
           }}
         >
+          <MenuItem onClick={editWorkout}>Edit Workout</MenuItem>
           <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
         </Menu>
       </div>

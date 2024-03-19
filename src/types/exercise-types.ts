@@ -4,6 +4,13 @@ export interface ExerciseProps {
   exercise_muscle: string;
 }
 
+export interface EditExerciseProps {
+  exercises: ExerciseProps[];
+  reps: number;
+  sets: number;
+  rest: number;
+}
+
 export interface ExercisePropsForAPI {
   exercise_id: string;
   workout_id: number;

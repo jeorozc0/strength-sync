@@ -1,14 +1,33 @@
-import { useState } from "react";
-import WorkoutCreator from "../components/create-workout/workout-creator";
-import ExerciseList from "../components/create-workout/exercise-list";
-import { ExerciseProps, ExercisePropsForAPI } from "../types/exercise-types";
-import { useCreateWorkout } from "../hooks/useWorkout";
-import { useNavigate } from "react-router-dom";
-import { useCreateWorkoutExercise } from "../hooks/useExercise";
+import { useEffect, useState } from "react";
+import WorkoutEditor from "./workout-editor";
+import ExerciseList from "../create-workout/exercise-list";
+import {
+  EditExerciseProps,
+  ExerciseProps,
+  ExercisePropsForAPI,
+} from "../../types/exercise-types";
+import { useCreateWorkout } from "../../hooks/useWorkout";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCreateWorkoutExercise } from "../../hooks/useExercise";
+import useWorkoutById from "../../hooks/useWorkoutById";
 
-const CreateWorkoutPage = () => {
+const EditWorkoutPage = () => {
   const navigate = useNavigate();
+  const workout_id = useParams().workout_id;
+  const { data: exerciseDetails } = useWorkoutById({
+    workout_id: Number(workout_id),
+  });
+
   const [localExercise, setLocalExercise] = useState<ExerciseProps[]>([]);
+  const [localExerciseDetails, setLocalExerciseDetails] = useState<
+    EditExerciseProps[]
+  >([]);
+  useEffect(() => {
+    if (exerciseDetails) {
+      setLocalExerciseDetails(exerciseDetails);
+    }
+  }, [exerciseDetails, localExerciseDetails]);
+  console.log(localExerciseDetails);
   const { mutateAsync: createWorkout } = useCreateWorkout();
   const { mutateAsync: mutate2 } = useCreateWorkoutExercise();
   const addExercise = (newExercise: ExerciseProps) => {
@@ -60,7 +79,7 @@ const CreateWorkoutPage = () => {
 
   return (
     <div className="min-h-screen p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
-      <WorkoutCreator
+      <WorkoutEditor
         exercises={localExercise}
         removeExercise={deleteExercise}
         submitWorkout={SubmitWorkout}
@@ -70,4 +89,4 @@ const CreateWorkoutPage = () => {
   );
 };
 
-export default CreateWorkoutPage;
+export default EditWorkoutPage;
