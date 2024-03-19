@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import WorkoutEditor from "./workout-editor";
-import ExerciseList from "../create-workout/exercise-list";
+import WorkoutEditor from "../components/edit-workout/workout-editor";
+import ExerciseList from "../components/create-workout/exercise-list";
 import {
   EditExerciseProps,
   ExerciseProps,
   ExercisePropsForAPI,
-} from "../../types/exercise-types";
-import { useCreateWorkout } from "../../hooks/useWorkout";
+} from "../types/exercise-types";
+import { useCreateWorkout } from "../hooks/useWorkout";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCreateWorkoutExercise } from "../../hooks/useExercise";
-import useWorkoutById from "../../hooks/useWorkoutById";
+import { useCreateWorkoutExercise } from "../hooks/useExercise";
+import useWorkoutById from "../hooks/useWorkoutById";
 
 const EditWorkoutPage = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const EditWorkoutPage = () => {
 
     setLocalExercise(updatedExercises);
   };
-  async function SubmitWorkout(
+  async function EditWorkout(
     workout_name: string,
     exerciseDetails: {
       [exercise_id: string]: { sets: number; reps: number; rest: number };
@@ -80,9 +80,9 @@ const EditWorkoutPage = () => {
   return (
     <div className="min-h-screen p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
       <WorkoutEditor
-        exercises={localExercise}
+        exercises={localExerciseDetails}
         removeExercise={deleteExercise}
-        submitWorkout={SubmitWorkout}
+        submitWorkout={EditWorkout}
       />
       <ExerciseList addExercise={addExercise} />
     </div>

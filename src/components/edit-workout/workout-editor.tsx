@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { ExerciseProps } from "../../types/exercise-types";
+import { EditExerciseProps, ExerciseProps } from "../../types/exercise-types";
 import ExerciseEditorItem from "./exercise-editor-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 interface WorkoutEditorProps {
-  exercises: ExerciseProps[];
+  exercises: EditExerciseProps[];
   removeExercise: (exercise_id: string) => void;
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
@@ -66,12 +66,16 @@ const WorkoutEditor = ({
       />
       {exercises.length > 0 ? (
         <>
-          {exercises.map((exercise: ExerciseProps) => {
+          {exercises.map((exercise: EditExerciseProps) => {
+            const details: ExerciseProps = exercise.exercises;
             return (
               <ExerciseEditorItem
-                key={exercise.exercise_id}
-                exercise_name={exercise.exercise_name}
-                exercise_id={exercise.exercise_id}
+                key={details.exercise_id}
+                exercise_name={details.exercise_name}
+                exercise_id={details.exercise_id}
+                sets={exercise.sets}
+                reps={exercise.reps}
+                rest={exercise.rest}
                 removeExercise={removeExercise}
                 updateExerciseDetails={updateExerciseDetails}
               />

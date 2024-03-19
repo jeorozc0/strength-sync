@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { ExerciseProps } from "../../types/exercise-types";
-import ExerciseEditorItem from "./exercise-creator-item";
+import ExerciseItem from "./exercise-creator-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
@@ -68,7 +68,7 @@ const WorkoutCreator = ({
         <>
           {exercises.map((exercise: ExerciseProps) => {
             return (
-              <ExerciseEditorItem
+              <ExerciseItem
                 key={exercise.exercise_id}
                 exercise_name={exercise.exercise_name}
                 exercise_id={exercise.exercise_id}

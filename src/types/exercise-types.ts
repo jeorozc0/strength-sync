@@ -37,6 +37,9 @@ export interface ExerciseEditorItemProps {
     reps: number,
     rest: number
   ) => void;
+  sets? : number;
+  reps?: number;
+  rest?: number;
 }
 
 export interface WorkoutExerciseProps {
