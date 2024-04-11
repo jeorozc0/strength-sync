@@ -9,11 +9,16 @@ import {
 import { useCreateWorkout } from "../hooks/useWorkout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCreateWorkoutExercise } from "../hooks/useExercise";
-import useWorkoutById from "../hooks/useWorkoutById";
+import { useWorkoutById, useWorkoutName } from "../hooks/useWorkoutById";
 
 const EditWorkoutPage = () => {
   const navigate = useNavigate();
   const workout_id = useParams().workout_id;
+  const { data: workout } = useWorkoutName({
+    workout_id: Number(workout_id),
+  });
+  const workout_name: string = workout?.[0]?.workout_name || "";
+  console.log(workout);
   const { data: exerciseDetails } = useWorkoutById({
     workout_id: Number(workout_id),
   });
@@ -80,6 +85,7 @@ const EditWorkoutPage = () => {
   return (
     <div className="min-h-screen p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
       <WorkoutEditor
+        workout_name={workout_name}
         exercises={localExerciseDetails}
         removeExercise={deleteExercise}
         submitWorkout={EditWorkout}

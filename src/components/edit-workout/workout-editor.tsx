@@ -8,6 +8,7 @@ import { useState } from "react";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
+  workout_name: string;
   removeExercise: (exercise_id: string) => void;
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
@@ -16,8 +17,9 @@ const WorkoutEditor = ({
   exercises,
   removeExercise,
   submitWorkout,
+  workout_name,
 }: WorkoutEditorProps) => {
-  const [routineName, setRoutineName] = useState("My Routine");
+  const [routineName, setRoutineName] = useState(workout_name);
   const [exerciseDetails, setExerciseDetails] = useState({});
 
   const updateExerciseDetails = (
@@ -67,7 +69,7 @@ const WorkoutEditor = ({
       {exercises.length > 0 ? (
         <>
           {exercises.map((exercise: EditExerciseProps) => {
-            const details: ExerciseProps = exercise.exercises;
+            const details: ExerciseProps = exercise.exercises[0]; // Access the first exercise details
             return (
               <ExerciseEditorItem
                 key={details.exercise_id}

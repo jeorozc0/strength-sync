@@ -14,6 +14,7 @@ export function useCreateWorkoutExercise() {
     mutationFn: (exercise: any[]) => createWorkoutExercise(exercise),
     onSuccess: () => {
       queryClient.invalidateQueries("exercise");
+      
     },
   });
 }

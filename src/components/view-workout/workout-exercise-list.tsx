@@ -1,4 +1,4 @@
-import useWorkoutById from "../../hooks/useWorkoutById";
+import {useWorkoutById} from "../../hooks/useWorkoutById";
 import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 import WorkoutExerciseItem from "./workout-exercise-item";

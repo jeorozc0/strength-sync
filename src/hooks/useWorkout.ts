@@ -10,7 +10,6 @@ export function useCreateWorkout() {
   return useMutation({
     mutationFn: (workout: WorkoutProps) => createWorkout(workout),
     onSuccess: () => {
-      
       queryClient.invalidateQueries("workout");
     },
   });
