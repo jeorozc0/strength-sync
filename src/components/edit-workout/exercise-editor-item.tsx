@@ -107,7 +107,7 @@ const ExerciseEditorItem = ({
                   exercise_id,
                   Number(localSets),
                   Number(e.target.value),
-                  localRestTime || 0 
+                  localRestTime || 0
                 );
               }}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"

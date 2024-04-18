@@ -11,8 +11,7 @@ const ExerciseItem = ({
     if (exercise_name && exercise_id && exercise_muscle) {
       const newExercise = {
         exercise_id: exercise_id /* assign an appropriate value */,
-        exercise_name: exercise_name,
-        exercise_muscle: exercise_muscle /* assign an appropriate value */,
+        exercise_name: exercise_name, /* assign an appropriate value */
       };
 
       if (addExercise) {

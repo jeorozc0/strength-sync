@@ -69,11 +69,11 @@ const WorkoutEditor = ({
       {exercises.length > 0 ? (
         <>
           {exercises.map((exercise: any) => {
-            console.log(exercise);
             // Access the exercise details
+            console.log(exercise.exercises.exercise_id)
             return (
               <ExerciseEditorItem
-                key={exercise.sets}
+                key={exercise.exercises.exercise_id}
                 exercise_name={exercise.exercises.exercise_name}
                 exercise_id={exercise.exercises.exercise_id}
                 sets={exercise.sets}
