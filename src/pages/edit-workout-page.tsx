@@ -3,7 +3,6 @@ import WorkoutEditor from "../components/edit-workout/workout-editor";
 import ExerciseList from "../components/create-workout/exercise-list";
 import {
   EditExerciseProps,
-  ExerciseProps,
   ExercisePropsForAPI,
 } from "../types/exercise-types";
 import { useCreateWorkout } from "../hooks/useWorkout";
@@ -14,16 +13,15 @@ import { useWorkoutById, useWorkoutName } from "../hooks/useWorkoutById";
 const EditWorkoutPage = () => {
   const navigate = useNavigate();
   const workout_id = useParams().workout_id;
-  const { data: workout } = useWorkoutName({
+  const { data: workout, isLoading, error } = useWorkoutName({
     workout_id: Number(workout_id),
   });
   const workout_name: string = workout?.[0]?.workout_name || "";
-  console.log(workout);
   const { data: exerciseDetails } = useWorkoutById({
     workout_id: Number(workout_id),
   });
 
-  const [localExercise, setLocalExercise] = useState<ExerciseProps[]>([]);
+
   const [localExerciseDetails, setLocalExerciseDetails] = useState<
     EditExerciseProps[]
   >([]);
@@ -32,27 +30,27 @@ const EditWorkoutPage = () => {
       setLocalExerciseDetails(exerciseDetails);
     }
   }, [exerciseDetails, localExerciseDetails]);
-  console.log(localExerciseDetails);
+  console.log(exerciseDetails);
   const { mutateAsync: createWorkout } = useCreateWorkout();
   const { mutateAsync: mutate2 } = useCreateWorkoutExercise();
-  const addExercise = (newExercise: ExerciseProps) => {
+  const addExercise = (newExercise: EditExerciseProps) => {
     if (
-      localExercise.some(
-        (exercise) => exercise.exercise_id === newExercise.exercise_id
+      localExerciseDetails.some(
+        (exercise) => exercise.exercises.exercise_id === newExercise.exercises.exercise_id
       )
     ) {
       return;
     }
-    const newExercisesToAdd = [...localExercise, newExercise];
-    setLocalExercise(newExercisesToAdd);
+    const newExercisesToAdd = [...localExerciseDetails, newExercise];
+    setLocalExerciseDetails(newExercisesToAdd);
   };
 
   const deleteExercise = (exerciseID: string) => {
-    const updatedExercises = localExercise.filter(
-      (exercise) => exercise.exercise_id !== exerciseID
+    const updatedExercises = localExerciseDetails.filter(
+      (exercise) => exercise.exercises.exercise_id !== exerciseID
     );
 
-    setLocalExercise(updatedExercises);
+    setLocalExerciseDetails(updatedExercises);
   };
   async function EditWorkout(
     workout_name: string,
@@ -63,8 +61,8 @@ const EditWorkoutPage = () => {
     const newWorkout = await createWorkout({ workout_name });
     if (newWorkout) {
       const workout_id = newWorkout[0].workout_id;
-      const workoutExercises: ExercisePropsForAPI[] = localExercise.map(
-        (exercise) => {
+      const workoutExercises: ExercisePropsForAPI[] = localExerciseDetails.map(
+        (exercise: any) => {
           const details = exerciseDetails[exercise.exercise_id];
           return {
             workout_id: workout_id,

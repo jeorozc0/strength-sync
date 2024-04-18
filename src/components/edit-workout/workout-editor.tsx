@@ -68,13 +68,14 @@ const WorkoutEditor = ({
       />
       {exercises.length > 0 ? (
         <>
-          {exercises.map((exercise: EditExerciseProps) => {
-            const details: ExerciseProps = exercise.exercises[0]; // Access the first exercise details
+          {exercises.map((exercise: any) => {
+            console.log(exercise);
+            // Access the exercise details
             return (
               <ExerciseEditorItem
-                key={details.exercise_id}
-                exercise_name={details.exercise_name}
-                exercise_id={details.exercise_id}
+                key={exercise.sets}
+                exercise_name={exercise.exercises.exercise_name}
+                exercise_id={exercise.exercises.exercise_id}
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}

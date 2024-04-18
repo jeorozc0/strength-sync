@@ -5,7 +5,7 @@ export interface ExerciseProps {
 }
 
 export interface EditExerciseProps {
-  exercises: ExerciseProps[];
+  exercises: any;
   reps: number;
   sets: number;
   rest: number;
@@ -23,7 +23,7 @@ export interface ExercisePropsForLocal {
   exercise_name?: string;
   exercise_id?: string;
   exercise_muscle?: string;
-  addExercise?: (newExercise: ExerciseProps) => void;
+  addExercise?: (newExercise: any) => void;
   removeExercise?: (exercise_id: string) => void;
 }
 
