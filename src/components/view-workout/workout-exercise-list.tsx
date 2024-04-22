@@ -1,8 +1,7 @@
-import {useWorkoutById} from "../../hooks/useWorkoutById";
+import { useWorkoutById } from "../../hooks/useWorkoutById";
 import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 import WorkoutExerciseItem from "./workout-exercise-item";
-
 
 const WorkoutExerciseList = (workout_id: WorkoutProps) => {
   const {
@@ -21,12 +20,11 @@ const WorkoutExerciseList = (workout_id: WorkoutProps) => {
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
       {isLoading && <LoadingComponent />}
-      {exerciseDetails?.map((exercise) => {
-        const exerciseItems = Object.values(exercise.exercises);
+      {exerciseDetails?.map((exercise: any) => {
         return (
           <WorkoutExerciseItem
-            key={exerciseItems[1]}
-            exercise_name={exerciseItems[2]}
+            key={exercise.exercises.exercise_id}
+            exercise_name={exercise.exercises.exercise_name}
             exercise_reps={exercise.reps}
             exercise_sets={exercise.sets}
             exercise_rest={exercise.rest}

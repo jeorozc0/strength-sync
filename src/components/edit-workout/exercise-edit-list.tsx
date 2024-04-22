@@ -1,12 +1,9 @@
 import ExerciseItem from "./exercise-edit-item";
 import useExercise from "../../hooks/useExercise";
-import {
-  ExerciseProps,
-  ExercisePropsForLocal,
-} from "../../types/exercise-types";
+import { ExerciseProps } from "../../types/exercise-types";
 import LoadingComponent from "../loading-component/loading-component";
 
-const ExerciseEditList = ({ addExercise }: ExercisePropsForLocal) => {
+const ExerciseEditList = ({ addExercise }: any) => {
   const { data: exercise, error, isLoading } = useExercise();
   if (error) {
     return <h1>This is an error</h1>;

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { EditExerciseProps, ExerciseProps } from "../../types/exercise-types";
+import { EditExerciseProps } from "../../types/exercise-types";
 import ExerciseEditorItem from "./exercise-editor-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -9,18 +9,19 @@ import { useState } from "react";
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
   workout_name: string;
-  removeExercise: (exercise_id: string) => void;
+  setLocalExerciseDetails: any;
+  deleteExerciseNow: any;
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
 const WorkoutEditor = ({
   exercises,
-  removeExercise,
   submitWorkout,
   workout_name,
+  setLocalExerciseDetails,
+  deleteExerciseNow,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
-  const [exerciseDetails, setExerciseDetails] = useState({});
 
   const updateExerciseDetails = (
     exercise_id: string,
@@ -28,10 +29,20 @@ const WorkoutEditor = ({
     reps: number,
     rest: number
   ) => {
-    setExerciseDetails((prevDetails) => ({
-      ...prevDetails,
-      [exercise_id]: { sets, reps, rest },
-    }));
+    const updated: EditExerciseProps[] | undefined = exercises?.map(
+      (subArray) => {
+        if (subArray.exercises.exercise_id === exercise_id) {
+          return {
+            ...subArray,
+            sets,
+            reps,
+            rest,
+          };
+        }
+        return subArray;
+      }
+    );
+    setLocalExerciseDetails(updated);
   };
 
   return (
@@ -49,7 +60,7 @@ const WorkoutEditor = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => submitWorkout(routineName, exerciseDetails)}
+          onClick={() => submitWorkout(routineName, exercises)}
         >
           Save Routine
         </Button>
@@ -69,8 +80,6 @@ const WorkoutEditor = ({
       {exercises.length > 0 ? (
         <>
           {exercises.map((exercise: any) => {
-            // Access the exercise details
-            console.log(exercise.exercises.exercise_id)
             return (
               <ExerciseEditorItem
                 key={exercise.exercises.exercise_id}
@@ -79,7 +88,7 @@ const WorkoutEditor = ({
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}
-                removeExercise={removeExercise}
+                removeExercise={deleteExerciseNow}
                 updateExerciseDetails={updateExerciseDetails}
               />
             );

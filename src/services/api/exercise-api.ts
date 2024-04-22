@@ -21,4 +21,34 @@ const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
   return data;
 };
 
-export { fetchExercise, createWorkoutExercise };
+const deletWorkoutExercise = async (workout_id: any) => {
+  const { error } = await supabase
+    .from("workout_exercises")
+    .delete()
+    .eq("workout_id", `${workout_id}`);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log("Deleted all exercises with workout ID: " + workout_id)
+};
+
+const replaceWorkoutExercise = async (exercise: any, workout_id: any) => {
+  const { data, error } = await supabase
+    .from("workout_exercises")
+    .upsert(exercise)
+    .eq("workout_id", `${workout_id}`)
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+export {
+  fetchExercise,
+  createWorkoutExercise,
+  replaceWorkoutExercise,
+  deletWorkoutExercise,
+};

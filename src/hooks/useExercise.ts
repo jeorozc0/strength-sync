@@ -1,7 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import {
   createWorkoutExercise,
+  deletWorkoutExercise,
   fetchExercise,
+  replaceWorkoutExercise,
 } from "../services/api/exercise-api";
 
 export default function useExercise() {
@@ -9,12 +11,26 @@ export default function useExercise() {
 }
 
 export function useCreateWorkoutExercise() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (exercise: any[]) => createWorkoutExercise(exercise),
-    onSuccess: () => {
-      queryClient.invalidateQueries("exercise");
-      
-    },
+  });
+}
+
+export function useUpdateWorkoutExercise() {
+  return useMutation({
+    mutationFn: ({
+      exercise,
+      workout_id,
+    }: {
+      exercise: any;
+      workout_id: any;
+    }) => replaceWorkoutExercise(exercise, workout_id),
+  });
+}
+
+export function useDeleteWorkoutExercise() {
+  return useMutation({
+    mutationFn: ({ workout_id }: { workout_id: any }) =>
+      deletWorkoutExercise(workout_id),
   });
 }

@@ -2,7 +2,7 @@ import { WorkoutExerciseProps } from "../../types/exercise-types";
 import SortIcon from "@mui/icons-material/Sort";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import TimerIcon from "@mui/icons-material/Timer";
-import moment from 'moment';
+import moment from "moment";
 
 const WorkoutExerciseItem = ({
   exercise_name,

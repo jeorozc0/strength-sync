@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { fetchWorkout, createWorkout, deleteWorkout } from "../services/api/workout-api";
+import {
+  fetchWorkout,
+  createWorkout,
+  deleteWorkout,
+  editWorkout,
+} from "../services/api/workout-api";
 import { WorkoutProps } from "../types/workout-types";
 
 export function useWorkout() {
@@ -9,6 +14,16 @@ export function useCreateWorkout() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (workout: WorkoutProps) => createWorkout(workout),
+    onSuccess: () => {
+      queryClient.invalidateQueries("workout");
+    },
+  });
+}
+
+export function useEditWorkout() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (workout: WorkoutProps) => editWorkout(workout),
     onSuccess: () => {
       queryClient.invalidateQueries("workout");
     },

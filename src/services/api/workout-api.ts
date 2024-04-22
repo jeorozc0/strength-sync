@@ -22,7 +22,7 @@ const fetchWorkoutNameById = async ({ workout_id }: WorkoutProps) => {
   }
 
   return data;
-}
+};
 
 const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
   const { data, error } = await supabase
@@ -39,18 +39,33 @@ const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
 };
 
 const createWorkout = async ({ workout_name }: WorkoutProps) => {
-  const { data, error } = await supabase.from("workouts").insert([
-    { workout_name },
-  ]).select("workout_id");
+  const { data, error } = await supabase
+    .from("workouts")
+    .insert([{ workout_name }])
+    .select("workout_id");
 
   if (error) {
     throw new Error(error.message);
   }
   console.log(data);
   return data;
-}
+};
 
-const deleteWorkout = async ( workout_id : number) => {
+const editWorkout = async ({ workout_name, workout_id }: WorkoutProps) => {
+  const { data, error } = await supabase
+    .from("workouts")
+    .update({ workout_name: workout_name })
+    .eq("workout_id", workout_id)
+    .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log(data);
+  return data;
+};
+
+const deleteWorkout = async (workout_id: number) => {
   const { data, error } = await supabase
     .from("workouts")
     .delete()
@@ -61,6 +76,13 @@ const deleteWorkout = async ( workout_id : number) => {
   }
 
   return data;
-}
+};
 
-export { fetchWorkout, fetchWorkoutById, createWorkout, deleteWorkout, fetchWorkoutNameById };
+export {
+  fetchWorkout,
+  fetchWorkoutById,
+  createWorkout,
+  editWorkout,
+  deleteWorkout,
+  fetchWorkoutNameById,
+};

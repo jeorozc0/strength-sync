@@ -7,11 +7,10 @@ const ExerciseItem = ({
   addExercise,
 }: ExercisePropsForLocal) => {
   const handleClick = () => {
-    // Assuming you have an ExerciseProps structure, adjust this accordingly
     if (exercise_name && exercise_id && exercise_muscle) {
       const newExercise = {
-        exercise_id: exercise_id /* assign an appropriate value */,
-        exercise_name: exercise_name, /* assign an appropriate value */
+        exercise_id: exercise_id,
+        exercise_name: exercise_name, 
       };
 
       if (addExercise) {
