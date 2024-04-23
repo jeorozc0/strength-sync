@@ -14,7 +14,6 @@ const fetchWorkoutNameById = async ({ workout_id }: WorkoutProps) => {
   const { data, error } = await supabase
     .from("workouts")
     .select("workout_name")
-    // Filters
     .eq("workout_id", workout_id);
 
   if (error) {
@@ -28,7 +27,6 @@ const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
   const { data, error } = await supabase
     .from("workout_exercises")
     .select("sets,reps,rest, exercises!inner(exercise_name, exercise_id)")
-    // Filters
     .eq("workout_id", workout_id);
 
   if (error) {

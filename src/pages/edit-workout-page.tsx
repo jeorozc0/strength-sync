@@ -8,7 +8,7 @@ import {
   useUpdateWorkoutExercise,
 } from "../hooks/useExercise";
 import { useWorkoutById, useWorkoutName } from "../hooks/useWorkoutById";
-import ExerciseEditList from "../components/edit-workout/exercise-edit-list";
+import ExerciseList from "../components/exercise-list";
 
 const EditWorkoutPage = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const EditWorkoutPage = () => {
   const { data: workout } = useWorkoutName({
     workout_id: Number(workout_id),
   });
-  const workout_name: string = workout?.[0]?.workout_name || ""; //Could be done better
+  const [workoutName, setWorkoutName] = useState<string>("");
   const { data: exerciseDetails } = useWorkoutById({
     workout_id: Number(workout_id),
   });
@@ -24,10 +24,11 @@ const EditWorkoutPage = () => {
     EditExerciseProps[]
   >([]);
   useEffect(() => {
-    if (exerciseDetails) {
+    if (exerciseDetails && workout) {
       setlocalArrayofExercies(exerciseDetails);
+      setWorkoutName(workout?.[0]?.workout_name);
     }
-  }, [exerciseDetails]);
+  }, [exerciseDetails, workout]);
   const { mutateAsync: editWorkout } = useEditWorkout();
   const { mutateAsync: deleteExercises } = useDeleteWorkoutExercise();
   const { mutateAsync: editExercises } = useUpdateWorkoutExercise();
@@ -83,13 +84,13 @@ const EditWorkoutPage = () => {
   return (
     <div className="min-h-screen p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
       <WorkoutEditor
-        workout_name={workout_name}
+        workout_name={workoutName}
         exercises={localArrayofExercies}
         submitWorkout={EditWorkout}
         setLocalExerciseDetails={setlocalArrayofExercies}
         deleteExerciseNow={deleteExerciseNow}
       />
-      <ExerciseEditList addExercise={addExercise} />
+      <ExerciseList addExercise={addExercise} />
     </div>
   );
 };

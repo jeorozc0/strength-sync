@@ -3,15 +3,18 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ExerciseEditorItemProps } from "../../types/exercise-types";
 import { useState } from "react";
 
-const ExerciseEditorItem = ({
+const ExerciseCreatorItem = ({
   exercise_name,
   removeExercise,
   exercise_id,
   updateExerciseDetails,
+  sets,
+  reps,
+  rest,
 }: ExerciseEditorItemProps) => {
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [restTime, setRest] = useState(0);
+  const [localSets, setSets] = useState(sets?.toString() || "");
+  const [localReps, setReps] = useState(reps?.toString() || "");
+  const [localRestTime, setRest] = useState(rest);
   const [notes, setNotes] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -26,8 +29,8 @@ const ExerciseEditorItem = ({
     setRest(event.target.value);
     updateExerciseDetails(
       exercise_id,
-      Number(sets),
-      Number(reps),
+      Number(localSets),
+      Number(localReps),
       event.target.value
     );
   }
@@ -79,14 +82,14 @@ const ExerciseEditorItem = ({
             <input
               type="number"
               aria-label="sets"
-              value={sets}
+              value={localSets}
               onChange={(e) => {
                 setSets(e.target.value);
                 updateExerciseDetails(
                   exercise_id,
                   Number(e.target.value),
-                  Number(reps),
-                  restTime
+                  Number(localReps),
+                  localRestTime || 0 // Provide a default value for localRestTime
                 );
               }}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
@@ -97,14 +100,14 @@ const ExerciseEditorItem = ({
             <input
               type="number"
               aria-label="reps"
-              value={reps}
+              value={localReps}
               onChange={(e) => {
                 setReps(e.target.value);
                 updateExerciseDetails(
                   exercise_id,
-                  Number(sets),
+                  Number(localSets),
                   Number(e.target.value),
-                  restTime
+                  localRestTime || 0
                 );
               }}
               className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center"
@@ -115,7 +118,7 @@ const ExerciseEditorItem = ({
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={restTime}
+              value={localRestTime}
               onChange={handleChange}
               defaultValue={0}
               className="min-w-2 h-10 border border-solid border-[#e5e7eb] rounded-md text-black"
@@ -132,4 +135,4 @@ const ExerciseEditorItem = ({
   );
 };
 
-export default ExerciseEditorItem;
+export default ExerciseCreatorItem;

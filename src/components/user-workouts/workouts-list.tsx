@@ -1,9 +1,9 @@
 import RoutineName from "./workout-item";
-import {useWorkout} from "../../hooks/useWorkout";
+import { useWorkout } from "../../hooks/useWorkout";
 import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 
-const WorkoutList= () => {
+const WorkoutList = () => {
   const { data: workouts, error, isLoading } = useWorkout();
 
   if (error) {
@@ -19,7 +19,11 @@ const WorkoutList= () => {
       {!isLoading && (
         <>
           {workouts?.map((workout: WorkoutProps) => (
-            <RoutineName key={workout.workout_id} workout_name={workout.workout_name} workout_id={workout.workout_id} />
+            <RoutineName
+              key={workout.workout_id}
+              workout_name={workout.workout_name}
+              workout_id={workout.workout_id}
+            />
           ))}
         </>
       )}

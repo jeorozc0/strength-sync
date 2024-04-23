@@ -1,24 +1,25 @@
 import { Button } from "@mui/material";
-import { ExerciseProps } from "../../types/exercise-types";
-import ExerciseItem from "./exercise-creator-item";
+import { EditExerciseProps } from "../../types/exercise-types";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import ExerciseCreatorItem from "./exercise-creator-item";
 
 interface WorkoutEditorProps {
-  exercises: ExerciseProps[];
-  removeExercise: (exercise_id: string) => void;
+  exercises: EditExerciseProps[];
+  setLocalExerciseDetails: any;
+  deleteExerciseNow: any;
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
 const WorkoutCreator = ({
   exercises,
-  removeExercise,
   submitWorkout,
+  setLocalExerciseDetails,
+  deleteExerciseNow,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState("My Routine");
-  const [exerciseDetails, setExerciseDetails] = useState({});
 
   const updateExerciseDetails = (
     exercise_id: string,
@@ -26,10 +27,20 @@ const WorkoutCreator = ({
     reps: number,
     rest: number
   ) => {
-    setExerciseDetails((prevDetails) => ({
-      ...prevDetails,
-      [exercise_id]: { sets, reps, rest },
-    }));
+    const updated: EditExerciseProps[] | undefined = exercises?.map(
+      (subArray) => {
+        if (subArray.exercises.exercise_id === exercise_id) {
+          return {
+            ...subArray,
+            sets,
+            reps,
+            rest,
+          };
+        }
+        return subArray;
+      }
+    );
+    setLocalExerciseDetails(updated);
   };
 
   return (
@@ -40,14 +51,14 @@ const WorkoutCreator = ({
             <ArrowBackIcon />
           </Link>
           <h1 className="font-medium text-xl text-left h-auto items-center">
-            Create Routine
+            Edit Routine
           </h1>
         </div>
 
         <Button
           variant="contained"
           size="small"
-          onClick={() => submitWorkout(routineName, exerciseDetails)}
+          onClick={() => submitWorkout(routineName, exercises)}
         >
           Save Routine
         </Button>
@@ -66,13 +77,16 @@ const WorkoutCreator = ({
       />
       {exercises.length > 0 ? (
         <>
-          {exercises.map((exercise: ExerciseProps) => {
+          {exercises.map((exercise: any) => {
             return (
-              <ExerciseItem
-                key={exercise.exercise_id}
-                exercise_name={exercise.exercise_name}
-                exercise_id={exercise.exercise_id}
-                removeExercise={removeExercise}
+              <ExerciseCreatorItem
+                key={exercise.exercises.exercise_id}
+                exercise_name={exercise.exercises.exercise_name}
+                exercise_id={exercise.exercises.exercise_id}
+                sets={exercise.sets}
+                reps={exercise.reps}
+                rest={exercise.rest}
+                removeExercise={deleteExerciseNow}
                 updateExerciseDetails={updateExerciseDetails}
               />
             );

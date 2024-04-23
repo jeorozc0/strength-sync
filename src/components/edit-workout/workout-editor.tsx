@@ -4,7 +4,7 @@ import ExerciseEditorItem from "./exercise-editor-item";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
@@ -22,6 +22,10 @@ const WorkoutEditor = ({
   deleteExerciseNow,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
+  console.log(workout_name);
+  useEffect(() => {
+    setRoutineName(workout_name);
+  }, [workout_name]);
 
   const updateExerciseDetails = (
     exercise_id: string,

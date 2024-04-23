@@ -1,9 +1,10 @@
-import ExerciseItem from "./exercise-edit-item";
-import useExercise from "../../hooks/useExercise";
-import { ExerciseProps } from "../../types/exercise-types";
-import LoadingComponent from "../loading-component/loading-component";
+import useExercise from "../hooks/useExercise";
+import { ExerciseProps, ExercisePropsForLocal } from "../types/exercise-types";
+import ExerciseItem from "./exercise-item";
+import LoadingComponent from "./loading-component/loading-component";
 
-const ExerciseEditList = ({ addExercise }: any) => {
+
+const ExerciseList = ({ addExercise }: ExercisePropsForLocal) => {
   const { data: exercise, error, isLoading } = useExercise();
   if (error) {
     return <h1>This is an error</h1>;
@@ -29,4 +30,4 @@ const ExerciseEditList = ({ addExercise }: any) => {
   );
 };
 
-export default ExerciseEditList;
+export default ExerciseList;

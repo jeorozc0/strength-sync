@@ -1,6 +1,7 @@
-import { ExercisePropsForLocal } from "../../types/exercise-types";
+import { ExercisePropsForLocal } from "../types/exercise-types";
 
-const ExerciseEditItem = ({
+
+const ExerciseItem = ({
   exercise_name,
   exercise_id,
   exercise_muscle,
@@ -31,4 +32,4 @@ const ExerciseEditItem = ({
   );
 };
 
-export default ExerciseEditItem;
+export default ExerciseItem;
