@@ -18,7 +18,7 @@ const WorkoutExerciseItem = ({
         <div>
           <p className="font-medium text-base leading-6">{exercise_name}</p>
         </div>
-        <div className="flex flex-row gap-2 justify-between px-32">
+        <div className="flex flex-row  justify-center gap-2">
           <div className="border-[#ECEDF0] border-solid border rounded-md p-1">
             <p>
               <SortIcon /> {exercise_sets} sets
