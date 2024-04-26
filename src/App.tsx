@@ -13,19 +13,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/create-routine" element={<CreateWorkoutPage />} />
-              <Route
-                path="/edit-workout/:workout_id"
-                element={<EditWorkoutPage />}
-              />
-            </ProtectedRoute>
-          }
-        ></Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/create-routine" element={<CreateWorkoutPage />} />
+          <Route
+            path="/edit-workout/:workout_id"
+            element={<EditWorkoutPage />}
+          />
+        </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/routine/:workout_id" element={<ViewWorkoutPage />} />

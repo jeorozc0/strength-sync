@@ -13,13 +13,16 @@ const Login = () => {
   });
 
   return (
-    <div className="flex items-center justify-center h-screen w-full">
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        theme="light"
-        providers={["google"]}
-      />
+    <div className="flex flex-row h-screen w-full">
+      <div className="flex items-center justify-center h-full w-1/2">
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ theme: ThemeSupa }}
+          theme="light"
+          providers={["google"]}
+        />
+      </div>
+      <div></div>
     </div>
   );
 };
