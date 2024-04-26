@@ -4,6 +4,7 @@ import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 
 const WorkoutList = () => {
+
   const { data: workouts, error, isLoading } = useWorkout();
 
   if (error) {

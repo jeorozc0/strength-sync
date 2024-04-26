@@ -8,8 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { useCreateWorkoutExercise } from "../hooks/useExercise";
 import WorkoutCreator from "../components/create-workout/workout-creator";
 import ExerciseList from "../components/exercise-list";
+import { useAuth } from "../hooks/useAuth";
 
 const CreateWorkoutPage = () => {
+  const { user } = useAuth();
+  const user_id = user?.id;
   const navigate = useNavigate();
   const { mutateAsync: submitWorkout } = useCreateWorkout();
   const { mutateAsync: createWorkoutExercises } = useCreateWorkoutExercise();
@@ -41,8 +44,10 @@ const CreateWorkoutPage = () => {
   };
 
   async function EditWorkout(workout_name: string, exerciseDetails: any) {
+    console.log(user_id)
     const newWorkout = await submitWorkout({
       workout_name,
+      user_id
     });
     if (newWorkout) {
       const workoutExercises: ExercisePropsForAPI[] = exerciseDetails.map(
@@ -53,6 +58,7 @@ const CreateWorkoutPage = () => {
             sets: exercise.sets,
             reps: exercise.reps,
             rest: exercise.rest,
+            user_id
           };
         }
       );

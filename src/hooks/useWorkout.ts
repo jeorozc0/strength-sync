@@ -1,19 +1,23 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { WorkoutProps } from "../types/workout-types";
 import {
-  fetchWorkout,
   createWorkout,
   deleteWorkout,
   editWorkout,
+  FetchWorkout,
 } from "../services/api/workout-api";
-import { WorkoutProps } from "../types/workout-types";
+import { useAuth } from "./useAuth";
 
 export function useWorkout() {
-  return useQuery("workout", () => fetchWorkout());
+  const { user } = useAuth();
+
+  return useQuery(["workout"], () => FetchWorkout(user?.id));
 }
 export function useCreateWorkout() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (workout: WorkoutProps) => createWorkout(workout),
+    mutationFn: ({ workout_name, user_id }: WorkoutProps) =>
+      createWorkout({ workout_name, user_id }),
     onSuccess: () => {
       queryClient.invalidateQueries("workout");
     },
