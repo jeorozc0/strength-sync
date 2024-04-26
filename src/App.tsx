@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import ViewWorkoutPage from "./pages/view-workout-page";
 import EditWorkoutPage from "./pages/edit-workout-page";
 import Login from "./pages/login";
+import ProtectedRoute from "./components/protected-route";
 
 const queryClient = new QueryClient();
 
@@ -12,11 +13,22 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/create-routine" element={<CreateWorkoutPage />} />
+              <Route
+                path="/edit-workout/:workout_id"
+                element={<EditWorkoutPage />}
+              />
+            </ProtectedRoute>
+          }
+        ></Route>
+
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<HomePage />} />
         <Route path="/routine/:workout_id" element={<ViewWorkoutPage />} />
-        <Route path="/create-routine" element={<CreateWorkoutPage />} />
-        <Route path="/edit-workout/:workout_id" element={<EditWorkoutPage />} />
       </Routes>
     </QueryClientProvider>
   );
