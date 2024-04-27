@@ -14,6 +14,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route element={<ProtectedRoute />}>
+        {/* <Sidebar /> */}
           <Route path="/" element={<HomePage />} />
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
           <Route

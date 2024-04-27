@@ -9,16 +9,18 @@ import {
 } from "../hooks/useExercise";
 import { useWorkoutById, useWorkoutName } from "../hooks/useWorkoutById";
 import ExerciseList from "../components/exercise-list";
+import { useAuth } from "../hooks/useAuth";
 
 const EditWorkoutPage = () => {
+  const {user} = useAuth();
   const navigate = useNavigate();
   const workout_id = useParams().workout_id;
   const { data: workout } = useWorkoutName({
-    workout_id: Number(workout_id),
+    workout_id: workout_id,
   });
   const [workoutName, setWorkoutName] = useState<string>("");
   const { data: exerciseDetails } = useWorkoutById({
-    workout_id: Number(workout_id),
+    workout_id: workout_id,
   });
   const [localArrayofExercies, setlocalArrayofExercies] = useState<
     EditExerciseProps[]
@@ -59,7 +61,7 @@ const EditWorkoutPage = () => {
   async function EditWorkout(workout_name: string, exerciseDetails: any) {
     const newWorkout = await editWorkout({
       workout_name,
-      workout_id: Number(workout_id),
+      workout_id: workout_id,
     });
     if (newWorkout) {
       const workoutExercises: any = exerciseDetails.map((exercise: any) => {
@@ -69,6 +71,7 @@ const EditWorkoutPage = () => {
           sets: exercise.sets,
           reps: exercise.reps,
           rest: exercise.rest,
+          user_id: user?.id
         };
       });
       console.log(workoutExercises);

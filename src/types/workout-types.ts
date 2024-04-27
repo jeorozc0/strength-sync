@@ -1,5 +1,5 @@
 export interface WorkoutProps {
-  workout_id?: number;
+  workout_id?: string;
   workout_name?: string;
   user_id?: any
 }

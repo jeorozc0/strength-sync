@@ -15,7 +15,7 @@ const WorkoutExerciseList = (workout_id: WorkoutProps) => {
     return <h1>This is an error</h1>;
   }
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-screen w-11/12 lg:w-2/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-full w-11/12 lg:w-2/5 rounded-md p-10">
       <div>
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
