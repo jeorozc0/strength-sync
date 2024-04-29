@@ -44,10 +44,10 @@ const CreateWorkoutPage = () => {
   };
 
   async function EditWorkout(workout_name: string, exerciseDetails: any) {
-    console.log(user_id)
+    console.log(user_id);
     const newWorkout = await submitWorkout({
       workout_name,
-      user_id
+      user_id,
     });
     if (newWorkout) {
       const workoutExercises: ExercisePropsForAPI[] = exerciseDetails.map(
@@ -58,7 +58,7 @@ const CreateWorkoutPage = () => {
             sets: exercise.sets,
             reps: exercise.reps,
             rest: exercise.rest,
-            user_id
+            user_id,
           };
         }
       );
@@ -70,7 +70,7 @@ const CreateWorkoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen max-w-full p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB]">
+    <div className="min-h-screen max-w-full p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
       <WorkoutCreator
         exercises={localArrayofExercies}
         submitWorkout={EditWorkout}

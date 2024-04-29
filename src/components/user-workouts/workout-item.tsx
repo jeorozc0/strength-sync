@@ -25,7 +25,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   function removeWorkout(event: any) {
     event.stopPropagation();
     console.log("Removing workout with id: " + workout_id);
-    deleteWorkout(workout_id as number);
+    deleteWorkout(workout_id as unknown as number);
     handleClose(event);
   }
 

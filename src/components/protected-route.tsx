@@ -1,4 +1,4 @@
-import { Navigate, Outlet} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import Layout from "./layout";
 
@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }: any) => {
     return <Navigate to="/login" replace />;
   }
   console.log(user);
-  return children ? children : <Layout /> ;;
+  return children ? children : <Layout />;
 };
 
 export default ProtectedRoute;

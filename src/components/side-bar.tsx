@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useAuth } from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
-  const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
-    { title: "Inbox", src: "Chat" },
-    { title: "Accounts", src: "User", gap: true },
-    { title: "Schedule ", src: "Calendar" },
-    { title: "Search", src: "Search" },
-    { title: "Analytics", src: "Chart" },
-    { title: "Files ", src: "Folder", gap: true },
-    { title: "Setting", src: "Setting" },
-  ];
+  const { user, signOut } = useAuth();
+
+  const handleLogout = () => {
+    signOut();
+  };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col divide-y">
       <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } sticky top-0 right-0 bg-white p-5 pt-8 duration-300`}
+        className={`${
+          open ? "w-64" : "w-20"
+        } flex-grow sticky top-0 bg-white p-5 pt-8 duration-300`}
       >
         <img
           src="./src/assets/control.png"
@@ -28,29 +29,50 @@ const SideBar = () => {
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
-          <h1
-            className={`text-black origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
-          >
-            StrengthSync
-          </h1>
+          {open ? (
+            <h1 className="text-black origin-left font-medium text-xl duration-200">
+              StrengthSync
+            </h1>
+          ) : (
+            <div className="px-2">
+              <HomeIcon />
+            </div>
+          )}
         </div>
         <ul className="pt-6">
-          {Menus.map((Menu, index) => (
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-sm items-center gap-x-4 
-                ${Menu.gap ? "mt-9" : "mt-2"} ${
-                index === 0 && "bg-light-white"
-              } `}
-            >
+          <Link to={"/"}>
+            <li className="flex rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-md items-center gap-x-4 hover:bg-[#F9FAFB]">
+              <AssignmentIcon />
               <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
+                Routines
               </span>
             </li>
-          ))}
+          </Link>
+          <Link to={"/tracker"}>
+            <li className="flex rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-md items-center gap-x-4 hover:bg-[#F9FAFB]">
+              <AssessmentIcon />
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                Tracker
+              </span>
+            </li>
+          </Link>
         </ul>
+      </div>
+      <div
+        className={`flex items-center justify-between ${
+          open ? "w-64" : "w-20"
+        } h-14 p-4 gap-2`}
+      >
+        <span className={`${!open && "hidden"} origin-left duration-200`}>
+          {user?.email}
+        </span>
+        <button
+          title="Logout"
+          className="flex items-center w-full h-full"
+          onClick={handleLogout}
+        >
+          <LogoutIcon />
+        </button>
       </div>
     </div>
   );

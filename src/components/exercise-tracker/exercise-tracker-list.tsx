@@ -3,23 +3,29 @@ import { EditExerciseProps } from "../../types/exercise-types";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import ExerciseCreatorItem from "./exercise-creator-item";
+import { useEffect, useState } from "react";
+import ExerciseEditorItem from "../edit-workout/exercise-editor-item";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
+  workout_name: string;
   setLocalExerciseDetails: any;
   deleteExerciseNow: any;
   submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
-const WorkoutCreator = ({
+const WorkoutTracker = ({
   exercises,
   submitWorkout,
+  workout_name,
   setLocalExerciseDetails,
   deleteExerciseNow,
 }: WorkoutEditorProps) => {
-  const [routineName, setRoutineName] = useState("My Routine");
+  const [routineName, setRoutineName] = useState(workout_name);
+  console.log(workout_name);
+  useEffect(() => {
+    setRoutineName(workout_name);
+  }, [workout_name]);
 
   const updateExerciseDetails = (
     exercise_id: string,
@@ -44,14 +50,14 @@ const WorkoutCreator = ({
   };
 
   return (
-    <div className="flex flex-col w-screen h-auto ">
+    <div className="flex flex-col w-screen h-auto">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
         <div className="flex flex-row justify-center align-middle items-center gap-2">
-          <Link to={"/"}>
+          <Link to={"/tracker"}>
             <ArrowBackIcon />
           </Link>
           <h1 className="font-medium text-xl text-left h-auto items-center">
-            Create Routine
+            Edit Routine
           </h1>
         </div>
 
@@ -79,7 +85,7 @@ const WorkoutCreator = ({
         <>
           {exercises.map((exercise: any) => {
             return (
-              <ExerciseCreatorItem
+              <ExerciseEditorItem
                 key={exercise.exercises.exercise_id}
                 exercise_name={exercise.exercises.exercise_name}
                 exercise_id={exercise.exercises.exercise_id}
@@ -105,4 +111,4 @@ const WorkoutCreator = ({
   );
 };
 
-export default WorkoutCreator;
+export default WorkoutTracker;

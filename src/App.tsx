@@ -6,6 +6,8 @@ import ViewWorkoutPage from "./pages/view-workout-page";
 import EditWorkoutPage from "./pages/edit-workout-page";
 import Login from "./pages/login";
 import ProtectedRoute from "./components/protected-route";
+import TrackerPage from "./pages/tracker-page";
+import TrackerWorkoutPage from "./pages/exercise-tracker-page";
 
 const queryClient = new QueryClient();
 
@@ -14,12 +16,17 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route element={<ProtectedRoute />}>
-        {/* <Sidebar /> */}
+          {/* <Sidebar /> */}
           <Route path="/" element={<HomePage />} />
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
           <Route
             path="/edit-workout/:workout_id"
             element={<EditWorkoutPage />}
+          />
+          <Route path="/tracker" element={<TrackerPage />} />
+          <Route
+            path="/tracker/workout/:workout_id"
+            element={<TrackerWorkoutPage />}
           />
         </Route>
 
