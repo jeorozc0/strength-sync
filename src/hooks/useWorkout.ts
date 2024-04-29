@@ -5,6 +5,7 @@ import {
   deleteWorkout,
   editWorkout,
   FetchWorkout,
+  FetchWorkoutSession,
 } from "../services/api/workout-api";
 import { useAuth } from "./useAuth";
 
@@ -13,6 +14,13 @@ export function useWorkout() {
 
   return useQuery(["workout"], () => FetchWorkout(user?.id));
 }
+
+export function useWorkoutSession() {
+  const { user } = useAuth();
+
+  return useQuery(["workout_session"], () => FetchWorkoutSession(user?.id));
+}
+
 export function useCreateWorkout() {
   const queryClient = useQueryClient();
   return useMutation({

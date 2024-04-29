@@ -1,9 +1,24 @@
-
 import { WorkoutProps } from "../../types/workout-types";
 import supabase from "../supabase/supabase";
 
 const FetchWorkout = async (user_id: any) => {
-  const { data, error } = await supabase.from("workouts").select("*").eq('user_id', user_id);
+  const { data, error } = await supabase
+    .from("workouts")
+    .select("*")
+    .eq("user_id", user_id);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+const FetchWorkoutSession = async (user_id: any) => {
+  let { data, error } = await supabase
+    .from("workout_session")
+    .select("*")
+    .eq("user_id", user_id);
+
   if (error) {
     throw new Error(error.message);
   }
@@ -84,4 +99,5 @@ export {
   editWorkout,
   deleteWorkout,
   fetchWorkoutNameById,
+  FetchWorkoutSession,
 };
