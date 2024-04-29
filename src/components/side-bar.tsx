@@ -4,7 +4,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../hooks/useAuth";
-import { Link } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
@@ -22,7 +22,7 @@ const SideBar = () => {
         } flex-grow sticky top-0 bg-white p-5 pt-8 duration-300`}
       >
         <img
-          src="./src/assets/control.png"
+          src="/src/assets/control.png"
           alt="Button to open menu"
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-[#ECEDF0]
              border-2 rounded-full  ${!open && "rotate-180"}`}
@@ -40,22 +40,38 @@ const SideBar = () => {
           )}
         </div>
         <ul className="pt-6">
-          <Link to={"/"}>
-            <li className="flex rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-md items-center gap-x-4 hover:bg-[#F9FAFB]">
-              <AssignmentIcon />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                Routines
-              </span>
-            </li>
-          </Link>
-          <Link to={"/tracker"}>
-            <li className="flex rounded-md p-2 cursor-pointer hover:bg-light-white text-black text-md items-center gap-x-4 hover:bg-[#F9FAFB]">
-              <AssessmentIcon />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                Tracker
-              </span>
-            </li>
-          </Link>
+          <NavLink to={"/routine"}>
+            {({ isActive }) => (
+              <li
+                className={`flex rounded-md p-2 cursor-pointer text-black text-md items-center gap-x-4   ${
+                  isActive ? "bg-[#E8F2FD]" : "hover:bg-[#F9FAFB]"
+                }`}
+              >
+                <AssignmentIcon />
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  Routines
+                </span>
+              </li>
+            )}
+          </NavLink>
+          <NavLink to={"/tracker"}>
+            {({ isActive }) => (
+              <li
+                className={`flex rounded-md p-2 cursor-pointer text-black text-md items-center gap-x-4   ${
+                  isActive ? "bg-[#E8F2FD]" : "hover:bg-[#F9FAFB]"
+                }`}
+              >
+                <AssessmentIcon />
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  Tracker
+                </span>
+              </li>
+            )}
+          </NavLink>
         </ul>
       </div>
       <div
