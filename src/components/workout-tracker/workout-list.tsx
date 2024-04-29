@@ -1,39 +1,35 @@
-import { useWorkoutById } from "../../hooks/useWorkoutById";
+import RoutineName from "../user-workouts/workout-item";
+import { useWorkoutSession } from "../../hooks/useWorkout";
 import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
-import WorkoutExerciseItem from "./workout-exercise-item";
-import WorkoutTrackerItem from "./workout-tracker-item";
 
-const WorkoutExerciseList = (workout_id: WorkoutProps) => {
-  const {
-    data: exerciseDetails,
-    error,
-    isLoading,
-  } = useWorkoutById(workout_id);
-  console.log(exerciseDetails);
+const WorkoutTrackerList = () => {
+
+  const { data: workouts, error, isLoading } = useWorkoutSession();
 
   if (error) {
     return <h1>This is an error</h1>;
   }
+
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-full w-11/12 lg:w-2/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white min-h-[100vh] w-11/12 lg:w-3/5 rounded-md p-10">
       <div>
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
       {isLoading && <LoadingComponent />}
-      {exerciseDetails?.map((exercise: any) => {
-        return (
-          <WorkoutTrackerItem
-            key={exercise.exercises.exercise_id}
-            exercise_name={exercise.exercises.exercise_name}
-            exercise_reps={exercise.reps}
-            exercise_sets={exercise.sets}
-            exercise_rest={exercise.rest}
-          />
-        );
-      })}
+      {!isLoading && (
+        <>
+          {workouts?.map((workout: WorkoutProps) => (
+            <RoutineName
+              key={workout.workout_id}
+              workout_name={workout.workout_name}
+              workout_id={workout.workout_id}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 };
 
-export default WorkoutExerciseList;
+export default WorkoutTrackerList;

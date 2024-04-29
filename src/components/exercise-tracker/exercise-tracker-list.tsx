@@ -4,7 +4,7 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ExerciseEditorItem from "../edit-workout/exercise-editor-item";
+import ExerciseTrackerItem from "./exercise-tracker-item";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
@@ -57,7 +57,7 @@ const WorkoutTracker = ({
             <ArrowBackIcon />
           </Link>
           <h1 className="font-medium text-xl text-left h-auto items-center">
-            Edit Routine
+            Track Routine
           </h1>
         </div>
 
@@ -75,17 +75,14 @@ const WorkoutTracker = ({
         </h1>
       </div>
 
-      <input
-        title="RoutineName"
-        className="font-medium text-base text-left w-full flex border-[#ECEDF0] border border-solid bg-white h-auto  lg:w-full rounded-md p-3 mb-4"
-        value={routineName}
-        onChange={(e) => setRoutineName(e.target.value)}
-      />
+      <div className="font-medium text-base text-left w-full flex border-[#ECEDF0] border border-solid bg-white h-auto  lg:w-full rounded-md p-3 mb-4">
+        {routineName}
+      </div>
       {exercises.length > 0 ? (
         <>
           {exercises.map((exercise: any) => {
             return (
-              <ExerciseEditorItem
+              <ExerciseTrackerItem
                 key={exercise.exercises.exercise_id}
                 exercise_name={exercise.exercises.exercise_name}
                 exercise_id={exercise.exercises.exercise_id}

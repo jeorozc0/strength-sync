@@ -1,4 +1,4 @@
-import WorkoutTrackerList from "../components/view-workout/workout-exercise-list";
+import WorkoutTrackerList from "../components/workout-tracker/workout-list";
 import RoutineTrackerCreate from "../components/workout-tracker/workout-tracker-item";
 
 const TrackerPage = () => {

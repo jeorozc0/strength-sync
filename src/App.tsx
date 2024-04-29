@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home-page";
 import CreateWorkoutPage from "./pages/create-workout-page";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -17,7 +17,8 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute />}>
           {/* <Sidebar /> */}
-          <Route path="/" element={<HomePage />} />
+
+          <Route path="/routine" element={<HomePage />} />
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
           <Route
             path="/edit-workout/:workout_id"
@@ -28,10 +29,10 @@ function App() {
             path="/tracker/workout/:workout_id"
             element={<TrackerWorkoutPage />}
           />
+          <Route path="/routine/:workout_id" element={<ViewWorkoutPage />} />
         </Route>
-
+        <Route path="/" element={<Navigate to="routine" />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/routine/:workout_id" element={<ViewWorkoutPage />} />
       </Routes>
     </QueryClientProvider>
   );

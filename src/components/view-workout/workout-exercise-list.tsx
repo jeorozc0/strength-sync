@@ -1,34 +1,38 @@
-import RoutineName from "../user-workouts/workout-item";
-import { useWorkout } from "../../hooks/useWorkout";
+import { useWorkoutById } from "../../hooks/useWorkoutById";
 import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
+import WorkoutExerciseItem from "./workout-exercise-item";
 
-const WorkoutTrackerList = () => {
-  const { data: workouts, error, isLoading } = useWorkout();
+const WorkoutExerciseList = (workout_id: WorkoutProps, {workout_name}: WorkoutProps) => {
+  const {
+    data: exerciseDetails,
+    error,
+    isLoading,
+  } = useWorkoutById(workout_id);
+  console.log(exerciseDetails);
 
   if (error) {
     return <h1>This is an error</h1>;
   }
-
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white min-h-[100vh] w-11/12 lg:w-3/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-full w-11/12 lg:w-full rounded-md p-10">
       <div>
-        <h1 className="font-medium text-base text-left">Tracked Routines</h1>
+        <h1 className="font-medium text-base text-left">{workout_name}</h1>
       </div>
       {isLoading && <LoadingComponent />}
-      {!isLoading && (
-        <>
-          {workouts?.map((workout: WorkoutProps) => (
-            <RoutineName
-              key={workout.workout_id}
-              workout_name={workout.workout_name}
-              workout_id={workout.workout_id}
-            />
-          ))}
-        </>
-      )}
+      {exerciseDetails?.map((exercise: any) => {
+        return (
+          <WorkoutExerciseItem
+            key={exercise.exercises.exercise_id}
+            exercise_name={exercise.exercises.exercise_name}
+            exercise_reps={exercise.reps}
+            exercise_sets={exercise.sets}
+            exercise_rest={exercise.rest}
+          />
+        );
+      })}
     </div>
   );
 };
 
-export default WorkoutTrackerList;
+export default WorkoutExerciseList;

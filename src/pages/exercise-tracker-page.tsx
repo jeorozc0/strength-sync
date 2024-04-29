@@ -65,7 +65,7 @@ const TrackerWorkoutPage = () => {
     } else {
       console.error("Failed to create new workout");
     }
-    navigate(`/`);
+    navigate(`/tracker`);
   }
 
   return (
