@@ -89,7 +89,6 @@ const WorkoutTracker = ({
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}
-                removeExercise={deleteExerciseNow}
                 updateExerciseDetails={updateExerciseDetails}
               />
             );
