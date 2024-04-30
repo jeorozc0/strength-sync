@@ -31,7 +31,7 @@ export interface ExerciseEditorItemProps {
   exercise_name: string;
   exercise_id?: string;
   removeExercise?: (exercise_id: string) => void;
-  updateExerciseDetails: any;
+  updateExerciseDetails?: any;
   sets?: number;
   reps?: number;
   rest?: number;

@@ -9,45 +9,14 @@ import ExerciseTrackerItem from "./exercise-tracker-item";
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
   workout_name: string;
-  setLocalExerciseDetails: any;
-  deleteExerciseNow: any;
-  submitWorkout: (workout: string, exerciseDetails: any) => void;
 }
 
-const WorkoutTracker = ({
-  exercises,
-  submitWorkout,
-  workout_name,
-  setLocalExerciseDetails,
-  deleteExerciseNow,
-}: WorkoutEditorProps) => {
+const WorkoutTracker = ({ exercises, workout_name }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
   console.log(workout_name);
   useEffect(() => {
     setRoutineName(workout_name);
   }, [workout_name]);
-
-  const updateExerciseDetails = (
-    exercise_id: string,
-    sets: number,
-    reps: number,
-    rest: number
-  ) => {
-    const updated: EditExerciseProps[] | undefined = exercises?.map(
-      (subArray) => {
-        if (subArray.exercises.exercise_id === exercise_id) {
-          return {
-            ...subArray,
-            sets,
-            reps,
-            rest,
-          };
-        }
-        return subArray;
-      }
-    );
-    setLocalExerciseDetails(updated);
-  };
 
   return (
     <div className="flex flex-col w-screen h-auto">
@@ -64,7 +33,7 @@ const WorkoutTracker = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => submitWorkout(routineName, exercises)}
+          onClick={() => console.log("Hi")}
         >
           Save Routine
         </Button>
@@ -89,7 +58,6 @@ const WorkoutTracker = ({
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}
-                updateExerciseDetails={updateExerciseDetails}
               />
             );
           })}
