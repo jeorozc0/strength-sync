@@ -4,8 +4,6 @@ import { useState } from "react";
 
 const RoutineTrackerCreate = () => {
   const { data: workouts } = useWorkout();
-
-  console.log(workouts);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

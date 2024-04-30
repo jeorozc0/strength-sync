@@ -13,7 +13,6 @@ interface WorkoutEditorProps {
 
 const WorkoutTracker = ({ exercises, workout_name }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
-  console.log(workout_name);
   useEffect(() => {
     setRoutineName(workout_name);
   }, [workout_name]);

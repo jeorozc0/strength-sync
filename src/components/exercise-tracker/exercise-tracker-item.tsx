@@ -35,7 +35,7 @@ const ExerciseTrackerItem = ({
           <div className="w-20 h-10 flex justify-center">RPE</div>
         </div>
         {[...Array(sets)].map((e, i) => {
-          return <ExerciseSetItem i={i} reps={reps} />;
+          return <ExerciseSetItem key={i} i={i} reps={reps} />;
         })}
       </FormLabel>
     </div>
