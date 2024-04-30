@@ -9,7 +9,7 @@ import Dialog from "@mui/material/Dialog";
 import AddIcon from "@mui/icons-material/Add";
 import { blue } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 type SimpleDialogProps = {
   onClose: () => void;
@@ -24,7 +24,6 @@ const SimpleDialog = ({ onClose, open, workouts }: SimpleDialogProps) => {
   };
 
   const handleListItemClick = (workout: any) => {
-    console.log("Editing workout with id: " + workout.workout_id);
     navigate(`/tracker/workout/${workout.workout_id}`);
     onClose();
   };
