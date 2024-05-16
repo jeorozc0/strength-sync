@@ -2,20 +2,57 @@ import { Button } from "@mui/material";
 import { EditExerciseProps } from "../../types/exercise-types";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ExerciseTrackerItem from "./exercise-tracker-item";
+import { useAuth } from "../../hooks/useAuth";
+import { useCreateWorkoutSession } from "../../hooks/useWorkout";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
   workout_name: string;
+  workout_id: any;
 }
 
-const WorkoutTracker = ({ exercises, workout_name }: WorkoutEditorProps) => {
+const WorkoutTracker = ({
+  exercises,
+  workout_name,
+  workout_id,
+}: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
+  const { user } = useAuth();
+  const user_id = user?.id;
+  const navigate = useNavigate();
+  const { mutateAsync: createWorkoutSession } = useCreateWorkoutSession();
   useEffect(() => {
     setRoutineName(workout_name);
   }, [workout_name]);
+
+  async function logWorkout(workout_id: string) {
+    const newWorkout = await createWorkoutSession({
+      workout_id,
+      user_id,
+    });
+    if (newWorkout) {
+      console.log("Success");
+      // const workoutExercisesSession: any = exerciseDetails.map(
+      //   (exercise: any) => {
+      //     return {
+      //       session_id,
+      //       workout_exercise_id,
+      //       reps_per_set,
+      //       reps: exercise.reps,
+      //       weight_per_set,
+      //       rpe_per_set,
+      //     };
+      //   }
+      // );
+      // await editExercises({ exercise: workoutExercises, workout_id });
+    } else {
+      console.error("Failed to create new workout");
+    }
+    navigate(`/tracker`);
+  }
 
   return (
     <div className="flex flex-col w-screen h-auto">
@@ -32,7 +69,7 @@ const WorkoutTracker = ({ exercises, workout_name }: WorkoutEditorProps) => {
         <Button
           variant="contained"
           size="small"
-          onClick={() => console.log("Hi")}
+          onClick={() => logWorkout(workout_id)}
         >
           Save Routine
         </Button>

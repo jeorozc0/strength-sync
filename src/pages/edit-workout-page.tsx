@@ -47,7 +47,6 @@ const EditWorkoutPage = () => {
       ...localArrayofExercies,
       { exercises: newExercise, sets: 0, reps: 0, rest: 0 },
     ];
-    console.log(newExercisesToAdd);
     setlocalArrayofExercies(newExercisesToAdd);
   };
   const deleteExerciseNow = (exerciseID: any) => {
@@ -74,9 +73,7 @@ const EditWorkoutPage = () => {
           user_id: user?.id
         };
       });
-      console.log(workoutExercises);
       await deleteExercises({ workout_id });
-      console.log(workoutExercises);
       await editExercises({ exercise: workoutExercises, workout_id });
     } else {
       console.error("Failed to create new workout");

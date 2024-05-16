@@ -1,6 +1,4 @@
 import { FormLabel } from "@mui/material";
-
-import { ExerciseEditorItemProps } from "../../types/exercise-types";
 import { useState } from "react";
 import ExerciseSetItem from "./exercise-set-item";
 
@@ -8,8 +6,38 @@ const ExerciseTrackerItem = ({
   exercise_name,
   sets,
   reps,
-}: ExerciseEditorItemProps) => {
+  exercise_id,
+}: any) => {
   const [notes, setNotes] = useState("");
+  const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
+
+  const addItem = (
+    exercise_id: any,
+    localReps: any,
+    localWeight: any,
+    localRPE: any
+  ) => {
+    setExerciseTrackList((prevList) => {
+      const existingEntryIndex = prevList.findIndex(
+        (entry) => entry.exercise_id === exercise_id
+      );
+
+      const newItem = {
+        exercise_id,
+        localReps,
+        localWeight,
+        localRPE,
+      };
+
+      if (existingEntryIndex !== -1) {
+        return prevList.map((entry, index) =>
+          index === existingEntryIndex ? newItem : entry
+        );
+      } else {
+        return [...prevList, newItem];
+      }
+    });
+  };
 
   return (
     <div className=" flex align-middle justify-center flex-col h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-10 gap-5 mb-6">
@@ -35,7 +63,15 @@ const ExerciseTrackerItem = ({
           <div className="w-20 h-10 flex justify-center">RPE</div>
         </div>
         {[...Array(sets)].map((e, i) => {
-          return <ExerciseSetItem key={i} i={i} reps={reps} />;
+          return (
+            <ExerciseSetItem
+              exercise_id={exercise_id}
+              key={i}
+              i={i}
+              reps={reps}
+              setExerciseTrackList={addItem}
+            />
+          );
         })}
       </FormLabel>
     </div>

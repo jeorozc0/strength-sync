@@ -32,7 +32,6 @@ const CreateWorkoutPage = () => {
       ...localArrayofExercies,
       { exercises: newExercise, sets: 0, reps: 0, rest: 0 },
     ];
-    console.log(newExercisesToAdd);
     setlocalArrayofExercies(newExercisesToAdd);
   };
   const deleteExerciseNow = (exerciseID: any) => {
@@ -44,7 +43,6 @@ const CreateWorkoutPage = () => {
   };
 
   async function EditWorkout(workout_name: string, exerciseDetails: any) {
-    console.log(user_id);
     const newWorkout = await submitWorkout({
       workout_name,
       user_id,

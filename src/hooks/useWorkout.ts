@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { WorkoutProps } from "../types/workout-types";
 import {
   createWorkout,
+  createWorkoutSession,
   deleteWorkout,
   editWorkout,
   FetchWorkout,
@@ -28,6 +29,17 @@ export function useCreateWorkout() {
       createWorkout({ workout_name, user_id }),
     onSuccess: () => {
       queryClient.invalidateQueries("workout");
+    },
+  });
+}
+
+export function useCreateWorkoutSession() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ workout_id, user_id }: WorkoutProps) =>
+      createWorkoutSession({ workout_id, user_id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries("workout_session");
     },
   });
 }

@@ -9,7 +9,6 @@ const WorkoutExerciseList = (workout_id: WorkoutProps, {workout_name}: WorkoutPr
     error,
     isLoading,
   } = useWorkoutById(workout_id);
-  console.log(exerciseDetails);
 
   if (error) {
     return <h1>This is an error</h1>;

@@ -30,7 +30,6 @@ const deletWorkoutExercise = async (workout_id: any) => {
   if (error) {
     throw new Error(error.message);
   }
-  console.log("Deleted all exercises with workout ID: " + workout_id)
 };
 
 const replaceWorkoutExercise = async (exercise: any, workout_id: any) => {
