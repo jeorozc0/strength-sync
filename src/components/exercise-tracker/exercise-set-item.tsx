@@ -25,6 +25,8 @@ const ExerciseSetItem = ({
   useEffect(() => {
     setUUID(uuidv4());
   }, []);
+
+  
   const defaultReps = reps || "0";
   const defaultWeight = "0";
   const defaultRPE = "0";

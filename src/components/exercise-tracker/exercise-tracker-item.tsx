@@ -8,6 +8,7 @@ const ExerciseTrackerItem = ({
   reps,
   exercise_id,
   setExerciseTrackList,
+  workout_exercise_id
 }: any) => {
   const [notes, setNotes] = useState("");
 
@@ -16,7 +17,7 @@ const ExerciseTrackerItem = ({
     exercise_id: any,
     localReps: any,
     localWeight: any,
-    localRPE: any
+    localRPE: any,
   ) => {
     setExerciseTrackList((prevList: any) => {
       const existingEntryIndex = prevList.findIndex(
@@ -25,7 +26,7 @@ const ExerciseTrackerItem = ({
 
       const newItem = {
         session_exercise_id,
-        exercise_id,
+        workout_exercise_id,
         localReps,
         localWeight,
         localRPE,

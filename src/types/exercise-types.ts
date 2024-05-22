@@ -9,6 +9,7 @@ export interface EditExerciseProps {
   reps: number;
   sets: number;
   rest: number;
+  workout_exercise_id?: any;
 }
 
 export interface ExercisePropsForAPI {
@@ -17,6 +18,16 @@ export interface ExercisePropsForAPI {
   sets: number;
   reps: number;
   rest: number;
+  workout_exercise_id?: any;
+}
+
+export interface ExerciseSessionPropsForAPI {
+  session_exercise_id: any;
+  session_id: any;
+  workout_exercise_id:any;
+  reps_per_set: number;
+  weight_per_set: number;
+  rpe_per_set: number;
 }
 
 export interface ExercisePropsForLocal {

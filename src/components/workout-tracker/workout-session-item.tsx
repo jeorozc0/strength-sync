@@ -3,10 +3,13 @@ import { WorkoutProps } from "../../types/workout-types";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link, useNavigate } from "react-router-dom";
-import { useDeleteWorkout } from "../../hooks/useWorkout";
+import { useDeleteWorkoutSession } from "../../hooks/useWorkout";
 
-const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
-  const { mutateAsync: deleteWorkout } = useDeleteWorkout();
+const WorkoutSessionItem = ({
+  workout_session_id,
+  workout_id,
+}: WorkoutProps) => {
+  const { mutateAsync: deleteWorkout } = useDeleteWorkoutSession();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -24,7 +27,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
 
   function removeWorkout(event: any) {
     event.stopPropagation();
-    deleteWorkout(workout_id as unknown as number);
+    deleteWorkout(workout_session_id);
     handleClose(event);
   }
 
@@ -40,7 +43,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
       className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
     >
       <div className="w-full h-full flex justify-between align-middle">
-        <p className="font-medium text-lg">{workout_name}</p>
+        <p className="font-medium text-lg">{workout_session_id}</p>
         <IconButton
           aria-label="more"
           id="long-button"
@@ -70,4 +73,4 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   );
 };
 
-export default WorkoutItem;
+export default WorkoutSessionItem;

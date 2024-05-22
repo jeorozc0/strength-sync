@@ -1,4 +1,7 @@
-import { ExercisePropsForAPI } from "../../types/exercise-types";
+import {
+  ExercisePropsForAPI,
+  ExerciseSessionPropsForAPI,
+} from "../../types/exercise-types";
 import supabase from "../supabase/supabase";
 
 const fetchExercise = async () => {
@@ -14,6 +17,19 @@ const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
   const { data, error } = await supabase
     .from("workout_exercises")
     .insert(exercise);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+const createWorkoutExerciseSession = async (
+  exerciseSession: ExerciseSessionPropsForAPI[]
+) => {
+  console.log(exerciseSession)
+  const { data, error } = await supabase
+    .from("session_exercises")
+    .insert(exerciseSession);
   if (error) {
     throw new Error(error.message);
   }
@@ -48,6 +64,7 @@ const replaceWorkoutExercise = async (exercise: any, workout_id: any) => {
 export {
   fetchExercise,
   createWorkoutExercise,
+  createWorkoutExerciseSession,
   replaceWorkoutExercise,
   deletWorkoutExercise,
 };

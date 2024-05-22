@@ -3,4 +3,5 @@ export interface WorkoutProps {
   workout_name?: string;
   user_id?: any
   session_id?: any
+  workout_session_id?: any;
 }

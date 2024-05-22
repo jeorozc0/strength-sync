@@ -42,7 +42,15 @@ const fetchWorkoutNameById = async ({ workout_id }: WorkoutProps) => {
 const fetchWorkoutById = async ({ workout_id }: WorkoutProps) => {
   const { data, error } = await supabase
     .from("workout_exercises")
-    .select("sets,reps,rest, exercises!inner(exercise_name, exercise_id)")
+    .select(
+      `
+    sets,
+    reps,
+    rest,
+    workout_exercise_id,
+    exercises:exercises!inner(exercise_name, exercise_id)
+  `
+    )
     .eq("workout_id", workout_id);
 
   if (error) {
@@ -123,5 +131,5 @@ export {
   fetchWorkoutNameById,
   FetchWorkoutSession,
   createWorkoutSession,
-  deleteWorkoutSession
+  deleteWorkoutSession,
 };

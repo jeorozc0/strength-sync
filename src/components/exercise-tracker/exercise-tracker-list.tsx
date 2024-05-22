@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ExerciseTrackerItem from "./exercise-tracker-item";
 import { useAuth } from "../../hooks/useAuth";
 import { useCreateWorkoutSession } from "../../hooks/useWorkout";
+import { useCreateWorkoutExerciseSession } from "../../hooks/useExercise";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
@@ -24,6 +25,8 @@ const WorkoutTracker = ({
   const user_id = user?.id;
   const navigate = useNavigate();
   const { mutateAsync: createWorkoutSession } = useCreateWorkoutSession();
+  const { mutateAsync: createExercisetSession } =
+    useCreateWorkoutExerciseSession();
   useEffect(() => {
     setRoutineName(workout_name);
   }, [workout_name]);
@@ -41,6 +44,18 @@ const WorkoutTracker = ({
     if (newWorkout) {
       console.log("Success");
       console.log(exerciseTrackList);
+      console.log(newWorkout);
+      const sessionExercises: any[] = exerciseTrackList.map((exercise: any) => {
+        return {
+          session_exercise_id: exercise.session_exercise_id,
+          session_id: newWorkout[0].session_id,
+          workout_exercise_id: exercise.workout_exercise_id,
+          reps_per_set: exercise.localReps,
+          weight_per_set: exercise.localWeight,
+          rpe_per_set: exercise.localRPE,
+        };
+      });
+      await createExercisetSession(sessionExercises);
     } else {
       console.error("Failed to create new workout");
     }
@@ -85,6 +100,7 @@ const WorkoutTracker = ({
                 key={exercise.exercises.exercise_id}
                 exercise_name={exercise.exercises.exercise_name}
                 exercise_id={exercise.exercises.exercise_id}
+                workout_exercise_id={exercise.workout_exercise_id}
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}

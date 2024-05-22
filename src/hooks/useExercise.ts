@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import {
   createWorkoutExercise,
+  createWorkoutExerciseSession,
   deletWorkoutExercise,
   fetchExercise,
   replaceWorkoutExercise,
@@ -13,6 +14,12 @@ export default function useExercise() {
 export function useCreateWorkoutExercise() {
   return useMutation({
     mutationFn: (exercise: any[]) => createWorkoutExercise(exercise),
+  });
+}
+
+export function useCreateWorkoutExerciseSession() {
+  return useMutation({
+    mutationFn: (exercise: any[]) => createWorkoutExerciseSession(exercise),
   });
 }
 
