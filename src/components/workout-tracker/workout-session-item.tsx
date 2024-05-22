@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WorkoutProps } from "../../types/workout-types";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDeleteWorkoutSession } from "../../hooks/useWorkout";
 
 const WorkoutSessionItem = ({
@@ -31,17 +31,15 @@ const WorkoutSessionItem = ({
     handleClose(event);
   }
 
-  function editWorkout(event: any) {
-    event.stopPropagation();
-    navigate(`/edit-workout/${workout_id}`);
-    handleClose(event);
-  }
+  // function editWorkout(event: any) {
+  //   event.stopPropagation();
+  //   navigate(`/edit-workout/${workout_id}`);
+  //   handleClose(event);
+  // }
 
   return (
-    <Link
-      to={`/routine/${workout_id}`}
-      className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
-    >
+    // Start creation of display of info of session
+    <div className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border border-solid bg-white rounded-md p-5">
       <div className="w-full h-full flex justify-between align-middle">
         <p className="font-medium text-lg">{workout_session_id}</p>
         <IconButton
@@ -65,11 +63,11 @@ const WorkoutSessionItem = ({
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem onClick={editWorkout}>Edit Workout</MenuItem>
+          {/* <MenuItem onClick={editWorkout}>Edit Workout</MenuItem> */}
           <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
         </Menu>
       </div>
-    </Link>
+    </div>
   );
 };
 
