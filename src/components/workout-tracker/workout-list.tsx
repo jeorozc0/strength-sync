@@ -4,7 +4,6 @@ import { WorkoutProps } from "../../types/workout-types";
 import LoadingComponent from "../loading-component/loading-component";
 
 const WorkoutTrackerList = () => {
-
   const { data: workouts, error, isLoading } = useWorkoutSession();
 
   if (error) {
@@ -21,8 +20,8 @@ const WorkoutTrackerList = () => {
         <>
           {workouts?.map((workout: WorkoutProps) => (
             <RoutineName
-              key={workout.workout_id}
-              workout_name={workout.workout_name}
+              key={workout.session_id}
+              workout_name={workout.session_id}
               workout_id={workout.workout_id}
             />
           ))}

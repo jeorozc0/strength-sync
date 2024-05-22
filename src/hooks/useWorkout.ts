@@ -4,6 +4,7 @@ import {
   createWorkout,
   createWorkoutSession,
   deleteWorkout,
+  deleteWorkoutSession,
   editWorkout,
   FetchWorkout,
   FetchWorkoutSession,
@@ -38,6 +39,16 @@ export function useCreateWorkoutSession() {
   return useMutation({
     mutationFn: ({ workout_id, user_id }: WorkoutProps) =>
       createWorkoutSession({ workout_id, user_id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries("workout_session");
+    },
+  });
+}
+
+export function useDeleteWorkoutSession() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (session_id: number) => deleteWorkoutSession(session_id),
     onSuccess: () => {
       queryClient.invalidateQueries("workout_session");
     },

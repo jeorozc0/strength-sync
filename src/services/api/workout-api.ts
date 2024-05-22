@@ -67,7 +67,8 @@ const createWorkout = async ({ workout_name, user_id }: WorkoutProps) => {
 const createWorkoutSession = async ({ workout_id, user_id }: WorkoutProps) => {
   const { data, error } = await supabase
     .from("workout_session")
-    .insert({ workout_id, user_id });
+    .insert({ workout_id, user_id })
+    .select("*");
 
   if (error) {
     throw new Error(error.message);
@@ -100,6 +101,18 @@ const deleteWorkout = async (workout_id: number) => {
 
   return data;
 };
+const deleteWorkoutSession = async (session_id: number) => {
+  const { data, error } = await supabase
+    .from("workout_session")
+    .delete()
+    .eq("session_id", session_id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
 
 export {
   FetchWorkout,
@@ -110,4 +123,5 @@ export {
   fetchWorkoutNameById,
   FetchWorkoutSession,
   createWorkoutSession,
+  deleteWorkoutSession
 };

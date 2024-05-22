@@ -27,30 +27,24 @@ const WorkoutTracker = ({
   useEffect(() => {
     setRoutineName(workout_name);
   }, [workout_name]);
+  const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
 
-  async function logWorkout(workout_id: string) {
+  useEffect(() => {
+    console.log("Updated exerciseTrackList:", exerciseTrackList);
+  }, [exerciseTrackList]);
+
+  async function logWorkout(workout_id: string, exerciseTrackList: any) {
     const newWorkout = await createWorkoutSession({
       workout_id,
       user_id,
     });
     if (newWorkout) {
       console.log("Success");
-      // const workoutExercisesSession: any = exerciseDetails.map(
-      //   (exercise: any) => {
-      //     return {
-      //       session_id,
-      //       workout_exercise_id,
-      //       reps_per_set,
-      //       reps: exercise.reps,
-      //       weight_per_set,
-      //       rpe_per_set,
-      //     };
-      //   }
-      // );
-      // await editExercises({ exercise: workoutExercises, workout_id });
+      console.log(exerciseTrackList);
     } else {
       console.error("Failed to create new workout");
     }
+
     navigate(`/tracker`);
   }
 
@@ -69,7 +63,7 @@ const WorkoutTracker = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => logWorkout(workout_id)}
+          onClick={() => logWorkout(workout_id, exerciseTrackList)}
         >
           Save Routine
         </Button>
@@ -94,6 +88,7 @@ const WorkoutTracker = ({
                 sets={exercise.sets}
                 reps={exercise.reps}
                 rest={exercise.rest}
+                setExerciseTrackList={setExerciseTrackList}
               />
             );
           })}

@@ -7,22 +7,24 @@ const ExerciseTrackerItem = ({
   sets,
   reps,
   exercise_id,
+  setExerciseTrackList,
 }: any) => {
   const [notes, setNotes] = useState("");
-  const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
 
   const addItem = (
+    session_exercise_id: any,
     exercise_id: any,
     localReps: any,
     localWeight: any,
     localRPE: any
   ) => {
-    setExerciseTrackList((prevList) => {
+    setExerciseTrackList((prevList: any) => {
       const existingEntryIndex = prevList.findIndex(
-        (entry) => entry.exercise_id === exercise_id
+        (entry: any) => entry.session_exercise_id === session_exercise_id
       );
 
       const newItem = {
+        session_exercise_id,
         exercise_id,
         localReps,
         localWeight,
@@ -30,12 +32,21 @@ const ExerciseTrackerItem = ({
       };
 
       if (existingEntryIndex !== -1) {
-        return prevList.map((entry, index) =>
+        return prevList.map((entry: any, index: any) =>
           index === existingEntryIndex ? newItem : entry
         );
       } else {
         return [...prevList, newItem];
       }
+    });
+  };
+
+  const deleteItem = (exercise_uuid: any) => {
+    setExerciseTrackList((previousExerciseList: any[]) => {
+      const filteredList = previousExerciseList.filter(
+        (data: any) => data.session_exercise_id !== exercise_uuid
+      );
+      return filteredList;
     });
   };
 
@@ -61,18 +72,22 @@ const ExerciseTrackerItem = ({
           <div className="w-20 h-10 flex justify-center">Reps</div>
           <div className="w-20 h-10 flex justify-center">Weight</div>
           <div className="w-20 h-10 flex justify-center">RPE</div>
+          <div className="w-10 h-10 flex justify-center"></div>
         </div>
-        {[...Array(sets)].map((e, i) => {
-          return (
-            <ExerciseSetItem
-              exercise_id={exercise_id}
-              key={i}
-              i={i}
-              reps={reps}
-              setExerciseTrackList={addItem}
-            />
-          );
-        })}
+        <div className="gap-4 flex flex-col">
+          {[...Array(sets)].map((e, i) => {
+            return (
+              <ExerciseSetItem
+                exercise_id={exercise_id}
+                key={i}
+                i={i}
+                reps={reps}
+                setExerciseTrackList={addItem}
+                removeTrackedExercise={deleteItem}
+              />
+            );
+          })}
+        </div>
       </FormLabel>
     </div>
   );

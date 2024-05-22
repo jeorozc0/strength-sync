@@ -3,10 +3,10 @@ import { WorkoutProps } from "../../types/workout-types";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link, useNavigate } from "react-router-dom";
-import { useDeleteWorkout } from "../../hooks/useWorkout";
+import { useDeleteWorkoutSession } from "../../hooks/useWorkout";
 
 const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
-  const { mutateAsync: deleteWorkout } = useDeleteWorkout();
+  const { mutateAsync: deleteWorkout } = useDeleteWorkoutSession();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -24,7 +24,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
 
   function removeWorkout(event: any) {
     event.stopPropagation();
-    deleteWorkout(workout_id as unknown as number);
+    deleteWorkout(workout_name as unknown as number);
     handleClose(event);
   }
 
