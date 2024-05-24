@@ -4,11 +4,18 @@ import {
   createWorkoutExerciseSession,
   deletWorkoutExercise,
   fetchExercise,
+  fetchExerciseSession,
   replaceWorkoutExercise,
 } from "../services/api/exercise-api";
 
 export default function useExercise() {
   return useQuery("exercise", () => fetchExercise());
+}
+
+export function useExerciseSession(session_id: any) {
+  return useQuery(["exercisesession", session_id], () =>
+    fetchExerciseSession(session_id)
+  );
 }
 
 export function useCreateWorkoutExercise() {

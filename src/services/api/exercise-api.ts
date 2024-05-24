@@ -13,6 +13,18 @@ const fetchExercise = async () => {
   return data;
 };
 
+const fetchExerciseSession = async (session_id: any) => {
+  const { data, error } = await supabase
+    .from("session_exercises")
+    .select("*")
+    .eq("session_id", session_id);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
 const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
   const { data, error } = await supabase
     .from("workout_exercises")
@@ -26,7 +38,7 @@ const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
 const createWorkoutExerciseSession = async (
   exerciseSession: ExerciseSessionPropsForAPI[]
 ) => {
-  console.log(exerciseSession)
+  console.log(exerciseSession);
   const { data, error } = await supabase
     .from("session_exercises")
     .insert(exerciseSession);
@@ -63,6 +75,7 @@ const replaceWorkoutExercise = async (exercise: any, workout_id: any) => {
 
 export {
   fetchExercise,
+  fetchExerciseSession,
   createWorkoutExercise,
   createWorkoutExerciseSession,
   replaceWorkoutExercise,

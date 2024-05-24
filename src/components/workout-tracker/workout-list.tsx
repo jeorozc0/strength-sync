@@ -5,6 +5,9 @@ import WorkoutSessionItem from "./workout-session-item";
 
 const WorkoutTrackerList = () => {
   const { data: workouts, error, isLoading } = useWorkoutSession();
+  const sortedWorkouts = workouts?.sort((a: WorkoutProps, b: WorkoutProps) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 
   if (error) {
     return <h1>This is an error</h1>;
@@ -18,11 +21,12 @@ const WorkoutTrackerList = () => {
       {isLoading && <LoadingComponent />}
       {!isLoading && (
         <>
-          {workouts?.map((workout: WorkoutProps) => (
+          {sortedWorkouts?.map((workout: WorkoutProps) => (
             <WorkoutSessionItem
               key={workout.session_id}
               workout_session_id={workout.session_id}
               workout_id={workout.workout_id}
+              date = {workout.date}
             />
           ))}
         </>
