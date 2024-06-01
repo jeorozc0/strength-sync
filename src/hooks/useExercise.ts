@@ -2,11 +2,12 @@ import { useMutation, useQuery } from "react-query";
 import {
   createWorkoutExercise,
   createWorkoutExerciseSession,
-  deletWorkoutExercise,
+  deleteWorkoutExercise,
   fetchExercise,
   fetchExerciseSession,
   replaceWorkoutExercise,
 } from "../services/api/exercise-api";
+import { EditExerciseProps } from "../types/exercise-types";
 
 export default function useExercise() {
   return useQuery("exercise", () => fetchExercise());
@@ -44,7 +45,7 @@ export function useUpdateWorkoutExercise() {
 
 export function useDeleteWorkoutExercise() {
   return useMutation({
-    mutationFn: ({ workout_id }: { workout_id: any }) =>
-      deletWorkoutExercise(workout_id),
+    mutationFn: (deletedExercises: any) =>
+      deleteWorkoutExercise(deletedExercises),
   });
 }

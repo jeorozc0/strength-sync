@@ -24,10 +24,14 @@ export interface ExercisePropsForAPI {
 export interface ExerciseSessionPropsForAPI {
   session_exercise_id: any;
   session_id: any;
-  workout_exercise_id:any;
+  workout_exercise_id: any;
   reps_per_set: number;
   weight_per_set: number;
   rpe_per_set: number;
+}
+
+export interface ExerciseSessionPropsForDelete {
+  workout_exercise_id: any;
 }
 
 export interface ExercisePropsForLocal {
@@ -41,7 +45,7 @@ export interface ExercisePropsForLocal {
 export interface ExerciseEditorItemProps {
   exercise_name: string;
   exercise_id?: string;
-  removeExercise: any
+  removeExercise: any;
   updateExerciseDetails?: any;
   sets?: number;
   reps?: number;

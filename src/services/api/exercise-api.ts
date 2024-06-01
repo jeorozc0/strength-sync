@@ -1,6 +1,8 @@
 import {
+  EditExerciseProps,
   ExercisePropsForAPI,
   ExerciseSessionPropsForAPI,
+  ExerciseSessionPropsForDelete,
 } from "../../types/exercise-types";
 import supabase from "../supabase/supabase";
 
@@ -16,7 +18,7 @@ const fetchExercise = async () => {
 const fetchExerciseSession = async (session_id: any) => {
   const { data, error } = await supabase
     .from("session_exercises")
-    .select("*")
+    .select("*, workout_exercises(exercise_id)")
     .eq("session_id", session_id);
   if (error) {
     throw new Error(error.message);
@@ -48,13 +50,18 @@ const createWorkoutExerciseSession = async (
 
   return data;
 };
+const deleteWorkoutExercise = async (
+  deletedExercises: ExerciseSessionPropsForDelete[]
+) => {
+  const exerciseIds = deletedExercises.map(
+    (exercise) => exercise.workout_exercise_id
+  );
 
-const deletWorkoutExercise = async (workout_id: any) => {
+  console.log(exerciseIds);
   const { error } = await supabase
     .from("workout_exercises")
     .delete()
-    .eq("workout_id", `${workout_id}`);
-
+    .in("workout_exercise_id", exerciseIds); 
   if (error) {
     throw new Error(error.message);
   }
@@ -79,5 +86,5 @@ export {
   createWorkoutExercise,
   createWorkoutExerciseSession,
   replaceWorkoutExercise,
-  deletWorkoutExercise,
+  deleteWorkoutExercise,
 };

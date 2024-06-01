@@ -8,14 +8,20 @@ import { useEffect, useState } from "react";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
+  deletedExercises: EditExerciseProps[];
   workout_name: string;
   setLocalExerciseDetails: any;
   deleteExerciseNow: any;
-  submitWorkout: (workout: string, exerciseDetails: any) => void;
+  submitWorkout: (
+    workout: string,
+    exerciseDetails: any,
+    exerciseDeleted: any
+  ) => void;
 }
 
 const WorkoutEditor = ({
   exercises,
+  deletedExercises,
   submitWorkout,
   workout_name,
   setLocalExerciseDetails,
@@ -63,7 +69,9 @@ const WorkoutEditor = ({
         <Button
           variant="contained"
           size="small"
-          onClick={() => submitWorkout(routineName, exercises)}
+          onClick={() =>
+            submitWorkout(routineName, exercises, deletedExercises)
+          }
         >
           Save Routine
         </Button>
