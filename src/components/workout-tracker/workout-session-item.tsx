@@ -6,6 +6,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDeleteWorkoutSession } from "../../hooks/useWorkout";
 import { useWorkoutName } from "../../hooks/useWorkoutById";
 import moment from "moment";
+import ExericeSessionList from "./exercise-session-list";
 import { useExerciseSession } from "../../hooks/useExercise";
 
 const WorkoutSessionItem = ({
@@ -14,14 +15,9 @@ const WorkoutSessionItem = ({
   date,
 }: WorkoutProps) => {
   const { mutateAsync: deleteWorkout } = useDeleteWorkoutSession();
-  const { data: workout, isLoading, error } = useWorkoutName({ workout_id });
-  const {
-    data: workoutSession,
-    isLoading: sessionLoad,
-    error: sessionError,
-  } = useExerciseSession(workout_session_id );
-
-  console.log(workoutSession)
+  const { data: workout } = useWorkoutName({ workout_id });
+  const { data: workoutExercises } = useExerciseSession(workout_session_id);
+  console.log(workoutExercises);
 
   const fmtDate = moment(date).format("MM/DD/YY");
   // const navigate = useNavigate();
@@ -52,10 +48,9 @@ const WorkoutSessionItem = ({
   // }
 
   return (
-    // Start creation of display of info of session
     <div className=" flex flex-col align-middle justify-center h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-5">
       <div className="w-full h-full flex justify-between align-middle">
-        <div>
+        <div className="flex flex-col">
           <p className="font-medium text-lg">{workout?.[0]?.workout_name}</p>
           <p className="font-medium text-base">{fmtDate}</p>
         </div>
@@ -85,10 +80,13 @@ const WorkoutSessionItem = ({
           <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
         </Menu>
       </div>
-      <div className="w-full h-full flex justify-between align-middle">
-        <p className="font-medium text-lg">{workout?.[0]?.workout_name}</p>
-        <p className="font-medium text-base">{fmtDate}</p>
+      <hr className="h-0.5" />
+      <div className="w-10 h-10 flex items-center justify-center text-black text-center">
+        Set
       </div>
+      {workoutExercises?.map((workoutExercise: any) => (
+        <ExericeSessionList key={workoutExercise.session_exercise_id} />
+      ))}
     </div>
   );
 };
