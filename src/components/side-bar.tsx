@@ -75,16 +75,14 @@ const SideBar = () => {
         </ul>
       </div>
       <div
-        className={`flex items-center justify-between ${
-          open ? "w-64" : "w-20"
-        } h-14 p-4 gap-2`}
+        className={`flex items-center justify-${open ? "between" : "center"} h-14 p-4 gap-2`}
       >
-        <span className={`${!open && "hidden"} origin-left duration-200`}>
+        <span className={`${!open && "hidden"} w-full h-full origin-left duration-200`}>
           {user?.email}
         </span>
         <button
           title="Logout"
-          className="flex items-center w-full h-full"
+          className="flex items-center w-auto h-full"
           onClick={handleLogout}
         >
           <LogoutIcon />

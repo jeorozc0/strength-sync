@@ -80,7 +80,6 @@ const EditWorkoutPage = () => {
           workout_exercise_id: exercise.workout_exercise_id,
         };
       });
-      console.log(deletedExercises);
       await deleteExercises(deletedExercises);
     } else {
       console.error("Failed to create new workout");

@@ -33,7 +33,6 @@ const WorkoutTracker = ({
   const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
 
   useEffect(() => {
-    console.log("Updated exerciseTrackList:", exerciseTrackList);
   }, [exerciseTrackList]);
 
   async function logWorkout(workout_id: string, exerciseTrackList: any) {
@@ -42,9 +41,6 @@ const WorkoutTracker = ({
       user_id,
     });
     if (newWorkout) {
-      console.log("Success");
-      console.log(exerciseTrackList);
-      console.log(newWorkout);
       const sessionExercises: any[] = exerciseTrackList.map((exercise: any) => {
         return {
           session_exercise_id: exercise.session_exercise_id,

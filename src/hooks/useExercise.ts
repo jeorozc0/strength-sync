@@ -7,7 +7,6 @@ import {
   fetchExerciseSession,
   replaceWorkoutExercise,
 } from "../services/api/exercise-api";
-import { EditExerciseProps } from "../types/exercise-types";
 
 export default function useExercise() {
   return useQuery("exercise", () => fetchExercise());
