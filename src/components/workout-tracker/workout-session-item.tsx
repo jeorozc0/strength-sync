@@ -8,6 +8,12 @@ import moment from "moment";
 import ExericeSessionList from "./exercise-session-list";
 import { useExerciseSession } from "../../hooks/useExercise";
 
+interface SessionExercise {
+  exercise_id: number;
+  session_exercises: any[];
+  session_id: string;
+}
+
 const WorkoutSessionItem = ({
   workout_session_id,
   workout_id,
@@ -16,7 +22,6 @@ const WorkoutSessionItem = ({
   const { mutateAsync: deleteWorkout } = useDeleteWorkoutSession();
   const { data: workout } = useWorkoutName({ workout_id });
   const { data: workoutExercises } = useExerciseSession(workout_session_id);
-
   const fmtDate = moment(date).format("MM/DD/YY");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -37,7 +42,6 @@ const WorkoutSessionItem = ({
     deleteWorkout(workout_session_id);
     handleClose(event);
   }
-  let i: number = 0;
   return (
     <div className=" flex flex-col align-middle justify-center h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-5">
       <div className="w-full h-full flex justify-between align-middle">
@@ -67,13 +71,16 @@ const WorkoutSessionItem = ({
         </Menu>
       </div>
       <p className="font-medium text-md">{fmtDate}</p>
-      <hr className="h-0.5" />
-      <div className="w-10 h-10 flex items-center justify-center text-black text-center">
-        Set
+      <hr className="h-0.5 mb-4" />
+      <div className="flex flex-col gap-8">
+        {workoutExercises?.map((exercise: SessionExercise, index: number) => (
+          <ExericeSessionList
+            key={index}
+            exercise_id={exercise.exercise_id}
+            session_exercises={exercise.session_exercises}
+          />
+        ))}
       </div>
-      {workoutExercises?.map((exercises: any) => (
-        <ExericeSessionList key={(i += 1)} />
-      ))}
     </div>
   );
 };

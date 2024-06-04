@@ -1,16 +1,41 @@
 import React from "react";
+import { useExerciseByID } from "../../hooks/useExercise";
 
-const ExericeSessionList = () => {
+interface SessionExerciseListProps {
+  session_exercise_id: string;
+  session_id: string;
+  workout_exercise_id: string;
+  reps_per_set: number;
+  weight_per_set: number;
+  rpe_per_set: number;
+}
+interface ExericeSessionListProps {
+  exercise_id: number;
+  session_exercises: SessionExerciseListProps[];
+}
+
+const ExericeSessionList = ({
+  exercise_id,
+  session_exercises,
+}: ExericeSessionListProps) => {
+  const { data } = useExerciseByID(exercise_id);
+  const exerciseName = data?.[0]?.exercise_name;
+  console.log(session_exercises);
   return (
-    <div className={`flex flex-row w-auto h-auto gap-8 my-2`}>
-      <div className="w-10 h-10 flex items-center justify-center border border-solid border-[#e5e7eb]  text-black text-center">
-        1
-      </div>
-      <div className="w-auto h-auto">
-        <div className="flex items-center justify-center w-auto h-10  text-black text-center ">
-          130 lbs x 6 reps
+    <div className={`flex flex-col w-auto h-auto `}>
+      <h1 className="font-medium">{exerciseName}</h1>
+      <hr className="h-0.5" />
+      {session_exercises?.map((exercise: any, index: number) => (
+        <div className="flex flex-row gap-2" key={index}>
+          <div className=" w-10 h-10 flex items-center justify-center text-black text-center">
+            {index + 1}.
+          </div>
+          <div className="font-medium w-auto h-10 flex items-center justify-center">
+            {exercise.weight_per_set} lbs x {exercise.reps_per_set} reps @{" "}
+            {10 - exercise.rpe_per_set} RIR
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };

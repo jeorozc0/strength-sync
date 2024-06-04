@@ -14,11 +14,23 @@ const fetchExercise = async () => {
   return data;
 };
 
+const fetchExerciseByID = async (exercise_id: any) => {
+  const { data, error } = await supabase
+    .from("exercises")
+    .select("exercise_name")
+    .eq("exercise_id", exercise_id);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
 const fetchExerciseSession = async (session_id: any) => {
   const { data, error } = await supabase
-  .from('workout_exercises_and_session')
-  .select('*')
-  .eq('session_id', session_id);
+    .from("workout_exercises_and_session")
+    .select("*")
+    .eq("session_id", session_id);
   if (error) {
     throw new Error(error.message);
   }
@@ -78,6 +90,7 @@ const replaceWorkoutExercise = async (exercise: any, workout_id: any) => {
 
 export {
   fetchExercise,
+  fetchExerciseByID,
   fetchExerciseSession,
   createWorkoutExercise,
   createWorkoutExerciseSession,
