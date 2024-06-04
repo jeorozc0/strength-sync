@@ -4,7 +4,8 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../hooks/useAuth";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
@@ -21,11 +22,10 @@ const SideBar = () => {
           open ? "w-64" : "w-20"
         } flex-grow sticky top-0 bg-white p-5 pt-8 duration-300`}
       >
-        <img
-          src="/src/assets/control.png"
-          alt="Button to open menu"
+        <ArrowCircleLeftRoundedIcon
           className={`absolute cursor-pointer -right-3 top-9 w-7 border-[#ECEDF0]
              border-2 rounded-full  ${!open && "rotate-180"}`}
+             fontSize="large"
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
@@ -75,9 +75,15 @@ const SideBar = () => {
         </ul>
       </div>
       <div
-        className={`flex items-center justify-${open ? "between" : "center"} h-14 p-4 gap-2`}
+        className={`flex items-center justify-${
+          open ? "between" : "center"
+        } h-14 p-4 gap-2`}
       >
-        <span className={`${!open && "hidden"} w-full h-full origin-left duration-200`}>
+        <span
+          className={`${
+            !open && "hidden"
+          } w-full h-full origin-left duration-200`}
+        >
           {user?.email}
         </span>
         <button
