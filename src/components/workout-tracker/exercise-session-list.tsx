@@ -1,4 +1,3 @@
-import React from "react";
 import { useExerciseByID } from "../../hooks/useExercise";
 
 interface SessionExerciseListProps {
@@ -20,7 +19,6 @@ const ExericeSessionList = ({
 }: ExericeSessionListProps) => {
   const { data } = useExerciseByID(exercise_id);
   const exerciseName = data?.[0]?.exercise_name;
-  console.log(session_exercises);
   return (
     <div className={`flex flex-col w-auto h-auto `}>
       <h1 className="font-medium">{exerciseName}</h1>
