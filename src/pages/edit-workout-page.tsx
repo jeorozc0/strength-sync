@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 const EditWorkoutPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const workout_id = useParams().workout_id;
+  const { workout_id } = useParams();
   const { data: workout } = useWorkoutName({
     workout_id: workout_id,
   });
