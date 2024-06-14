@@ -4,9 +4,9 @@ import Sidebar from "./side-bar"; // Ensure path is correct
 
 const Layout = () => {
   return (
-    <div className="flex h-screen overflow-scroll">
+    <div className="flex h-screen">
       <Sidebar />
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-y-scroll">
         <Outlet />
       </div>
     </div>

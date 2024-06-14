@@ -26,7 +26,6 @@ const ExerciseSetItem = ({
     setUUID(uuidv4());
   }, []);
 
-  
   const defaultReps = reps || "0";
   const defaultWeight = "0";
   const defaultRPE = "0";
@@ -41,7 +40,7 @@ const ExerciseSetItem = ({
         exercise_id,
         localReps || defaultReps,
         localWeight || defaultWeight,
-        localRPE || defaultRPE
+        localRPE || defaultRPE,
       );
     }
   }
