@@ -6,7 +6,6 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const WorkoutList = () => {
   const { data: workouts, error, isLoading }: any = useWorkout();
-  console.log(workouts?.length);
 
   if (error) {
     return <h1>This is an error</h1>;
