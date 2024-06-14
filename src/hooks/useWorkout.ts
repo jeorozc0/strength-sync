@@ -13,8 +13,9 @@ import { useAuth } from "./useAuth";
 
 export function useWorkout() {
   const { user } = useAuth();
+  const userID = user?.id
 
-  return useQuery(["workout"], () => FetchWorkout(user?.id));
+  return useQuery({queryKey: ["workout"], queryFn: () => FetchWorkout(userID), enabled: !!userID });
 }
 
 export function useWorkoutSession() {
