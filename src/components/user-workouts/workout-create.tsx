@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import RoutineCreateWithAI from "./workout-create-ai";
+import WorkoutCreateAIForm from "./workout-create-ai-form";
 
 const RoutineCreate = () => {
   return (
@@ -10,8 +10,7 @@ const RoutineCreate = () => {
       >
         <p className="font-medium text-sm text-center">New Routine</p>
       </Link>
-      <RoutineCreateWithAI />
-      
+      <WorkoutCreateAIForm />
     </div>
   );
 };
