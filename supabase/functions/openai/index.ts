@@ -1,5 +1,9 @@
 import OpenAI from "https://deno.land/x/openai@v4.24.0/mod.ts";
-import { corsHeaders } from '../_shared/cors.ts'
+
+export const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
 
 
 Deno.serve(async (req) => {
