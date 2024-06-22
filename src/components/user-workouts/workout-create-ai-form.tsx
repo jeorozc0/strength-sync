@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { styled } from "@mui/material/styles";
+import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
 
 // Custom Paper component with wider width
 const CustomPaper = styled("div")({
@@ -17,6 +18,7 @@ const CustomPaper = styled("div")({
 
 export default function WorkoutCreateAIForm() {
   const [open, setOpen] = React.useState(false);
+  const {mutateAsync: createWorkoutWithAi} = useCreateWorkoutWithAi()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,8 +35,10 @@ export default function WorkoutCreateAIForm() {
     const muscle = formJson.muscle;
     const exercises = formJson.exercises;
     const sets = formJson.sets;
+    console.log(createWorkoutWithAi())
     console.log(muscle, exercises, sets);
     handleClose();
+    
   };
 
   return (

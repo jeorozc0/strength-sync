@@ -60,6 +60,21 @@ const createWorkoutExerciseSession = async (
 
   return data;
 };
+
+const createWorkoutWithAi = async () => {
+  const { data, error } = await supabase.functions.invoke("openai", {
+    body: JSON.stringify({ query: "Create a workout routine" }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log(data.body);
+  return data;
+};
+
 const deleteWorkoutExercise = async (
   deletedExercises: ExerciseSessionPropsForDelete[]
 ) => {
@@ -94,6 +109,7 @@ export {
   fetchExerciseSession,
   createWorkoutExercise,
   createWorkoutExerciseSession,
+  createWorkoutWithAi,
   replaceWorkoutExercise,
   deleteWorkoutExercise,
 };
