@@ -34,10 +34,12 @@ export function useCreateWorkoutExercise() {
 
 export function useCreateWorkoutWithAi() {
   return useMutation({
-    mutationFn: () => createWorkoutWithAi(),
+    mutationFn: ({muscle, sets, exercies}: any) => createWorkoutWithAi(muscle, sets, exercies),
+    onSuccess: (data: any) => {
+      return data;
+    },
   });
 }
-
 
 export function useCreateWorkoutExerciseSession() {
   return useMutation({

@@ -10,7 +10,6 @@ import NativeSelect from "@mui/material/NativeSelect";
 import { styled } from "@mui/material/styles";
 import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
 
-// Custom Paper component with wider width
 const CustomPaper = styled("div")({
   width: "600px",
   height: "300px",
@@ -18,7 +17,8 @@ const CustomPaper = styled("div")({
 
 export default function WorkoutCreateAIForm() {
   const [open, setOpen] = React.useState(false);
-  const {mutateAsync: createWorkoutWithAi} = useCreateWorkoutWithAi()
+  const { mutateAsync: createWorkoutWithAi, isLoading } =
+    useCreateWorkoutWithAi();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,17 +28,23 @@ export default function WorkoutCreateAIForm() {
     setOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
     const muscle = formJson.muscle;
     const exercises = formJson.exercises;
     const sets = formJson.sets;
-    console.log(createWorkoutWithAi())
+
+    await createWorkoutWithAi({ muscle, sets, exercises })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     console.log(muscle, exercises, sets);
     handleClose();
-    
   };
 
   return (
@@ -139,7 +145,9 @@ export default function WorkoutCreateAIForm() {
           </DialogContent>
           <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Generate</Button>
+            <Button type="submit" disabled={isLoading}>
+              Generate
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
