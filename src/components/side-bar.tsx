@@ -1,26 +1,17 @@
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { useAuth } from "../hooks/useAuth";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
-  const { user, signOut } = useAuth();
 
-  const handleLogout = () => {
-    signOut();
-  };
 
   return (
-    <div className="flex flex-col divide-y">
+    <div className="flex flex-col">
       <div
         className="w-64
-        flex-grow sticky top-0 bg-white p-5 pt-8 duration-300"
+        flex-grow sticky top-0 bg-[#FBFBFB] border-r p-5 pt-10 duration-300"
       >
-        <div className="flex gap-x-4 items-center">
-          <h1 className="text-black font-medium text-xl">StrengthSync</h1>
-        </div>
-        <ul className="pt-6">
+        <ul className="">
           <NavLink to={"/routine"}>
             {({ isActive }) => (
               <li
@@ -46,23 +37,7 @@ const SideBar = () => {
             )}
           </NavLink>
         </ul>
-      </div>
-      <div
-        className="flex items-center justify-$
-           between
-       h-14 p-4 gap-2"
-      >
-        <span className=" w-full h-full origin-left duration-200">
-          {user?.email}
-        </span>
-        <button
-          title="Logout"
-          className="flex items-center w-auto h-full"
-          onClick={handleLogout}
-        >
-          <LogoutIcon />
-        </button>
-      </div>
+      </div>  
     </div>
   );
 };

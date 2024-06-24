@@ -3,7 +3,7 @@ import RoutineTrackerCreate from "../components/workout-tracker/workout-tracker-
 
 const TrackerPage = () => {
   return (
-    <div className="py-10 flex h-screen items-center gap-5 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
+    <div className="py-10 flex h-screen items-center gap-5 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#FFFFFF] ">
       <RoutineTrackerCreate />
       <WorkoutTrackerList />
     </div>

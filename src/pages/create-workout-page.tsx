@@ -68,7 +68,7 @@ const CreateWorkoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen max-w-full p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
+    <div className="min-h-screen max-w-full p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#FFFFFF] ">
       <WorkoutCreator
         exercises={localArrayofExercies}
         submitWorkout={EditWorkout}
