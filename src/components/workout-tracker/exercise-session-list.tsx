@@ -22,7 +22,6 @@ const ExericeSessionList = ({
   return (
     <div className={`flex flex-col w-auto h-auto `}>
       <h1 className="font-medium">{exerciseName}</h1>
-      <hr className="h-0.5" />
       {session_exercises?.map((exercise: any, index: number) => (
         <div className="flex flex-row gap-2" key={index}>
           <div className=" w-10 h-10 flex items-center justify-center text-black text-center">

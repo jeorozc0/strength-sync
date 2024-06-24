@@ -61,9 +61,10 @@ const createWorkoutExerciseSession = async (
   return data;
 };
 
-const createWorkoutWithAi = async (muscle: string, sets: number, exercises: number) => {
+const createWorkoutWithAi = async ({muscle, exercises, sets}: any) => {
+  console.log(muscle, exercises, sets );
   const { data, error } = await supabase.functions.invoke("openai", {
-    body: JSON.stringify({ query: `in json format with keys muscle, sets, and exercise, give me a ${muscle} workout routine with ${exercises} number of exercies and ${sets} per exercise` }),
+    body: JSON.stringify({ query: `Give me a ${muscle} routine with ${exercises} exercises, and ${sets} sets per exercise.` }),
   });
   if (error) {
     throw new Error(error.message);

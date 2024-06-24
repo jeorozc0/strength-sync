@@ -8,17 +8,21 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { styled } from "@mui/material/styles";
-import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 const CustomPaper = styled("div")({
   width: "600px",
   height: "300px",
 });
-
-export default function WorkoutCreateAIForm() {
+interface WorkoutCreateAIFormProps {
+  createWorkoutWithAi: any;
+  isLoading: boolean;
+}
+export default function WorkoutCreateAIForm({
+  createWorkoutWithAi,
+  isLoading,
+}: WorkoutCreateAIFormProps) {
   const [open, setOpen] = React.useState(false);
-  const { mutateAsync: createWorkoutWithAi, isLoading } =
-    useCreateWorkoutWithAi();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,15 +39,11 @@ export default function WorkoutCreateAIForm() {
     const muscle = formJson.muscle;
     const exercises = formJson.exercises;
     const sets = formJson.sets;
-
-    await createWorkoutWithAi({ muscle, sets, exercises })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    console.log(muscle, exercises, sets);
+    await createWorkoutWithAi({
+      muscle: muscle,
+      exercises: exercises,
+      sets: sets,
+    });
     handleClose();
   };
 
@@ -51,9 +51,10 @@ export default function WorkoutCreateAIForm() {
     <React.Fragment>
       <button
         onClick={handleClickOpen}
+        title="Generate Workout"
         className="flex align-middle justify-center border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md cursor-pointer lg:p-3 p-5"
       >
-        <p className="font-medium text-sm text-center">Generate Routine</p>
+        <AutoAwesomeIcon />
       </button>
       <Dialog
         open={open}

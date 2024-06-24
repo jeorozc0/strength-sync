@@ -43,8 +43,8 @@ const WorkoutSessionItem = ({
     handleClose(event);
   }
   return (
-    <div className=" flex flex-col align-middle justify-center h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-5">
-      <div className="w-full h-full flex justify-between align-middle">
+    <div className=" flex flex-col align-middle justify-center h-auto border-[#ECEDF0] border border-solid bg-white rounded-md gap-4">
+      <div className="w-full h-full flex justify-between align-middle p-5 border-[#ECEDF0] border-b border-solid">
         <p className="font-medium text-xl">
           {workout?.[0]?.workout_name}
           <span className="font-medium text-base"> ({fmtDate})</span>
@@ -74,7 +74,7 @@ const WorkoutSessionItem = ({
           <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
         </Menu>
       </div>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 px-5 pt-0 pb-5">
         {workoutExercises?.map((exercise: SessionExercise, index: number) => (
           <ExericeSessionList
             key={index}

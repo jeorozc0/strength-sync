@@ -1,14 +1,10 @@
-import { useState } from "react";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssessmentIcon from "@mui/icons-material/Assessment";
-import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../hooks/useAuth";
 import { NavLink } from "react-router-dom";
-import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 
 const SideBar = () => {
-  const [open, setOpen] = useState(true);
   const { user, signOut } = useAuth();
 
   const handleLogout = () => {
@@ -18,26 +14,11 @@ const SideBar = () => {
   return (
     <div className="flex flex-col divide-y">
       <div
-        className={`${
-          open ? "w-64" : "w-20"
-        } flex-grow sticky top-0 bg-white p-5 pt-8 duration-300`}
+        className="w-64
+        flex-grow sticky top-0 bg-white p-5 pt-8 duration-300"
       >
-        <ArrowCircleLeftRoundedIcon
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-[#ECEDF0]
-             border-2 rounded-full  ${!open && "rotate-180"}`}
-             fontSize="large"
-          onClick={() => setOpen(!open)}
-        />
         <div className="flex gap-x-4 items-center">
-          {open ? (
-            <h1 className="text-black origin-left font-medium text-xl duration-200">
-              StrengthSync
-            </h1>
-          ) : (
-            <div className="px-2">
-              <HomeIcon />
-            </div>
-          )}
+          <h1 className="text-black font-medium text-xl">StrengthSync</h1>
         </div>
         <ul className="pt-6">
           <NavLink to={"/routine"}>
@@ -48,11 +29,7 @@ const SideBar = () => {
                 }`}
               >
                 <AssignmentIcon />
-                <span
-                  className={`${!open && "hidden"} origin-left duration-200`}
-                >
-                  Routines
-                </span>
+                <span>Routines</span>
               </li>
             )}
           </NavLink>
@@ -64,26 +41,18 @@ const SideBar = () => {
                 }`}
               >
                 <AssessmentIcon />
-                <span
-                  className={`${!open && "hidden"} origin-left duration-200`}
-                >
-                  Tracker
-                </span>
+                <span>Tracker</span>
               </li>
             )}
           </NavLink>
         </ul>
       </div>
       <div
-        className={`flex items-center justify-${
-          open ? "between" : "center"
-        } h-14 p-4 gap-2`}
+        className="flex items-center justify-$
+           between
+       h-14 p-4 gap-2"
       >
-        <span
-          className={`${
-            !open && "hidden"
-          } w-full h-full origin-left duration-200`}
-        >
+        <span className=" w-full h-full origin-left duration-200">
           {user?.email}
         </span>
         <button

@@ -34,7 +34,7 @@ export function useCreateWorkoutExercise() {
 
 export function useCreateWorkoutWithAi() {
   return useMutation({
-    mutationFn: ({muscle, sets, exercies}: any) => createWorkoutWithAi(muscle, sets, exercies),
+    mutationFn: ({muscle, exercises, sets}: any) => createWorkoutWithAi({muscle, exercises, sets}),
     onSuccess: (data: any) => {
       return data;
     },

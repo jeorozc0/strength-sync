@@ -5,6 +5,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ExerciseCreatorItem from "./exercise-creator-item";
+import WorkoutCreateAIForm from "../user-workouts/workout-create-ai-form";
+import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
@@ -20,7 +22,8 @@ const WorkoutCreator = ({
   deleteExerciseNow,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState("My Routine");
-
+  const { mutateAsync: createWorkoutWithAi, isLoading } =
+    useCreateWorkoutWithAi();
   const updateExerciseDetails = (
     exercise_id: string,
     sets: number,
@@ -43,6 +46,20 @@ const WorkoutCreator = ({
     setLocalExerciseDetails(updated);
   };
 
+  async function createAi({ muscle, exercises, sets }: any) {
+    await createWorkoutWithAi({
+      muscle: muscle,
+      exercises: exercises,
+      sets: sets,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   return (
     <div className="flex flex-col w-screen h-auto ">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
@@ -54,14 +71,19 @@ const WorkoutCreator = ({
             Create Routine
           </h1>
         </div>
-
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() => submitWorkout(routineName, exercises)}
-        >
-          Save Routine
-        </Button>
+        <div className="flex flex-row gap-4">
+          <WorkoutCreateAIForm
+            createWorkoutWithAi={createAi}
+            isLoading={isLoading}
+          />
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => submitWorkout(routineName, exercises)}
+          >
+            Save Routine
+          </Button>
+        </div>
       </div>
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
         <h1 className="font-medium text-lg text-left h-auto items-center">
