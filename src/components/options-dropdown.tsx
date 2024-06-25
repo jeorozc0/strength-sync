@@ -9,8 +9,15 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ThemeToggle } from "./ui/theme-toggle";
 import { useTheme } from "../hooks/useTheme";
+import { useAuth } from "../hooks/useAuth";
 export function OptionsDropdown() {
   const { darkMode, setDarkMode } = useTheme();
+  const { signOut } = useAuth();
+
+  const handleLogout = () => {
+    signOut();
+  };
+
 
   return (
     <DropdownMenu>
@@ -27,8 +34,7 @@ export function OptionsDropdown() {
           Theme <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </DropdownMenuLabel>
         <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
