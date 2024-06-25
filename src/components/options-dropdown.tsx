@@ -33,8 +33,8 @@ export function OptionsDropdown() {
         <DropdownMenuLabel className="gap-8 flex flex-row items-center font-normal">
           Theme <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
         </DropdownMenuLabel>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">Log out</DropdownMenuItem>
+        <DropdownMenuItem className="h-10">Billing</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer h-10">Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
