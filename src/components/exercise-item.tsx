@@ -1,6 +1,5 @@
 import { ExercisePropsForLocal } from "../types/exercise-types";
 
-
 const ExerciseItem = ({
   exercise_name,
   exercise_id,
@@ -21,12 +20,14 @@ const ExerciseItem = ({
   };
   return (
     <button
-      className=" flex align-middle justify-center flex-col h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
+      className=" flex align-middle justify-center flex-col h-15 border-[#ECEDF0] dark:border-black border border-solid bg-white hover:bg-[#F9FAFB] dark:bg-[#2B2C32] dark:hover:bg-[#353740] rounded-md p-5 cursor-pointer"
       onClick={handleClick}
     >
       <div>
         <p className="w-full">{exercise_name}</p>
-        <p className="w-full text-[#89998f] text-left">{exercise_muscle}</p>
+        <p className="w-full text-[#89998f] dark:text-[#c5c5d2] text-left">
+          {exercise_muscle}
+        </p>
       </div>
     </button>
   );

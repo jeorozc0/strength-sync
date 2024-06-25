@@ -32,8 +32,7 @@ const WorkoutTracker = ({
   }, [workout_name]);
   const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
 
-  useEffect(() => {
-  }, [exerciseTrackList]);
+  useEffect(() => {}, [exerciseTrackList]);
 
   async function logWorkout(workout_id: string, exerciseTrackList: any) {
     const newWorkout = await createWorkoutSession({
@@ -85,7 +84,7 @@ const WorkoutTracker = ({
         </h1>
       </div>
 
-      <div className="font-medium text-base text-left w-full flex border-[#ECEDF0] border border-solid bg-white h-auto  lg:w-full rounded-md p-3 mb-4">
+      <div className="font-medium text-base text-left w-full flex border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] h-auto  lg:w-full rounded-md p-3 mb-4">
         {routineName}
       </div>
       {exercises.length > 0 ? (
@@ -106,10 +105,10 @@ const WorkoutTracker = ({
           })}
         </>
       ) : (
-        <div className="flex justify-center items-center flex-col h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-10 gap-5 mb-6">
+        <div className="flex justify-center items-center flex-col h-auto border-[#ECEDF0] dark:border-black border border-solid bg-[#FFFFFF] dark:bg-[#2B2C32] rounded-md p-10 gap-5 mb-6">
           <FitnessCenterIcon fontSize="large" />
           <h1 className="font-medium text-base text-center">No Exercises</h1>
-          <h1 className="text-sm text-center text-[#8A909A]">
+          <h1 className="text-sm text-center text-[#8A909A] dark:text-[#c5c5d2]">
             So far, you haven't added any exercises to this routine.
           </h1>
         </div>

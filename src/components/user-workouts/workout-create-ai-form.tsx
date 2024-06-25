@@ -52,7 +52,7 @@ export default function WorkoutCreateAIForm({
       <button
         onClick={handleClickOpen}
         title="Generate Workout"
-        className="flex align-middle justify-center border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md cursor-pointer lg:p-3 p-5"
+        className="flex align-middle justify-center border-[#ECEDF0] dark:border-black border border-solid bg-white hover:bg-[#F9FAFB] dark:bg-[#2B2C32] dark:hover:bg-[#353740] rounded-md cursor-pointer lg:p-3 p-5"
       >
         <AutoAwesomeIcon />
       </button>
