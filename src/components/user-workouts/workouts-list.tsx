@@ -12,13 +12,13 @@ const WorkoutList = () => {
   }
 
   return (
-    <div className="flex gap-5 flex-col border-[#ECEDF0] border border-solid bg-white h-auto w-11/12 lg:w-3/5 rounded-md p-10">
+    <div className="flex gap-5 flex-col border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] h-auto w-11/12 lg:w-3/5 rounded-md p-10">
       <div>
         <h1 className="font-medium text-base text-left">My Routines</h1>
       </div>
       {isLoading && <LoadingComponent />}
       {workouts?.length === 0 && (
-        <div className="flex justify-center items-center flex-col h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-10 gap-5 mb-6">
+        <div className="flex justify-center items-center flex-col h-auto border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] rounded-md p-10 gap-5 mb-6">
           <AssignmentIcon fontSize="large" />
           <h1 className="font-medium text-base text-center">No Routines</h1>
           <h1 className="text-sm text-center text-[#8A909A]">

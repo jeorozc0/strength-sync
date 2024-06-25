@@ -8,7 +8,7 @@ const ExerciseTrackerItem = ({
   reps,
   exercise_id,
   setExerciseTrackList,
-  workout_exercise_id
+  workout_exercise_id,
 }: any) => {
   const [notes, setNotes] = useState("");
 
@@ -17,7 +17,7 @@ const ExerciseTrackerItem = ({
     exercise_id: any,
     localReps: any,
     localWeight: any,
-    localRPE: any,
+    localRPE: any
   ) => {
     setExerciseTrackList((prevList: any) => {
       const existingEntryIndex = prevList.findIndex(
@@ -52,12 +52,12 @@ const ExerciseTrackerItem = ({
   };
 
   return (
-    <div className=" flex align-middle justify-center flex-col h-auto border-[#ECEDF0] border border-solid bg-white rounded-md p-10 gap-5 mb-6">
+    <div className="flex align-middle justify-center flex-col h-auto border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] rounded-md p-10 gap-5 mb-6">
       <div className="w-full h-auto flex flex-row justify-between">
         <p className="font-medium text-lg text-left">{exercise_name}</p>
       </div>
       <FormLabel className="w-full h-auto">
-        <div className="w-auto h-auto items-start flex flex-col justify-start mb-5">
+        <div className="min-w-2 h-auto text-center items-start flex flex-col justify-start mb-5 dark:text-white">
           <p>Notes</p>
           <input
             type="text"
@@ -65,15 +65,15 @@ const ExerciseTrackerItem = ({
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Add notes here..."
-            className="w-full h-10 border border-solid border-[#e5e7eb] rounded-md text-black p-5"
+            className="w-full h-10  border border-solid border-[#e5e7eb] dark:border-black bg-white dark:bg-[#2B2C32] rounded-md text-black p-5 dark:text-white"
           />
         </div>
         <div className="flex flex-row justify-between">
-          <div className="w-10 h-10 flex justify-center">Sets</div>
-          <div className="w-20 h-10 flex justify-center">Reps</div>
-          <div className="w-20 h-10 flex justify-center">Weight</div>
-          <div className="w-20 h-10 flex justify-center">RPE</div>
-          <div className="w-10 h-10 flex justify-center"></div>
+          <div className="w-10 h-10 flex justify-center dark:text-white">Sets</div>
+          <div className="w-20 h-10 flex justify-center dark:text-white">Reps</div>
+          <div className="w-20 h-10 flex justify-center dark:text-white">Weight</div>
+          <div className="w-20 h-10 flex justify-center dark:text-white">RPE</div>
+          <div className="w-10 h-10 flex justify-center dark:text-white"></div>
         </div>
         <div className="gap-4 flex flex-col">
           {[...Array(sets)].map((e, i) => {

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "react-query";
 import {
   createWorkoutExercise,
   createWorkoutExerciseSession,
+  createWorkoutWithAi,
   deleteWorkoutExercise,
   fetchExercise,
   fetchExerciseByID,
@@ -28,6 +29,15 @@ export function useExerciseSession(session_id: any) {
 export function useCreateWorkoutExercise() {
   return useMutation({
     mutationFn: (exercise: any[]) => createWorkoutExercise(exercise),
+  });
+}
+
+export function useCreateWorkoutWithAi() {
+  return useMutation({
+    mutationFn: ({muscle, exercises, sets}: any) => createWorkoutWithAi({muscle, exercises, sets}),
+    onSuccess: (data: any) => {
+      return data;
+    },
   });
 }
 

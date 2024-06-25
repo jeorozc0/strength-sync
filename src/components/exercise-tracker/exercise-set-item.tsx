@@ -48,7 +48,7 @@ const ExerciseSetItem = ({
   return (
     <div className={`flex flex-row justify-between`}>
       <div className="w-auto h-auto">
-        <div className="w-10 h-10 flex items-center justify-center border border-solid border-[#e5e7eb] rounded-md text-black text-center">
+        <div className="w-10 h-10 flex items-center justify-center border border-solid border-[#e5e7eb] dark:border-black rounded-md text-black dark:text-white text-center">
           {i + 1}
         </div>
       </div>
@@ -61,7 +61,7 @@ const ExerciseSetItem = ({
           onChange={(e) => {
             setReps(e.target.value);
           }}
-          className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center bg-[#F9FAFB]"
+          className="w-20 h-10 border border-solid border-[#e5e7eb] dark:border-black bg-white dark:bg-[#2B2C32] rounded-md text-black p-5 dark:text-white text-center"
         />
       </div>
       <div className="w-auto h-auto">
@@ -73,7 +73,7 @@ const ExerciseSetItem = ({
           onChange={(e) => {
             setWeight(e.target.value);
           }}
-          className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center bg-[#F9FAFB]"
+          className="w-20 h-10 border border-solid border-[#e5e7eb] dark:border-black bg-white dark:bg-[#2B2C32] rounded-md text-black p-5 dark:text-white text-center"
         />
       </div>
       <div className="w-auto h-auto">
@@ -85,13 +85,13 @@ const ExerciseSetItem = ({
           onChange={(e) => {
             setRPE(e.target.value);
           }}
-          className="w-20 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center bg-[#F9FAFB]"
+          className="w-20 h-10 border border-solid border-[#e5e7eb] dark:border-black bg-white dark:bg-[#2B2C32] rounded-md text-black p-5 dark:text-white text-center"
         />
       </div>
       <button
         title="log"
-        className={`w-10 h-10 border border-solid border-[#e5e7eb] rounded-md text-black text-center transition-all duration-200 ${
-          logged ? "bg-green-400 text-white" : "bg-white"
+        className={`w-10 h-10 border border-solid border-[#e5e7eb] dark:border-black rounded-md text-black text-center transition-all duration-200 ${
+          logged ? "bg-green-400 text-white dark:text-black" : "bg-white dark:bg-[#2B2C32] dark:text-white"
         } `}
         onClick={logExercise}
       >
