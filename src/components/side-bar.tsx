@@ -9,7 +9,7 @@ const SideBar = () => {
     <div className="flex flex-col">
       <div
         className="w-64
-        flex-grow sticky top-0 bg-[#FBFBFB] border-r p-5 pt-10 duration-300"
+        flex-grow sticky top-0 bg-[#FBFBFB] dark:bg-[#1A1A1C] border-r p-5 pt-10 duration-300"
       >
         <ul className="">
           <NavLink to={"/routine"}>
