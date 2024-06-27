@@ -1,4 +1,5 @@
 import { OptionsDropdown } from "./options-dropdown";
+import { ResponsiveMenu } from "./responsive-menu";
 
 export function PageHeader() {
   return (
@@ -6,7 +7,8 @@ export function PageHeader() {
       <div className="flex flex-row bg-transparent w-full m-auto h-12 px-2">
         <div className="flex flex-row sm:flex-row h-full w-full justify-between items-center">
           <div className="flex items-center h-full">
-            <h1 className="text-black dark:text-white text-3xl font-bold text-center sm:text-left">
+            <ResponsiveMenu />
+            <h1 className="text-black dark:text-white text-3xl font-bold text-center sm:text-left italic">
               💪 StrengthSync
             </h1>
           </div>

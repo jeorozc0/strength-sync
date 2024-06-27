@@ -5,7 +5,7 @@ import { PageContainer } from "./page-container";
 const Layout = () => {
   return (
     <PageContainer>
-      <div className="flex flex-1 h-full w-full mb-2 rounded-lg shadow overflow-hidden">
+      <div className="flex flex-1 h-full w-full mb-2 rounded-lg shadow ">
         <Sidebar />
         <div className="w-full overflow-y-auto">
           <Outlet />

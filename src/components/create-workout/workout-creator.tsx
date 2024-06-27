@@ -61,8 +61,8 @@ const WorkoutCreator = ({
   }
 
   return (
-    <div className="flex flex-col w-screen h-auto ">
-      <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
+    <div className="flex flex-col w-full">
+      <div className="flex flex-row justify-between align-middle mb-5">
         <div className="flex flex-row justify-center align-middle items-center gap-2">
           <Link to={"/routine"}>
             <ArrowBackIcon />
