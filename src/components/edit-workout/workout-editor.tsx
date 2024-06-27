@@ -5,6 +5,7 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ExcersiceListModal } from "../exercise-list-modal";
 
 interface WorkoutEditorProps {
   exercises: EditExerciseProps[];
@@ -17,6 +18,7 @@ interface WorkoutEditorProps {
     exerciseDetails: any,
     exerciseDeleted: any
   ) => void;
+  addExercise: (newExercise: any) => void;
 }
 
 const WorkoutEditor = ({
@@ -26,6 +28,7 @@ const WorkoutEditor = ({
   workout_name,
   setLocalExerciseDetails,
   deleteExerciseNow,
+  addExercise,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState(workout_name);
   useEffect(() => {
@@ -55,7 +58,7 @@ const WorkoutEditor = ({
   };
 
   return (
-    <div className="flex flex-col w-screen h-auto">
+    <div className="flex flex-col w-full">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
         <div className="flex flex-row justify-center align-middle items-center gap-2">
           <Link to={"/routine"}>
@@ -66,15 +69,17 @@ const WorkoutEditor = ({
           </h1>
         </div>
 
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() =>
-            submitWorkout(routineName, exercises, deletedExercises)
-          }
-        >
-          Save Routine
-        </Button>
+        <div className="flex flex-row gap-4">
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() =>
+              submitWorkout(routineName, exercises, deletedExercises)
+            }
+          >
+            Save Routine
+          </Button>
+        </div>
       </div>
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
         <h1 className="font-medium text-lg text-left h-auto items-center">
@@ -114,6 +119,7 @@ const WorkoutEditor = ({
           </h1>
         </div>
       )}
+      <ExcersiceListModal addExercise={addExercise} />
     </div>
   );
 };
