@@ -69,7 +69,7 @@ const ExerciseCreatorItem = ({
       }}
     >
       <MenuItem
-        onClick={removeExercise}
+        onClick={() => removeExercise(exercise_id)}
         sx={{
           backgroundColor: isDarkMode ? '#2B2C32' : '#FFFFFF',
           '&:hover': {
