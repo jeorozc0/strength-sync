@@ -46,7 +46,7 @@ const Login = () => {
       </div>
       <div className="relative flex min-w-[320px] flex-1 flex-col items-center justify-center md:flex-grow md:overflow-y-auto bg-blue">
         <div className="text-center w-full px-4">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
             Sign in to your account
           </h2>
           <Auth
