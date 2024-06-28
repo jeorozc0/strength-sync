@@ -40,6 +40,7 @@ export interface ExercisePropsForLocal {
   exercise_muscle?: string;
   addExercise?: (newExercise: any) => void;
   removeExercise?: (exercise_id: string) => void;
+  handleClose?: any;
 }
 
 export interface ExerciseEditorItemProps {

@@ -14,7 +14,6 @@ const ExerciseTrackerItem = ({
 
   const addItem = (
     session_exercise_id: any,
-    exercise_id: any,
     localReps: any,
     localWeight: any,
     localRPE: any
@@ -52,7 +51,7 @@ const ExerciseTrackerItem = ({
   };
 
   return (
-    <div className="flex align-middle justify-center flex-col h-auto border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] rounded-md p-10 gap-5 mb-6">
+    <div className="flex align-middle justify-center flex-col h-auto border-[#ECEDF0] dark:border-black border border-solid bg-white dark:bg-[#2B2C32] rounded-md lg:p-10 p-5 gap-5 mb-6">
       <div className="w-full h-auto flex flex-row justify-between">
         <p className="font-medium text-lg text-left">{exercise_name}</p>
       </div>
@@ -76,7 +75,7 @@ const ExerciseTrackerItem = ({
           <div className="w-10 h-10 flex justify-center dark:text-white"></div>
         </div>
         <div className="gap-4 flex flex-col">
-          {[...Array(sets)].map((e, i) => {
+          {[...Array(sets)].map((_, i) => {
             return (
               <ExerciseSetItem
                 exercise_id={exercise_id}

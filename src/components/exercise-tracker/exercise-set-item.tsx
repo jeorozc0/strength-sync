@@ -46,7 +46,7 @@ const ExerciseSetItem = ({
   }
 
   return (
-    <div className={`flex flex-row justify-between`}>
+    <div className={`flex flex-row justify-between `}>
       <div className="w-auto h-auto">
         <div className="w-10 h-10 flex items-center justify-center border border-solid border-[#e5e7eb] dark:border-black rounded-md text-black dark:text-white text-center">
           {i + 1}

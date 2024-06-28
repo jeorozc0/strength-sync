@@ -32,8 +32,6 @@ const WorkoutTracker = ({
   }, [workout_name]);
   const [exerciseTrackList, setExerciseTrackList] = useState<any[]>([]);
 
-  useEffect(() => {}, [exerciseTrackList]);
-
   async function logWorkout(workout_id: string, exerciseTrackList: any) {
     const newWorkout = await createWorkoutSession({
       workout_id,
@@ -59,7 +57,7 @@ const WorkoutTracker = ({
   }
 
   return (
-    <div className="flex flex-col w-screen h-auto">
+    <div className="flex flex-col w-full h-auto">
       <div className="h-auto w-full flex flex-row justify-between align-middle mb-5">
         <div className="flex flex-row justify-center align-middle items-center gap-2">
           <Link to={"/tracker"}>
