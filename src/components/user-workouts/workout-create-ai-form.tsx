@@ -68,6 +68,10 @@ export default function WorkoutCreateAIForm({
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent>
+            <DialogTitle>
+              <AutoAwesomeIcon />
+              <span>Generate Workout</span>
+            </DialogTitle>
             <div className="flex gap-6 flex-col">
               <div className="flex gap-4">
                 <FormControl fullWidth>

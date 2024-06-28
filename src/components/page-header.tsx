@@ -8,7 +8,7 @@ export function PageHeader() {
         <div className="flex flex-row sm:flex-row h-full w-full justify-between items-center px-2">
           <div className="flex items-center h-full">
             <ResponsiveMenu />
-            <h1 className="text-black dark:text-white text-3xl font-bold text-center sm:text-left italic">
+            <h1 className="lg:block hidden text-black dark:text-white text-3xl font-bold text-center sm:text-left italic">
               💪 StrengthSync
             </h1>
           </div>
