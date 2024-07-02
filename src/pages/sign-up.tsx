@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import supabase from "../services/supabase/supabase";
-import { LoginForm } from "../components/auth/login-form";
 import { AuthWrapper } from "../components/auth-wrapper";
+import { SignUpForm } from "../components/auth/signup-form";
 
-const Login = () => {
+export function SignUp() {
   const navigate = useNavigate();
 
   supabase.auth.onAuthStateChange((event) => {
@@ -14,9 +14,7 @@ const Login = () => {
 
   return (
     <AuthWrapper>
-      <LoginForm />
+      <SignUpForm />
     </AuthWrapper>
   );
-};
-
-export default Login;
+}
