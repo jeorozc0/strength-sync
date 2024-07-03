@@ -8,6 +8,8 @@ import Login from "./pages/login";
 import ProtectedRoute from "./components/protected-route";
 import TrackerPage from "./pages/tracker-page";
 import TrackerWorkoutPage from "./pages/exercise-tracker-page";
+import { SignUp } from "./pages/sign-up";
+import { ConfirmPage } from "./pages/confirm-email";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ function App() {
         </Route>
         <Route path="/" element={<Navigate to="routine" />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/confirm-page" element={<ConfirmPage />} />
       </Routes>
     </QueryClientProvider>
   );
