@@ -8,8 +8,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Link } from "react-router-dom";
-import { signUpNewUser } from "../../services/api/auth/login";
+import { Link, useNavigate } from "react-router-dom";
+import { SignUpNewUser } from "../../services/api/auth/auth";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   first_name: z.string(),
@@ -19,6 +20,7 @@ const formSchema = z.object({
 });
 
 export function SignUpForm() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,9 +30,16 @@ export function SignUpForm() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    signUpNewUser(data);
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const { error } = await SignUpNewUser(data);
+    if (error) {
+      if (error.name === "AuthApiError") {
+        toast.error(error.message);
+        navigate("/login");
+      }
+    } else {
+      navigate("/confirm-page");
+    }
   }
 
   return (
