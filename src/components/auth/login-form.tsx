@@ -9,11 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { GoogleLogo } from "../ui/google-logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   handleSignInWithOAuth,
   signInWithEmail,
-} from "../../services/api/auth/login";
+} from "../../services/api/auth/auth";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string(),
@@ -21,6 +22,7 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,9 +30,13 @@ export function LoginForm() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    signInWithEmail(data);
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const { error } = await signInWithEmail(data);
+    if (error) {
+      toast.error(error.message);
+    } else {
+      navigate("/");
+    }
   }
 
   return (
