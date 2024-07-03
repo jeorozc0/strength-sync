@@ -26,7 +26,7 @@ const TrackerWorkoutPage = () => {
   }, [exerciseDetails, workout]);
 
   return (
-    <div className="min-h-screen p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#F9FAFB] ">
+    <div className="h-full p-2 lg:p-10 flex items-center gap-4 flex-col lg:flex-row lg:justify-center lg:items-start bg-[#FFFFFF] dark:bg-[#212123]">
       <WorkoutTracker
         workout_name={workoutName}
         workout_id={workout_id}

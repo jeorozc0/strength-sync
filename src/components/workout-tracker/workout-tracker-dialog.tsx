@@ -29,7 +29,8 @@ const SimpleDialog = ({ onClose, open, workouts }: SimpleDialogProps) => {
   };
 
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog onClose={handleClose} open={open} fullWidth={true}
+    maxWidth={"sm"}>
       <DialogTitle>Select a Workout</DialogTitle>
       <List sx={{ pt: 0 }}>
         {workouts?.map((workout: any) => (

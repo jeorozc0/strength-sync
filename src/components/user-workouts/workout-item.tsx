@@ -4,8 +4,11 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link, useNavigate } from "react-router-dom";
 import { useDeleteWorkout } from "../../hooks/useWorkout";
+import { useTheme } from "../../hooks/useTheme";
 
 const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
+  const theme = useTheme();
+  const isDarkMode = theme.darkMode === 'dark';
   const { mutateAsync: deleteWorkout } = useDeleteWorkout();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,7 +40,7 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
   return (
     <Link
       to={`/routine/${workout_id}`}
-      className=" flex align-middle justify-center  h-15 border-[#ECEDF0] border border-solid bg-white hover:bg-[#F9FAFB] rounded-md p-5 cursor-pointer"
+      className=" flex align-middle justify-center  h-15 border-[#ECEDF0] dark:border-black border border-solid bg-white hover:bg-[#F9FAFB] dark:bg-[#2B2C32] dark:hover:bg-[#353740] rounded-md p-5 cursor-pointer"
     >
       <div className="w-full h-full flex justify-between align-middle">
         <p className="font-medium text-lg">{workout_name}</p>
@@ -49,22 +52,49 @@ const WorkoutItem = ({ workout_name, workout_id }: WorkoutProps) => {
           aria-haspopup="true"
           onClick={handleClick}
           size="small"
-          className="z-20"
+          className="z-20 dark:text-white"
         >
           <MoreHorizIcon />
         </IconButton>
         <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={editWorkout}>Edit Workout</MenuItem>
-          <MenuItem onClick={removeWorkout}>Remove Workout</MenuItem>
-        </Menu>
+      id="basic-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      MenuListProps={{
+        "aria-labelledby": "basic-button",
+      }}
+      sx={{
+        '& .MuiPaper-root': {
+          backgroundColor: isDarkMode ? '#2B2C32' : '#FFFFFF',
+        },
+      }}
+    >
+      <MenuItem
+        onClick={editWorkout}
+        sx={{
+          backgroundColor: isDarkMode ? '#2B2C32' : '#FFFFFF',
+          '&:hover': {
+            backgroundColor: isDarkMode ? '#353740' : '#F9FAFB',
+          },
+          color: isDarkMode ? '#FFFFFF' : '#000000',
+        }}
+      >
+        Edit Workout
+      </MenuItem>
+      <MenuItem
+        onClick={removeWorkout}
+        sx={{
+          backgroundColor: isDarkMode ? '#2B2C32' : '#FFFFFF',
+          '&:hover': {
+            backgroundColor: isDarkMode ? '#353740' : '#F9FAFB',
+          },
+          color: isDarkMode ? '#FFFFFF' : '#000000',
+        }}
+      >
+        Remove Workout
+      </MenuItem>
+    </Menu>
       </div>
     </Link>
   );
