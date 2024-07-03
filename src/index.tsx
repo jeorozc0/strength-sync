@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./hooks/useAuth";
+import { Toaster } from "./components/ui/sonner";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,6 +13,7 @@ root.render(
   <BrowserRouter>
     <AuthProvider>
       <App />
+      <Toaster richColors position="top-center" />
     </AuthProvider>
   </BrowserRouter>
 );
