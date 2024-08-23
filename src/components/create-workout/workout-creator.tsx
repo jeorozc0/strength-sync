@@ -5,8 +5,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ExerciseCreatorItem from "./exercise-creator-item";
-// import WorkoutCreateAIForm from "../user-workouts/workout-create-ai-form";
-// import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
+import WorkoutCreateAIForm from "../user-workouts/workout-create-ai-form";
+import { useCreateWorkoutWithAi } from "../../hooks/useExercise";
 import { ExcersiceListModal } from "../exercise-list-modal";
 
 interface WorkoutEditorProps {
@@ -25,8 +25,9 @@ const WorkoutCreator = ({
   addExercise,
 }: WorkoutEditorProps) => {
   const [routineName, setRoutineName] = useState("My Routine");
-  // const { mutateAsync: createWorkoutWithAi, isLoading } =
-  //   useCreateWorkoutWithAi();
+  const { mutateAsync: createWorkoutWithAi, isLoading } =
+    useCreateWorkoutWithAi();
+
   const updateExerciseDetails = (
     exercise_id: string,
     sets: number,
@@ -49,19 +50,19 @@ const WorkoutCreator = ({
     setLocalExerciseDetails(updated);
   };
 
-  // async function createAi({ muscle, exercises, sets }: any) {
-  //   await createWorkoutWithAi({
-  //     muscle: muscle,
-  //     exercises: exercises,
-  //     sets: sets,
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
+  async function createAi({ muscle, exercises, sets }: any) {
+    await createWorkoutWithAi({
+      muscle: muscle,
+      exercises: exercises,
+      sets: sets,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   return (
     <div className="flex flex-col w-full">
@@ -75,10 +76,10 @@ const WorkoutCreator = ({
           </h1>
         </div>
         <div className="flex flex-row gap-4">
-          {/* <WorkoutCreateAIForm
+          <WorkoutCreateAIForm
             createWorkoutWithAi={createAi}
             isLoading={isLoading}
-          /> */}
+          />
           <Button
             variant="contained"
             size="small"

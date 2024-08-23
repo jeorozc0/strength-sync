@@ -12,7 +12,7 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 const CustomPaper = styled("div")({
   width: "600px",
-  height: "300px",
+  height: "400",
 });
 interface WorkoutCreateAIFormProps {
   createWorkoutWithAi: any;
@@ -52,9 +52,10 @@ export default function WorkoutCreateAIForm({
       <button
         onClick={handleClickOpen}
         title="Generate Workout"
+        aria-label="Generate Workout"
         className="flex align-middle justify-center border-[#ECEDF0] dark:border-black border border-solid bg-white hover:bg-[#F9FAFB] dark:bg-[#2B2C32] dark:hover:bg-[#353740] rounded-md cursor-pointer lg:p-3 p-5"
       >
-        <AutoAwesomeIcon />
+        <AutoAwesomeIcon aria-hidden="true" />
       </button>
       <Dialog
         open={open}
@@ -68,10 +69,7 @@ export default function WorkoutCreateAIForm({
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent>
-            <DialogTitle>
-              <AutoAwesomeIcon />
-              <span>Generate Workout</span>
-            </DialogTitle>
+            <DialogTitle></DialogTitle>
             <div className="flex gap-6 flex-col">
               <div className="flex gap-4">
                 <FormControl fullWidth>
