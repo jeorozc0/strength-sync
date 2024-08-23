@@ -1,4 +1,5 @@
 import OpenAI from "https://deno.land/x/openai@v4.24.0/mod.ts";
+import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
 
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -6,17 +7,15 @@ export const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-export const jsonFormatExample = {
-  muscle: "Chest",
-  exercises: [
-    {
-      1: {
-        exercise_name: "Name of exercise",
-        sets: "Number of sets",
-      },
-    },
-  ],
-};
+const ExerciseSchema = z.object({
+  exercise_name: z.string(),
+  sets: z.string(),
+});
+
+const WorkoutSchema = z.object({
+  muscle: z.string(),
+  exercises: z.array(ExerciseSchema),
+});
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -35,23 +34,55 @@ Deno.serve(async (req) => {
         { role: "user", content: query },
         {
           role: "system",
-          content: `You are a personal trainer and you are creating a workout routine for a client. You will be given a muscle group, the exact number of sets, and the number of exercises. You need to create a workout routine for the client based exactly on the given information. The workout routine should include the exercises, and the exact requested sets for each exercise, without adding anything else. You will return the workout routine. Do not include any explanations, only provide a  RFC8259 compliant JSON response following this format without deviation. ${jsonFormatExample}. `,
+          content: `You are a personal trainer creating a workout routine for a client. You will be given a muscle group, the exact number of sets, and the number of exercises. Create a workout routine for the client based exactly on the given information. The workout routine should include the exercises, and the exact requested sets and reps for each exercise, without adding anything else. Return the workout routine in the following JSON format:
+          {
+            "muscle": "Target Muscle Group",
+            "exercises": [
+              {
+                "exercise_name": "Name of Exercise",
+                "sets": "Number of Sets",
+                "reps": "Number of Reps"
+              },
+              ...
+            ]
+          }`,
         },
       ],
-      model: "gpt-3.5-turbo",
-      stream: false,
+      model: "gpt-4o-2024-08-06",
+      response_format: { type: "json_object" },
     });
 
-    const reply = workoutRoutine.choices[0].message.content;
+    console.log("Full API Response:", JSON.stringify(workoutRoutine, null, 2));
 
-    return new Response(JSON.stringify(reply), {
+    if (!workoutRoutine.choices || workoutRoutine.choices.length === 0) {
+      throw new Error("No choices returned from the API");
+    }
+
+    const rawContent = workoutRoutine.choices[0].message.content;
+    console.log("Raw Content:", rawContent);
+
+    if (!rawContent) {
+      throw new Error("No content in the API response");
+    }
+
+    // Parse the raw content as JSON
+    const parsedContent = JSON.parse(rawContent);
+
+    // Validate the parsed content against our schema
+    const validatedWorkout = WorkoutSchema.parse(parsedContent);
+
+    return new Response(JSON.stringify(validatedWorkout), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 400,
-    });
+    console.error("Error:", error);
+    return new Response(
+      JSON.stringify({ error: error.message, stack: error.stack }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 400,
+      }
+    );
   }
 });
