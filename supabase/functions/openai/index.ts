@@ -1,20 +1,33 @@
 import OpenAI from "https://deno.land/x/openai@v4.24.0/mod.ts";
 import { z } from "https://deno.land/x/zod@v3.21.4/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.36.0";
 
-export const corsHeaders = {
+const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
 
-const ExerciseSchema = z.object({
-  exercise_name: z.string(),
-  sets: z.string(),
-});
-
 const WorkoutSchema = z.object({
   muscle: z.string(),
-  exercises: z.array(ExerciseSchema),
+  exercises: z.array(
+    z.object({
+      exercise_name: z.string(),
+      exercise_id: z.string(),
+      sets: z.string(),
+      reps: z.string(),
+    })
+  ),
+});
+
+const supabase = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_ANON_KEY")!
+);
+
+const openai = new OpenAI({
+  apiKey: Deno.env.get("OPENAI_API_KEY"),
 });
 
 Deno.serve(async (req) => {
@@ -24,65 +37,64 @@ Deno.serve(async (req) => {
 
   try {
     const { query } = await req.json();
-    const apiKey = Deno.env.get("OPENAI_API_KEY");
-    const openai = new OpenAI({
-      apiKey: apiKey,
-    });
+    const { data: exercises, error } = await supabase
+      .from("exercises")
+      .select("*");
 
-    const workoutRoutine = await openai.chat.completions.create({
+    if (error || !exercises || exercises.length === 0) {
+      throw new Error(error?.message || "No exercises found in the database.");
+    }
+
+    const exerciseList = exercises
+      .map(
+        (e) =>
+          `ID: ${e.exercise_id}, Name: ${e.exercise_name}, Muscle Group: ${e.exercise_name}`
+      )
+      .join("\n");
+
+    const { choices } = await openai.chat.completions.create({
       messages: [
         { role: "user", content: query },
         {
           role: "system",
-          content: `You are a personal trainer creating a workout routine for a client. You will be given a muscle group, the exact number of sets, and the number of exercises. Create a workout routine for the client based exactly on the given information. The workout routine should include the exercises, and the exact requested sets and reps for each exercise, without adding anything else. Return the workout routine in the following JSON format:
-          {
-            "muscle": "Target Muscle Group",
-            "exercises": [
-              {
-                "exercise_name": "Name of Exercise",
-                "sets": "Number of Sets",
-                "reps": "Number of Reps"
-              },
-              ...
-            ]
-          }`,
+          content: `As a personal trainer, create a workout routine using this list of exercies, you may not use any other exercise in this list:
+
+${exerciseList}
+
+Based on the given muscle group, number of sets, and number of exercises, create a workout routine in this JSON format:
+{
+  "muscle": "Target Muscle Group",
+  "exercises": [
+    {
+      "exercise_name": "Name of Exercise",
+      "exercise_id": "ID of exercise",
+      "sets": "Number of Sets",
+      "reps": "Number of Reps"
+    }
+  ]
+}`,
         },
       ],
-      model: "gpt-4o-2024-08-06",
+      model: "gpt-4-1106-preview",
       response_format: { type: "json_object" },
     });
 
-    console.log("Full API Response:", JSON.stringify(workoutRoutine, null, 2));
-
-    if (!workoutRoutine.choices || workoutRoutine.choices.length === 0) {
-      throw new Error("No choices returned from the API");
+    if (!choices || choices.length === 0 || !choices[0].message.content) {
+      throw new Error("No valid response from OpenAI");
     }
 
-    const rawContent = workoutRoutine.choices[0].message.content;
-    console.log("Raw Content:", rawContent);
-
-    if (!rawContent) {
-      throw new Error("No content in the API response");
-    }
-
-    // Parse the raw content as JSON
-    const parsedContent = JSON.parse(rawContent);
-
-    // Validate the parsed content against our schema
-    const validatedWorkout = WorkoutSchema.parse(parsedContent);
+    const validatedWorkout = WorkoutSchema.parse(
+      JSON.parse(choices[0].message.content)
+    );
 
     return new Response(JSON.stringify(validatedWorkout), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
-    console.error("Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message, stack: error.stack }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 400,
-      }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 400,
+    });
   }
 });
