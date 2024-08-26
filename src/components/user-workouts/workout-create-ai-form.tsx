@@ -9,6 +9,8 @@ import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { styled } from "@mui/material/styles";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { useWorkoutStore } from "../../services/stores/workout-store";
+import { useNavigate } from "react-router-dom";
 
 const CustomPaper = styled("div")({
   width: "600px",
@@ -16,12 +18,15 @@ const CustomPaper = styled("div")({
 });
 interface WorkoutCreateAIFormProps {
   createWorkoutWithAi: any;
-  isLoading: boolean;
 }
 export default function WorkoutCreateAIForm({
   createWorkoutWithAi,
-  isLoading,
 }: WorkoutCreateAIFormProps) {
+  const navigate = useNavigate();
+  const setGeneratedWorkout = useWorkoutStore(
+    (state) => state.setGeneratedWorkout,
+  );
+  const setIsFromAI = useWorkoutStore((state) => state.setIsFromAI);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -35,15 +40,24 @@ export default function WorkoutCreateAIForm({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries(formData.entries());
-    const muscle = formJson.muscle;
-    const exercises = formJson.exercises;
-    const sets = formJson.sets;
-    await createWorkoutWithAi({
-      muscle: muscle,
-      exercises: exercises,
-      sets: sets,
-    });
+    const muscle = formData.get("muscle") as string;
+    const exercises = parseInt(formData.get("exercises") as string, 10);
+    const sets = parseInt(formData.get("sets") as string, 10);
+
+    try {
+      const generatedWorkout = await createWorkoutWithAi({
+        muscle,
+        exercises,
+        sets,
+      });
+      console.log("Generated workout in form:", generatedWorkout);
+      setGeneratedWorkout(generatedWorkout);
+      setIsFromAI(true);
+      navigate("/create-routine");
+    } catch (error) {
+      console.error("Failed to generate workout:", error);
+      // Handle error (e.g., show an error message to the user)
+    }
     handleClose();
   };
 
@@ -56,6 +70,7 @@ export default function WorkoutCreateAIForm({
         className="flex align-middle justify-center border-[#ECEDF0] dark:border-black border border-solid bg-white hover:bg-[#F9FAFB] dark:bg-[#2B2C32] dark:hover:bg-[#353740] rounded-md cursor-pointer lg:p-3 p-5"
       >
         <AutoAwesomeIcon aria-hidden="true" />
+        <p>Generate new routine</p>
       </button>
       <Dialog
         open={open}
@@ -148,9 +163,7 @@ export default function WorkoutCreateAIForm({
           </DialogContent>
           <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" disabled={isLoading}>
-              Generate
-            </Button>
+            <Button type="submit">Generate</Button>
           </DialogActions>
         </form>
       </Dialog>
