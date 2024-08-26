@@ -53,7 +53,7 @@ const createWorkoutExercise = async (exercise: ExercisePropsForAPI[]) => {
   return data;
 };
 const createWorkoutExerciseSession = async (
-  exerciseSession: ExerciseSessionPropsForAPI[]
+  exerciseSession: ExerciseSessionPropsForAPI[],
 ) => {
   const { data, error } = await supabase
     .from("session_exercises")
@@ -85,10 +85,10 @@ const createWorkoutWithAi = async ({
 };
 
 const deleteWorkoutExercise = async (
-  deletedExercises: ExerciseSessionPropsForDelete[]
+  deletedExercises: ExerciseSessionPropsForDelete[],
 ) => {
   const exerciseIds = deletedExercises.map(
-    (exercise) => exercise.workout_exercise_id
+    (exercise) => exercise.workout_exercise_id,
   );
   const { error } = await supabase
     .from("workout_exercises")

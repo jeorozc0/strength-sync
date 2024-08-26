@@ -16,7 +16,7 @@ const signUpSchema = z.object({
 export async function signInWithEmail(data: z.infer<typeof loginSchema>) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
-  return {data, error}
+  return { data, error };
 }
 
 export async function handleSignInWithOAuth(provider: "google") {
@@ -38,7 +38,7 @@ export async function handleSignInWithOAuth(provider: "google") {
 }
 
 export async function SignUpNewUser(user_data: z.infer<typeof signUpSchema>) {
-  const {data, error} = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: user_data.email,
     password: user_data.password,
     options: {
@@ -49,5 +49,5 @@ export async function SignUpNewUser(user_data: z.infer<typeof signUpSchema>) {
     },
   });
 
-  return {data, error}
+  return { data, error };
 }
