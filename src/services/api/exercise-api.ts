@@ -4,7 +4,11 @@ import {
   ExerciseSessionPropsForDelete,
 } from "../../types/exercise-types";
 import supabase from "../supabase/supabase";
-
+interface WorkoutParams {
+  muscle: string;
+  exercises: number;
+  sets: number;
+}
 const fetchExercise = async () => {
   const { data, error } = await supabase.from("exercises").select("*");
   if (error) {
@@ -61,15 +65,23 @@ const createWorkoutExerciseSession = async (
   return data;
 };
 
-const createWorkoutWithAi = async ({muscle, exercises, sets}: any) => {
-  console.log(muscle, exercises, sets );
-  const { data, error } = await supabase.functions.invoke("openai", {
-    body: JSON.stringify({ query: `Give me a ${muscle} routine with ${exercises} exercises, and ${sets} sets per exercise.` }),
-  });
-  if (error) {
-    throw new Error(error.message);
+const createWorkoutWithAi = async ({
+  muscle,
+  exercises,
+  sets,
+}: WorkoutParams) => {
+  try {
+    const { data, error } = await supabase.functions.invoke("openai", {
+      body: JSON.stringify({
+        query: `Give me a ${muscle} routine with ${exercises} exercises, and ${sets} sets per exercise.`,
+      }),
+    });
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error("Error calling Supabase function:", error);
+    throw error;
   }
-  return data;
 };
 
 const deleteWorkoutExercise = async (
