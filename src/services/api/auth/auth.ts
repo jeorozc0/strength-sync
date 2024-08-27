@@ -30,7 +30,6 @@ export async function handleSignInWithOAuth(provider: "google") {
   });
 
   if (data?.url) {
-    console.log(data.url);
     return redirect(data.url);
   } else if (error) {
     console.error("OAuth sign-in error:", error);

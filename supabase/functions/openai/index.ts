@@ -75,7 +75,7 @@ Based on the given muscle group, number of sets, and number of exercises, create
 }`,
         },
       ],
-      model: "gpt-4-1106-preview",
+      model: "gpt-4o-mini",
       response_format: { type: "json_object" },
     });
 

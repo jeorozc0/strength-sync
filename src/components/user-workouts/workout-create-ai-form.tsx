@@ -48,7 +48,6 @@ export default function WorkoutCreateAIForm({
     setIsLoading(true);
     createWorkoutWithAi(params)
       .then((generatedWorkout) => {
-        console.log("Generated workout:", generatedWorkout);
         setGeneratedWorkout(generatedWorkout);
         setIsFromAI(true);
         setOpen(false);
