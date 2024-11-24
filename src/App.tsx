@@ -10,6 +10,7 @@ import TrackerPage from "./pages/tracker-page";
 import TrackerWorkoutPage from "./pages/exercise-tracker-page";
 import { SignUp } from "./pages/sign-up";
 import { ConfirmPage } from "./pages/confirm-email";
+import LandingPage from "./pages/landing-page";
 
 const queryClient = new QueryClient();
 
@@ -17,21 +18,15 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/routine" element={<HomePage />} />
           <Route path="/create-routine" element={<CreateWorkoutPage />} />
-          <Route
-            path="/edit-workout/:workout_id"
-            element={<EditWorkoutPage />}
-          />
+          <Route path="/edit-workout/:workout_id" element={<EditWorkoutPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
-          <Route
-            path="/tracker/workout/:workout_id"
-            element={<TrackerWorkoutPage />}
-          />
+          <Route path="/tracker/workout/:workout_id" element={<TrackerWorkoutPage />} />
           <Route path="/routine/:workout_id" element={<ViewWorkoutPage />} />
         </Route>
-        <Route path="/" element={<Navigate to="routine" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/confirm-page" element={<ConfirmPage />} />
