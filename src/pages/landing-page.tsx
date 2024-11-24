@@ -28,8 +28,8 @@ export default function LandingPage() {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8">
             Create, track, and optimize your workout routines with ease.
           </p>
-          <Link to="/signup">
-            <Button size="lg" className="text-lg px-8 py-4">Get Started for Free</Button>
+          <Link to="/routine">
+            <Button size="lg" className="text-lg px-8 py-4">Go to StrengthSync</Button>
           </Link>
         </section>
 
@@ -49,7 +49,7 @@ export default function LandingPage() {
             Join StrengthSync today and take control of your fitness journey.
           </p>
           <Link to="/signup">
-            <Button size="lg" className="text-lg px-8 py-4">Start Your Free Trial</Button>
+            <Button size="lg" className="text-lg px-8 py-4">Get started for free</Button>
           </Link>
         </section>
       </main>

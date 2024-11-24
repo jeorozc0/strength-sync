@@ -8,7 +8,7 @@ export function SignUp() {
 
   supabase.auth.onAuthStateChange((event) => {
     if (event === "SIGNED_IN") {
-      navigate("/");
+      navigate("/routine");
     }
   });
 

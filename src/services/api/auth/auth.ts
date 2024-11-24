@@ -20,7 +20,7 @@ export async function signInWithEmail(data: z.infer<typeof loginSchema>) {
 }
 
 export async function handleSignInWithOAuth(provider: "google") {
-  const url = "https://www.strength-sync.com/";
+  const url = "https://www.strength-sync.com/routine";
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,

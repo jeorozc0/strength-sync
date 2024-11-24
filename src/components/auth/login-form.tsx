@@ -35,7 +35,7 @@ export function LoginForm() {
     if (error) {
       toast.error(error.message);
     } else {
-      navigate("/");
+      navigate("/routine");
     }
   }
 
